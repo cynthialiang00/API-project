@@ -9,6 +9,7 @@ const { User, Spot } = require('../../db/models');
 const router = express.Router();
 
 // get all spots
+// VALIDATION: FALSE
 router.get('/', async (req,res) => {
     const spots = await Spot.findAll();
     res.json(spots)
