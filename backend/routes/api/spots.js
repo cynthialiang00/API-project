@@ -153,11 +153,7 @@ router.get('/:spotId', async (req, res, next) => {
 router.post('/:spotId/images', requireAuth, restoreUser, async (req, res, next) => {
     const { user } = req;
     const { url, preview } = req.body;
-    // if (!user) {
-    //     const err = new Error("Spot must belong to the current user");
-    //     err.status = 404;
-    //     return next(err);
-    // } 
+
     const spot = await Spot.findByPk(req.params.spotId);
     if (!spot) {
         const err = new Error("Spot couldn't be found");
@@ -175,11 +171,6 @@ router.post('/:spotId/images', requireAuth, restoreUser, async (req, res, next) 
         url, preview
     });
 
-    // const newImg = Spot.findByPk(req.params.spotId, {
-    //     include: [
-    //         {model: SpotImage, attributes: ['id', 'url', 'preview']}
-    //     ]
-    // })
     res.status = 200;
     res.json({
         id: newImg.id,
@@ -188,6 +179,37 @@ router.post('/:spotId/images', requireAuth, restoreUser, async (req, res, next) 
     });
     
 });
+
+// Edit a Spot belonging to the user
+// AUTH : true
+router.put('/:spotId', requireAuth, restoreUser, validateCreateSpot, async (req, res, next) => {
+    const { user } = req;
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    const editSpot = await Spot.findByPk(req.params.spotId);
+    if (!editSpot) {
+        const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        return next(err);
+    };
+
+    if (editSpot.ownerId !== user.id) {
+        const err = new Error('Forbidden');
+        err.status = 403;
+        return next(err)
+    }
+
+
+    editSpot.set({
+        address, city, state, country, lat, lng, name, description, price
+    });
+    await editSpot.save();
+
+    const spot = await Spot.findByPk(req.params.spotId);
+    res.status = 200;
+    res.json(spot)
+});
+
 
 // create a spot 
 // AUTH: True VALIDATION : True
