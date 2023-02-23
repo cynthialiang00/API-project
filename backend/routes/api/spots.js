@@ -1,15 +1,17 @@
 const express = require('express');
 
-const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
-
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
+// const { check } = require('express-validator');
+// const { handleValidationErrors } = require('../../utils/validation');
+const validateCreateSpot = require('../../utils/spots-validation');
+const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
 const { User, Spot, SpotImage, Review, sequelize } = require('../../db/models');
 
 const router = express.Router();
 
+
+
 // get all spots
-// VALIDATION: FALSE
+// AUTH & VALIDATION: FALSE
 router.get('/', async (req,res) => {
     const spots = await Spot.findAll({
         include: [
@@ -46,10 +48,26 @@ router.get('/', async (req,res) => {
         }
         delete spot.SpotImages;
     };
-
-    
-    
+   
     res.json({Spots: spotObjects });
+})
+
+ // create a spot 
+ // AUTH: True VALIDATION : True
+
+router.post('/', requireAuth, restoreUser, validateCreateSpot, async (req, res) => {
+    const { user } = req;
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+        // console.log(`user id: `, user.id);
+
+    const newSpot = await Spot.create({
+        ownerId: user.id,
+        address, city, state, country, lat, lng, name, description, price
+    });
+    res.statusCode = 201;
+    res.json(newSpot);
+    
+    
 })
 
 module.exports = router;
