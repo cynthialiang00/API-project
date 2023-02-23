@@ -181,7 +181,7 @@ router.post('/:spotId/images', requireAuth, restoreUser, async (req, res, next) 
 });
 
 // Edit a Spot belonging to the user
-// AUTH : true
+// AUTH : true VALIDATION: true
 router.put('/:spotId', requireAuth, restoreUser, validateCreateSpot, async (req, res, next) => {
     const { user } = req;
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
@@ -226,6 +226,33 @@ router.post('/', requireAuth, restoreUser, validateCreateSpot, async (req, res) 
     res.json(newSpot);
 
 })
+
+// delete a spot
+// AUTH: true
+router.delete('/:spotId', requireAuth, restoreUser, async (req, res, next) => {
+    const { user } = req;
+
+    const deleteSpot = await Spot.findByPk(req.params.spotId);
+    if (!deleteSpot) {
+        const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        return next(err);
+    };
+
+    if (deleteSpot.ownerId !== user.id) {
+        const err = new Error('Forbidden');
+        err.status = 403;
+        return next(err)
+    }
+    
+    await deleteSpot.destroy();
+
+    res.status = 200;
+    res.json({
+        message: "Successfully deleted",
+        statusCode: res.status
+    })
+});
 
 
 // 
