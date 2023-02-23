@@ -32,7 +32,7 @@ router.get('/', async (req,res) => {
                 [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']
             ]
         })
-        if (review) spot.avgRating = review.toJSON().avgRating;
+        if (review) spot.avgRating = parseInt(review.toJSON().avgRating);
         else spot.avgRating = "No Reviews exist for this spot";
 
         if (spot.SpotImages.length) {
