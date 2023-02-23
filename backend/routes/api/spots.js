@@ -32,13 +32,13 @@ router.get('/', async (req,res) => {
                 [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']
             ]
         })
-        if (review) spot.avgRating = parseInt(review.toJSON().avgRating);
+        if (review) spot.avgRating = review.toJSON().avgRating.toFixed(1);
         else spot.avgRating = "No Reviews exist for this spot";
 
+        console.log (spot.SpotImages)
         if (spot.SpotImages.length) {
-            spot.SpotImages.forEach(image => {
-                image.preview ? spot.previewImage = image.url : spot.previewImage = "No Preview Image Available";
-            });
+            const filterTrue = spot.SpotImages.filter(image => image.preview === true);
+            filterTrue.length ? spot.previewImage = filterTrue[0].url : spot.previewImage = "No Preview Image Available";
         }
         else {
             spot.previewImage = "No Preview Image Available";
