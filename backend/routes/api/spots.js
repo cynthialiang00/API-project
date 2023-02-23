@@ -28,11 +28,9 @@ router.get('/', async (req,res) => {
             where: {
                 spotId: spot.id
             },
-            attributes: {
-                include: [
-                    [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']
-                ]
-            }
+            attributes: [
+                [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']
+            ]
         })
         if (review) spot.avgRating = review.toJSON().avgRating;
         else spot.avgRating = "No Reviews exist for this spot";
