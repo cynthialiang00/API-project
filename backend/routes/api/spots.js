@@ -4,15 +4,41 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot } = require('../../db/models');
+const { User, Spot, SpotImage, sequelize } = require('../../db/models');
 
 const router = express.Router();
 
 // get all spots
 // VALIDATION: FALSE
 router.get('/', async (req,res) => {
-    const spots = await Spot.findAll();
-    res.json(spots)
+    const spots = await Spot.findAll({
+        include: [
+            { 
+            model: SpotImage, 
+            attributes: ['url', 'preview']
+            }
+        ]
+    });
+    // console.log(spots)
+
+    const spotObjects = [];
+    spots.forEach(spot => spotObjects.push(spot.toJSON()));
+
+    spotObjects.forEach(spot => {
+        if (spot.SpotImages.length) {
+            spot.SpotImages.forEach(image => {
+                image.preview ? spot.previewImage = image.url : spot.previewImage = "No Preview Image Available";
+            });
+        }
+        else {
+            spot.previewImage = "No Preview Image Available";
+        }
+
+        delete spot.SpotImages;
+    })
+
+    
+    res.json(spotObjects)
 })
 
 module.exports = router;
