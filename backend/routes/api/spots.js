@@ -33,8 +33,7 @@ router.get('/', async (req,res) => {
             ]
         })
         if (review) {
-            const avgRating = review.toJSON().avgRating;
-            spot.avgRating = avgRating.toFixed(1);
+            spot.avgRating = review.toJSON().avgRating;
         }
         else spot.avgRating = "No Reviews exist for this spot";
 
