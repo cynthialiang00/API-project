@@ -3,11 +3,11 @@ const express = require('express');
 // const { check } = require('express-validator');
 // const { handleValidationErrors } = require('../../utils/validation');
 const validateCreateSpot = require('../../utils/spots-validation');
+const validateCreateReview = require('../../utils/reviews-validation');
 const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
 const { User, Spot, SpotImage, Review, ReviewImage, sequelize } = require('../../db/models');
 
 const router = express.Router();
-
 
 
 // get all spots
@@ -163,13 +163,13 @@ router.get('/:spotId/reviews', async (req, res, next) => {
 
     const reviews = await spot.getReviews({
         include: [
-            {model: User, attributes: ['id', 'firstName', 'lastName']},
-            {model: ReviewImage, attributes: ['id', 'url']}
+            { model: User, attributes: ['id', 'firstName', 'lastName'] },
+            { model: ReviewImage, attributes: ['id', 'url'] }
         ]
     });
 
     res.status = 200;
-    res.json({Reviews: reviews});
+    res.json({ Reviews: reviews });
 });
 
 
@@ -203,6 +203,41 @@ router.post('/:spotId/images', requireAuth, restoreUser, async (req, res, next) 
         preview: newImg.preview
     });
     
+});
+
+// Create a Review for a Spot based on the Spot's id
+// AUTH: True
+router.post('/:spotId/reviews', requireAuth, restoreUser, validateCreateReview, async (req, res, next) => {
+    const { user } = req;
+    const { review, stars } = req.body;
+
+    const spot = await Spot.findByPk(req.params.spotId, {
+        include: [
+            {model: Review, attributes: ['userId']}
+        ]
+    });
+    if (!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        return next(err);
+    };
+    
+    for(let rvw of spot.Reviews) {
+        if (rvw.userId === user.id) {
+            const err = new Error("User already has a review for this spot");
+            err.status = 403;
+            return next(err);
+        }
+    }
+
+    const newRvw = await Review.create({ 
+        spotId: req.params.spotId,
+        userId: user.id,
+        review, stars
+    })
+
+    res.status = 201;
+    res.json(newRvw)
 });
 
 // Edit a Spot belonging to the user
