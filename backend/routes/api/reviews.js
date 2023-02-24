@@ -1,12 +1,12 @@
 const express = require('express');
 
-const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
+const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const validateCreateReview = require('../../utils/reviews-validation');
 const { User, Spot, SpotImage, Review, ReviewImage, sequelize } = require('../../db/models');
 
 const router = express.Router();
 
-router.get('/current', requireAuth, restoreUser, async (req, res) => {
+router.get('/current', requireAuth, async (req, res) => {
     const { user } = req;
     const reviews = await Review.findAll({
         where: { userId: user.id },
@@ -39,7 +39,7 @@ router.get('/current', requireAuth, restoreUser, async (req, res) => {
 
 // Add an Image to a Review based on the Review's id
 // AUTHEN: true
-router.post('/:reviewId/images', requireAuth, restoreUser, async (req, res, next) => {
+router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     const { user } = req;
     const { url } = req.body;
 
@@ -80,7 +80,7 @@ router.post('/:reviewId/images', requireAuth, restoreUser, async (req, res, next
 
 // Edit a Review
 // AUTHEN: TRUE
-router.put('/:reviewId', requireAuth, restoreUser, validateCreateReview, async (req, res, next) => {
+router.put('/:reviewId', requireAuth, validateCreateReview, async (req, res, next) => {
     const { user } = req;
     const { review, stars } = req.body;
 
