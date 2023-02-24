@@ -265,9 +265,8 @@ router.put('/:spotId', requireAuth, restoreUser, validateCreateSpot, async (req,
     });
     await editSpot.save();
 
-    const spot = await Spot.findByPk(req.params.spotId);
     res.status(200);
-    res.json(spot)
+    res.json(editSpot)
 });
 
 

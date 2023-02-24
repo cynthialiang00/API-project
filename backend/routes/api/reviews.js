@@ -1,6 +1,7 @@
 const express = require('express');
 
 const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
+const validateCreateReview = require('../../utils/reviews-validation');
 const { User, Spot, SpotImage, Review, ReviewImage, sequelize } = require('../../db/models');
 
 const router = express.Router();
@@ -74,11 +75,34 @@ router.post('/:reviewId/images', requireAuth, restoreUser, async (req, res, next
     });
 
     res.status(200);
-    res.json(resImg)
-
-
+    res.json(resImg);
 })
 
+// Edit a Review
+// AUTHEN: TRUE
+router.put('/:reviewId', requireAuth, restoreUser, validateCreateReview, async (req, res, next) => {
+    const { user } = req;
+    const { review, stars } = req.body;
+
+    const editReview = await Review.findByPk(req.params.reviewId);
+    if (!editReview) {
+        const err = new Error("Review couldn't be found");
+        err.status = 404;
+        return next(err);
+    }
+    if (editReview.userId !== user.id) {
+        const err = new Error('Forbidden');
+        err.status = 403;
+        return next(err);
+    }
+
+    editReview.set({review, stars});
+    await editReview.save();
+
+    res.status(200);
+    res.json(editReview)
+
+});
 
 
 module.exports = router;
