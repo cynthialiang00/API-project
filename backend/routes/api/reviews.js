@@ -32,7 +32,7 @@ router.get('/current', requireAuth, restoreUser, async (req, res) => {
         delete rvw.Spot.SpotImages;
     }
 
-    res.status = 200;
+    res.status(200);
     res.json({Reviews: reviewObjects});
 });
 

@@ -95,7 +95,7 @@ router.get('/current', requireAuth, restoreUser, async (req,res) => {
         delete spot.SpotImages;
     };
 
-    res.status = 200;
+    res.status(200);
     res.json({ Spots: spotObjects });
     
 })
@@ -146,7 +146,7 @@ router.get('/:spotId', async (req, res, next) => {
         spotObject.Owner = spotObject.User;
         delete spotObject.User;
     }    
-    res.status = 200;
+    res.status(200);
     res.json(spotObject);
 })
 
@@ -168,7 +168,7 @@ router.get('/:spotId/reviews', async (req, res, next) => {
         ]
     });
 
-    res.status = 200;
+    res.status(200);
     res.json({ Reviews: reviews });
 });
 
@@ -196,7 +196,7 @@ router.post('/:spotId/images', requireAuth, restoreUser, async (req, res, next) 
         url, preview
     });
 
-    res.status = 200;
+    res.status(200);
     res.json({
         id: newImg.id,
         url: newImg.url,
@@ -236,7 +236,7 @@ router.post('/:spotId/reviews', requireAuth, restoreUser, validateCreateReview, 
         review, stars
     })
 
-    res.status = 201;
+    res.status(201);
     res.json(newRvw)
 });
 
@@ -266,7 +266,7 @@ router.put('/:spotId', requireAuth, restoreUser, validateCreateSpot, async (req,
     await editSpot.save();
 
     const spot = await Spot.findByPk(req.params.spotId);
-    res.status = 200;
+    res.status(200);
     res.json(spot)
 });
 
@@ -307,7 +307,7 @@ router.delete('/:spotId', requireAuth, restoreUser, async (req, res, next) => {
 
     await deleteSpot.destroy();
 
-    res.status = 200;
+    res.status(200);
     res.json({
         message: "Successfully deleted",
         statusCode: res.status
