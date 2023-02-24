@@ -56,7 +56,8 @@ router.get('/', async (req,res) => {
 // AUTH: True 
 router.get('/current', requireAuth, restoreUser, async (req,res) => {
     const { user } = req;
-    const spots = await Spot.findByPk(user.id, {
+    const spots = await Spot.findAll({
+        where: { ownerId: user.id },
         include: [
             {
                 model: SpotImage,
@@ -244,7 +245,7 @@ router.delete('/:spotId', requireAuth, restoreUser, async (req, res, next) => {
         err.status = 403;
         return next(err)
     }
-    
+
     await deleteSpot.destroy();
 
     res.status = 200;

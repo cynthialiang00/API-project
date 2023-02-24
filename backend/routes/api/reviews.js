@@ -9,7 +9,8 @@ const router = express.Router();
 
 router.get('/current', requireAuth, restoreUser, async (req, res) => {
     const { user } = req;
-    const reviews = await Review.findByPk(user.id, {
+    const reviews = await Review.findAll({
+        where: { userId: user.id },
         include: [
             {model: User, attributes: ['id', 'firstName', 'lastName']},
             {model: Spot, include: [{model: SpotImage}]},
