@@ -4,7 +4,7 @@ const express = require('express');
 // const { handleValidationErrors } = require('../../utils/validation');
 const validateCreateSpot = require('../../utils/spots-validation');
 const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
-const { User, Spot, SpotImage, Review, sequelize } = require('../../db/models');
+const { User, Spot, SpotImage, Review, ReviewImage, sequelize } = require('../../db/models');
 
 const router = express.Router();
 
@@ -100,6 +100,7 @@ router.get('/current', requireAuth, restoreUser, async (req,res) => {
     
 })
 
+
 // Get details of a Spot from an id
 // AUTH: False
 router.get('/:spotId', async (req, res, next) => {
@@ -148,6 +149,29 @@ router.get('/:spotId', async (req, res, next) => {
     res.status = 200;
     res.json(spotObject);
 })
+
+// Get all Reviews by a Spot's id
+// AUTH: false
+router.get('/:spotId/reviews', async (req, res, next) => {
+
+    const spot = await Spot.findByPk(req.params.spotId);
+    if (!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        return next(err);
+    };
+
+    const reviews = await spot.getReviews({
+        include: [
+            {model: User, attributes: ['id', 'firstName', 'lastName']},
+            {model: ReviewImage, attributes: ['id', 'url']}
+        ]
+    });
+
+    res.status = 200;
+    res.json({Reviews: reviews});
+});
+
 
 //Add an Image to a Spot based on the Spot's id
 // AUTH : true
