@@ -1,9 +1,7 @@
 const express = require('express');
 
-
-const validateCreateSpot = require('../../utils/spots-validation');
 const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
-const { User, Spot, Review, ReviewImage, sequelize } = require('../../db/models');
+const { User, Spot, SpotImage, Review, ReviewImage, sequelize } = require('../../db/models');
 
 const router = express.Router();
 
@@ -13,15 +11,29 @@ router.get('/current', requireAuth, restoreUser, async (req, res) => {
         where: { userId: user.id },
         include: [
             {model: User, attributes: ['id', 'firstName', 'lastName']},
-            {model: Spot, include: [{model: SpotImage}]},
-            {model: ReviewImage}
+            {model: Spot, 
+            attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+            include: [{model: SpotImage}]},
+            {model: ReviewImage, attributes: ['id', 'url'] }
         ]
     });
     
     const reviewObjects = [];
     reviews.forEach(rvw => reviewObjects.push(rvw.toJSON()));
 
-    res.json(reviewObjects);
+    for(let rvw of reviewObjects) {
+        if (rvw.Spot.SpotImages.length) {
+            const filterTrue = rvw.Spot.SpotImages.filter(image => image.preview === true);
+            filterTrue.length ? rvw.Spot.previewImage = filterTrue[0].url : rvw.Spot.previewImage = "No Preview Image Available";
+        }
+        else {
+            rvw.Spot.previewImage = "No Preview Image Available";
+        }
+        delete rvw.Spot.SpotImages;
+    }
+
+    res.status = 200;
+    res.json({Reviews: reviewObjects});
 });
 
 
