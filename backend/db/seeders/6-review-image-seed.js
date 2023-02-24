@@ -32,6 +32,30 @@ module.exports = {
       {
         reviewId: 3,
         url: "review-3.com/image2.jpg"
+      },
+      {
+        reviewId: 4,
+        url: "review-4.com/image1.jpg"
+      },
+      {
+        reviewId: 4,
+        url: "review-4.com/image2.jpg"
+      },
+      {
+        reviewId: 5,
+        url: "review-5.com/image1.jpg"
+      },
+      {
+        reviewId: 5,
+        url: "review-5.com/image2.jpg"
+      },
+      {
+        reviewId: 6,
+        url: "review-6.com/image1.jpg"
+      },
+      {
+        reviewId: 6,
+        url: "review-6.com/image2.jpg"
       }
     ], {});
   },
