@@ -1,7 +1,5 @@
 const express = require('express');
 
-// const { check } = require('express-validator');
-// const { handleValidationErrors } = require('../../utils/validation');
 const validateCreateSpot = require('../../utils/spots-validation');
 const validateCreateReview = require('../../utils/reviews-validation');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
@@ -274,6 +272,90 @@ router.post('/:spotId/reviews', requireAuth, validateCreateReview, async (req, r
     res.status(201);
     res.json(newRvw)
 });
+
+// Create a Booking from a Spot based on the Spot's id
+// AUTH : true
+router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
+    const { user } = req;
+    let { startDate, endDate } = req.body;
+
+    startDate = new Date(startDate);
+    endDate = new Date(endDate);
+    const currentDate = new Date();
+
+    const validationErrors = {};
+    const conflictErrors = {};
+    const spot = await Spot.findByPk(req.params.spotId, {
+        include: [
+            {model: Booking, attributes: ['id', 'startDate', 'endDate']}
+        ]
+    });
+    if (!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        return next(err);
+    };
+    // Spot must NOT belong to current user
+    if(spot.ownerId === user.id){
+        const err = new Error('Forbidden');
+        err.status = 403;
+        return next(err)
+    }
+
+    if (startDate < currentDate) {
+        validationErrors.startDate = "startDate cannot be before current date"
+    }
+    if (endDate <= startDate) {
+        validationErrors.endDate = "endDate cannot be on or before startDate"
+    }
+    if (Object.keys(validationErrors).length) {
+        const err = Error("Validation Error");
+        err.errors = validationErrors;
+        err.status = 400;
+        return next(err);
+    }
+
+    const flatSpot = spot.toJSON();
+    
+    if (flatSpot.Bookings.length) {
+
+        for (let book of flatSpot.Bookings) {
+            // console.log('bookstart:', book.startDate)
+            if (startDate >= book.startDate && endDate <= book.endDate) {
+                conflictErrors.startDate = "Start date conflicts with an existing booking";
+                conflictErrors.endDate = "End date conflicts with an existing booking";
+            }
+            else if (startDate.getTime() === book.startDate.getTime()){
+                // console.log('START DATE IS SAME AS START DATE');
+                conflictErrors.startDate = "Start date conflicts with an existing booking";
+            }
+            else if (startDate < book.startDate && endDate > book.startDate) {
+                // console.log('OVERLAPPING TIME');
+                conflictErrors.endDate = "End date conflicts with an existing booking";
+            }
+            else if (startDate > book.startDate && startDate < book.endDate) {
+                // console.log('START DATE IS BETWEEN START AND END DATE')
+                conflictErrors.startDate = "Start date conflicts with an existing booking";
+            }
+            
+        }
+    }
+    if (Object.keys(conflictErrors).length) {
+        const err = Error("Sorry, this spot is already booked for the specified dates");
+        err.errors = conflictErrors;
+        err.status = 403;
+        return next(err);
+    }
+    const newBook = await Booking.create({
+        spotId: req.params.spotId,
+        userId: user.id,
+        startDate, endDate
+    })
+
+    res.status(200);
+    res.json(newBook);
+});
+
 
 // Edit a Spot belonging to the user
 // AUTH : true VALIDATION: true
