@@ -66,7 +66,7 @@ router.get('/current', requireAuth, async (req,res) => {
 
     const spotObjects = [];
     spots.length ? 
-    spotsArray.forEach(spot => spotObjects.push(spot.toJSON()))
+    spots.forEach(spot => spotObjects.push(spot.toJSON()))
     : spotObjects.push(spots.toJSON());
 
     for (let spot of spotObjects) {

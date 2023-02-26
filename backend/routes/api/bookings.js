@@ -151,12 +151,12 @@ router.delete('/:bookingId', requireAuth, async(req,res,next) => {
         err.status = 404;
         return next(err);
     }
-    booking = booking.toJSON();
+    flatBooking = booking.toJSON();
     //console.log(booking)
     
     //Booking must belong to the current user 
     // OR Spot must belong to the current user
-    if(booking.userId !== user.id && booking.Spot.ownerId !== user.id) {
+    if(flatBooking.userId !== user.id && flatBooking.Spot.ownerId !== user.id) {
         const err = new Error('Forbidden');
         err.status = 403;
         return next(err)
@@ -164,7 +164,7 @@ router.delete('/:bookingId', requireAuth, async(req,res,next) => {
 
 
     // Error response: Bookings that have been started can't be deleted
-    startDate = new Date(booking.startDate);
+    startDate = new Date(flatBooking.startDate);
     const currentDate = new Date();
 
     if (startDate < currentDate) {
