@@ -20,7 +20,9 @@ router.get('/current', requireAuth, async (req, res) => {
     });
     
     const reviewObjects = [];
-    reviews.forEach(rvw => reviewObjects.push(rvw.toJSON()));
+    reviews.length ?
+    reviews.forEach(rvw => reviewObjects.push(rvw.toJSON())):
+    reviewObjects.push(reviews.toJSON());
 
     for(let rvw of reviewObjects) {
         if (rvw.Spot.SpotImages.length) {

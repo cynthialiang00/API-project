@@ -21,7 +21,9 @@ router.get('/', async (req,res) => {
     });
     
     const spotObjects = [];
-    spots.forEach(spot => spotObjects.push(spot.toJSON()));
+    spots.length ?
+    spots.forEach(spot => spotObjects.push(spot.toJSON())) :
+    spotObjects.push(spots.toJSON());
 
     for(let spot of spotObjects) {
         const review = await Review.findOne({

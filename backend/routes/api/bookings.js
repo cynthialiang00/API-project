@@ -21,7 +21,9 @@ router.get('/current', requireAuth, async (req, res) => {
     })
 
     const bookingsObj = [];
-    bookings.forEach(book => bookingsObj.push(book.toJSON()));
+    bookings.length ? 
+    bookings.forEach(book => bookingsObj.push(book.toJSON()))
+    : bookingsObj.push(bookings.toJSON());
 
     for (let book of bookingsObj) {
         if (book.Spot.SpotImages.length) {
@@ -161,7 +163,6 @@ router.delete('/:bookingId', requireAuth, async(req,res,next) => {
         err.status = 403;
         return next(err)
     }
-
 
     // Error response: Bookings that have been started can't be deleted
     startDate = new Date(flatBooking.startDate);
