@@ -70,4 +70,4 @@ const validateSpotQuery = [
     handleValidationErrors
 ];
 
-module.exports = validateCreateSpot, validateSpotQuery;
+module.exports = [validateCreateSpot, validateSpotQuery];

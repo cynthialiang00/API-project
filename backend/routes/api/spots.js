@@ -1,31 +1,84 @@
 const express = require('express');
 
-const validateCreateSpot = require('../../utils/spots-validation');
+const [validateCreateSpot, validateSpotQuery] = require('../../utils/spots-validation');
 const validateCreateReview = require('../../utils/reviews-validation');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, SpotImage, Review, ReviewImage, Booking, sequelize } = require('../../db/models');
+
+const { Op } = require("sequelize");
+const { query } = require('express');
 
 const router = express.Router();
 
 
 // get all spots
 // AUTH & VALIDATION: FALSE
-router.get('/', async (req,res) => {
+router.get('/', validateSpotQuery, async (req,res) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+    if (!page) page = 1;
+    if (!size) size = 20;
+
+    if (parseInt(page) > 10) page = 10;
+    if (parseInt(size) > 20) size = 20;
+
+    if (parseInt(page) && parseInt(size)) {
+        query.limit = size;
+        query.offset = size * (page - 1);
+    }
+
+    const where = {};
+    if (req.query.minLat && req.query.maxLat) {
+        where.lat = { [Op.gte]: Number(minLat), [Op.lte]: Number(maxLat) }
+    }
+    else if (req.query.minLat) {
+        where.lat = { [Op.gte]: Number(minLat) }
+    }
+    else if (req.query.maxLat) {
+        where.lat = { [Op.lte]: Number(maxLat) }
+    }
+
+    if(req.query.minLng && req.query.maxLng) {
+        where.lng = { [Op.gte]: Number(minLng), [Op.lte]: Number(maxLng) }
+    }
+    else if (req.query.minLng) {
+        where.lng = { [Op.gte]: Number(minLng) }
+    }
+    else if (req.query.maxLng) {
+        where.lng = { [Op.lte]: Number(maxLng) }
+    }
+
+    if (req.query.minPrice && req.query.maxPrice) {
+        where.price = { [Op.gte]: Number(minPrice), [Op.lte]: Number(maxPrice) }
+    }
+    else if (req.query.minPrice) {
+        where.price = { [Op.gte]: Number(minPrice) }
+    }
+    else if (req.query.maxPrice) {
+        where.price = { [Op.lte]: Number(maxPrice) }
+    }
+    // -------------------------------
     const spots = await Spot.findAll({
+        where,
         include: [
             { 
             model: SpotImage, 
             attributes: ['url', 'preview']
             }
-        ]
+        ],
+        limit: query.limit,
+        offset: query.offset
     });
     
+    
     const spotObjects = [];
-    spots.length ?
-    spots.forEach(spot => spotObjects.push(spot.toJSON())) :
-    spotObjects.push(spots.toJSON());
+    spots.length ? 
+    spots.forEach(spot => spotObjects.push(spot.toJSON()))
+    : spotObjects.push(spots);
+
 
     for(let spot of spotObjects) {
+        if (!Object.keys(spot).length) break;
         const review = await Review.findOne({
             where: {
                 spotId: spot.id
@@ -35,7 +88,7 @@ router.get('/', async (req,res) => {
             ]
         })
         if (review) {
-            spot.avgRating = review.toJSON().avgRating;
+            spot.avgRating = Number(review.toJSON().avgRating).toFixed(1);
         }
         else spot.avgRating = "No Reviews exist for this spot";
 
@@ -48,8 +101,11 @@ router.get('/', async (req,res) => {
         }
         delete spot.SpotImages;
     };
-   
-    res.json({Spots: spotObjects });
+   res.status(200);
+    res.json({
+        Spots: spotObjects,
+        page: page,
+        size: size });
 })
 
 // get all spots owned by current user

@@ -17,8 +17,8 @@ module.exports = {
         city: 'Sunnyvale',
         state: 'California',
         country: 'United States',
-        lat: 37.37,
-        lng: 121.99,
+        lat: 35.67,
+        lng: 110.99,
         name: '484 Wild Cherry Townhouse',
         description: 'New townhouse walkable distance to Costco, Lawrence Station',
         price: 2000
@@ -30,7 +30,7 @@ module.exports = {
         state: 'California',
         country: 'United States',
         lat: 37.29, 
-        lng: 121.85,
+        lng: 120.85,
         name: '97 Esfahan Dr Townhouse',
         description: 'Townhouse in beautiful neighborhood next to communications hills',
         price: 800
@@ -41,8 +41,8 @@ module.exports = {
         city: 'Milpitas',
         state: 'California',
         country: 'United States',
-        lat: 37.41,
-        lng: 121.89,
+        lat: 40.41,
+        lng: 131.89,
         name: 'Eleanor Apartment for Rent',
         description: 'Newly built in 2021, modern luxury apartments',
         price: 3000
