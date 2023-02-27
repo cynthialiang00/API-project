@@ -125,9 +125,10 @@ router.get('/current', requireAuth, async (req,res) => {
     const spotObjects = [];
     spots.length ? 
     spots.forEach(spot => spotObjects.push(spot.toJSON()))
-    : spotObjects.push(spots.toJSON());
+    : spotObjects.push(spots);
 
     for (let spot of spotObjects) {
+        if (!Object.keys(spot).length) break
         const review = await Review.findOne({
             where: {
                 spotId: spot.id
