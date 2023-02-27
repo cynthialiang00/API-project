@@ -98,9 +98,10 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     
     const flatExistingBookings = [];
     existingBookings.length ? existingBookings.forEach(booking => flatExistingBookings.push(booking.toJSON()))
-    : flatExistingBookings = existingBookings.toJSON();
+    : flatExistingBookings.push(existingBookings);
 
     for (let book of flatExistingBookings) {
+        if (!Object.keys(book).length) break;
         // exclude current booking that we are trying to edit
         if (book.id === parseInt(req.params.bookingId)) {
             // console.log('TRYING TO EDIT SAME BOOKING')
