@@ -457,7 +457,7 @@ router.post('/', requireAuth, validateCreateSpot, async (req, res) => {
         ownerId: user.id,
         address, city, state, country, lat, lng, name, description, price
     });
-    res.status = 201;
+    res.status(201);
     res.json(newSpot);
 
 })

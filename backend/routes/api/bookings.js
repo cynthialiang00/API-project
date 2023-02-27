@@ -158,29 +158,32 @@ router.delete('/:bookingId', requireAuth, async(req,res,next) => {
     
     //Booking must belong to the current user 
     // OR Spot must belong to the current user
-    if(flatBooking.userId !== user.id && flatBooking.Spot.ownerId !== user.id) {
+    if(flatBooking.userId === user.id || flatBooking.Spot.ownerId === user.id) {
+        startDate = new Date(flatBooking.startDate);
+        const currentDate = new Date();
+
+        if (startDate < currentDate) {
+            const err = new Error("Bookings that have been started can't be deleted");
+            err.status = 403;
+            return next(err)
+        };
+
+        await booking.destroy();
+        res.status(200);
+        res.json({
+            message: "Successfully deleted",
+            statusCode: res.statusCode
+        })
+    }
+
+    // Error response: Bookings that have been started can't be deleted
+    else {
         const err = new Error('Forbidden');
         err.status = 403;
         return next(err)
     }
-
-    // Error response: Bookings that have been started can't be deleted
-    startDate = new Date(flatBooking.startDate);
-    const currentDate = new Date();
-
-    if (startDate < currentDate) {
-        const err = new Error("Bookings that have been started can't be deleted");
-        err.status = 403;
-        return next(err)
-    };
-
-    await booking.destroy();
     
-    res.status(200);
-    res.json({
-        message: "Successfully deleted",
-        statusCode: res.statusCode
-    })
+    
 });
 
 module.exports = router;
