@@ -23,7 +23,6 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     };
 
     flatRvwImage = rvwImage.toJSON();
-    console.log(flatRvwImage);
 
     // Review must belong to the current user
     if (flatRvwImage.Review.userId !== user.id) {

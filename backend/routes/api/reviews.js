@@ -22,9 +22,10 @@ router.get('/current', requireAuth, async (req, res) => {
     const reviewObjects = [];
     reviews.length ?
     reviews.forEach(rvw => reviewObjects.push(rvw.toJSON())):
-    reviewObjects.push(reviews.toJSON());
+    reviewObjects.push(reviews);
 
     for(let rvw of reviewObjects) {
+        if (!Object.keys(rvw).length) break;
         if (rvw.Spot.SpotImages.length) {
             const filterTrue = rvw.Spot.SpotImages.filter(image => image.preview === true);
             filterTrue.length ? rvw.Spot.previewImage = filterTrue[0].url : rvw.Spot.previewImage = "No Preview Image Available";

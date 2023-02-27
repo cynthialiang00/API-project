@@ -23,9 +23,10 @@ router.get('/current', requireAuth, async (req, res) => {
     const bookingsObj = [];
     bookings.length ? 
     bookings.forEach(book => bookingsObj.push(book.toJSON()))
-    : bookingsObj.push(bookings.toJSON());
+    : bookingsObj.push(bookings);
 
     for (let book of bookingsObj) {
+        if (!Object.keys(book).length) break;
         if (book.Spot.SpotImages.length) {
             const filterTrue = book.Spot.SpotImages.filter(image => image.preview === true);
             filterTrue.length ? book.Spot.previewImage = filterTrue[0].url : book.Spot.previewImage = "No Preview Image Available";
