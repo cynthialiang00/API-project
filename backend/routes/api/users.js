@@ -53,7 +53,6 @@ router.post(
                 username: username,
             }
         })
-        console.log(Object.keys(existsUserEmail).length);
         if (Object.keys(existsUserEmail).length) {
             errors.email = "User with that email already exists";
         }
