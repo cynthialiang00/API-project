@@ -13,15 +13,21 @@ const validateSignup = [
     check('email')
         .exists({ checkFalsy: true })
         .isEmail()
-        .withMessage('Please provide a valid email.'),
+        .withMessage('Invalid email'),
     check('username')
         .exists({ checkFalsy: true })
         .isLength({ min: 4 })
-        .withMessage('Please provide a username with at least 4 characters.'),
+        .withMessage('Username is required'),
     check('username')
         .not()
         .isEmail()
         .withMessage('Username cannot be an email.'),
+    check('firstName')
+        .exists({ checkFalsy: true })
+        .withMessage('First Name is required'),
+    check('lastName')
+        .exists({ checkFalsy: true })
+        .withMessage('Last Name is required'),
     check('password')
         .exists({ checkFalsy: true })
         .isLength({ min: 6 })
@@ -33,15 +39,40 @@ const validateSignup = [
 router.post(
     '/',
     validateSignup,
-    async (req, res) => {
+    async (req, res, next) => {
         const { firstName, lastName, email, password, username } = req.body;
+        const errors = {};
+        const existsUserEmail = await User.findAll({
+            where: {
+                email: email,
+            }
+        })
+
+        const existsUserName = await User.findAll({
+            where: {
+                username: username,
+            }
+        })
+        if (Object.keys(existsUserEmail).length) {
+            errors.email = "User with that email already exists";
+        }
+        if (Object.keys(existsUserName).length) {
+            errors.username = "User with that username already exists";
+        }
+
+        if (Object.keys(errors).length) {
+            const err = new Error("User already exists");
+            err.errors = errors;
+            err.status = 403;
+            return next(err);
+        }
         const user = await User.signup({ firstName, lastName, email, username, password });
 
-        await setTokenCookie(res, user);
+       const token = await setTokenCookie(res, user);
 
-        return res.json({
-            user: user
-        });
+       const returnUser = user.toSafeObject();
+       returnUser.token = token;
+        return res.json({user: returnUser});
     }
 );
 
