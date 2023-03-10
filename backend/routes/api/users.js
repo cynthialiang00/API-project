@@ -72,7 +72,7 @@ router.post(
 
        const returnUser = user.toSafeObject();
        returnUser.token = token;
-        return res.json(returnUser);
+        return res.json({user: returnUser});
     }
 );
 
