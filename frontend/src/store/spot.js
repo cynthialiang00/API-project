@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const GET_SPOTS = "spot/GET_SPOTS";
 const GET_USER_SPOTS = "spot/GET_USER_SPOTS";
+const GET_SPOT_DETAIL = "spot/GET_SPOT_DETAIL";
 
 const actionGetSpots= (spots) => {
     return {
@@ -16,6 +17,13 @@ const actionGetUserSpots = (spots) => {
         payload: spots
     };
 };
+
+const actionGetSpotDetail = (spot) => {
+    return {
+        type: GET_SPOT_DETAIL,
+        payload: spot
+    };
+}
 
 export const thunkGetSpots = () => async (dispatch) => {
     const response = await csrfFetch('/api/spots', {
@@ -37,6 +45,16 @@ export const thunkGetUserSpots = () => async (dispatch) => {
     return response;
 };
 
+export const thunkGetSpotDetail = (spotId) => async(dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'GET',
+    });
+
+    const data = await response.json();
+    dispatch(actionGetSpotDetail(data));
+    return response;
+};
+
 
 const initialState = {allSpots: {}, singleSpot: {}};
 
@@ -50,6 +68,10 @@ const spotReducer = (state = initialState, action) => {
         case GET_USER_SPOTS:
             newState = Object.assign({}, state);
             newState.allSpots = action.payload;
+            return newState;
+        case GET_SPOT_DETAIL:
+            newState = Object.assign({}, state);
+            newState.singleSpot = action.payload;
             return newState;
         default:
             return state;
