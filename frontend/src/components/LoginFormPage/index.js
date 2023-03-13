@@ -11,7 +11,7 @@ function LoginFormPage() {
     const sessionUser = useSelector(state => state.session.user);
     const [credential, setCredential] = useState('');
     const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState({});
 
     if (sessionUser) return (
         <Redirect to="/" />
@@ -21,8 +21,8 @@ function LoginFormPage() {
         e.preventDefault();
         setErrors({});
         return dispatch(sessionActions.thunkLogin({ credential, password }))
-            .catch(async (res) => {
-                const data = await res.json();
+            .catch(async (response) => {
+                const data = await response.json();
                 if (data && data.errors) setErrors(data.errors);
             });
     }
@@ -39,8 +39,7 @@ function LoginFormPage() {
                     required
                 />
             </label>
-            {setErrors["credential"] &&
-                <p className="errors">{setErrors["credential"]}</p>}
+            
             <label>
                 Password
                 <input
@@ -50,10 +49,14 @@ function LoginFormPage() {
                     required
                 />
             </label>
-            {setErrors["password"] &&
-                <p className="errors">{setErrors["password"]}</p>}
+            
             <button type="submit">Log In</button>
+            {errors["credential"] &&
+                <p className="errors">{errors["credential"]}</p>}
+            {errors["password"] &&
+                <p className="errors">{errors["password"]}</p>}
         </form>
+        
     );
 }
 
