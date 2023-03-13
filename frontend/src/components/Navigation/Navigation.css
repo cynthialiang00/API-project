@@ -5,3 +5,43 @@
 .profile-dropdown {
     border: 1px solid grey;
 }
+
+.navigation-parent {
+    display: flex;
+    justify-content: space-between;
+    margin: 5em 5em;
+    font-size: 18px;
+
+}
+
+.anywhere-text{
+    margin: 0.5em;
+}
+
+.anyweek-text{
+    margin: 0.5em;
+}
+
+.add-guests {
+    display: inline-block;
+    margin: 0.5em;
+}
+
+.search-icon{
+    display: inline-block;
+}
+
+/* User profile bar */
+.user-utils {
+    display: inline-block;
+}
+
+.home {
+    display: inline-block;
+    margin: 1.5em;
+
+}
+
+.profile-button {
+    display: inline-block;
+}
