@@ -19,7 +19,7 @@ function LoginFormPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrors([]);
+        setErrors({});
         return dispatch(sessionActions.thunkLogin({ credential, password }))
             .catch(async (res) => {
                 const data = await res.json();
@@ -29,9 +29,7 @@ function LoginFormPage() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <ul>
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
+            
             <label>
                 Username or Email
                 <input
@@ -41,6 +39,8 @@ function LoginFormPage() {
                     required
                 />
             </label>
+            {setErrors["credential"] &&
+                <p className="errors">{setErrors["credential"]}</p>}
             <label>
                 Password
                 <input
@@ -50,6 +50,8 @@ function LoginFormPage() {
                     required
                 />
             </label>
+            {setErrors["password"] &&
+                <p className="errors">{setErrors["password"]}</p>}
             <button type="submit">Log In</button>
         </form>
     );
