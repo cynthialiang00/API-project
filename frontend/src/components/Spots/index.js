@@ -27,9 +27,25 @@ function Spots () {
     // }
 
     return (
-        <div className="spots-display">
+        <div className="spots-grid">
         {allSpotsArr.map((spot) => (
-            <img className={`${spot.id}-image`} src={`${spot.previewImage}`} alt={`Preview of ${spot.address}`}></img>
+            <div className="spot-container" title={`${spot.city}, ${spot.state}`}>
+                <img className="spot-image" src={`${spot.previewImage}`} alt={`Preview of ${spot.address}`}></img>
+                <div className="spot-description">
+                    <div className="spot-title">{`${spot.city}, ${spot.state}`}</div>
+                    <div className="spot-price">{`${spot.price} night`}</div>
+                    <span className="avg-rating-container">
+                        <span className="avg-rating-star">
+                            <i class="fa-solid fa-star"></i>
+                        </span>
+                        <span className="avg-rating-rating">
+                            {spot.avgRating === "No Reviews exist for this spot" ? `New` : `${spot.avgRating}`}
+                        </span>
+                        
+                    </span>
+                </div>
+            </div>
+            
         ))}
         {/* <button onClick={spotTest}>
             Get Spots
