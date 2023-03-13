@@ -12,11 +12,18 @@ function Spots () {
         console.log(spots)
     }
     
-    
+    const userTest = (e) => {
+        e.preventDefault();
+        dispatch(spotActions.thunkGetUserSpots());
+        console.log(spots)
+    }
     return (
         <>
         <button onClick={spotTest}>
             Get Spots
+        </button>
+        <button onClick={userTest}>
+            Get Spots of Current User
         </button>
         </>
     )
