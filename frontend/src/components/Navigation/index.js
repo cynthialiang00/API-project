@@ -12,7 +12,7 @@ function Navigation({ isLoaded }) {
         <div className="navigation-parent">
             <div className='logo'>
                 <div className='logo-container'>
-                    <div className='logo-image'>Weebnb</div>
+                    <div className='logo-image'>Springbnb</div>
                 </div>
             </div>
             <div className='user-utils'>
