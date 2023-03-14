@@ -1,16 +1,19 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as spotActions from '../../store/spot';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { NavLink, useParams } from "react-router-dom";
+import OpenReserveMenuItem from "./OpenReserveMenuItem";
+import ReserveFormModal from "./ReserveFormModal";
+
 import './SpotShow.css';
 
 function SpotShow() {
     const {spotId} = useParams();
     const dispatch = useDispatch();
+    
     const spot = useSelector(state=>state.spots.singleSpot)
-    console.log(`SpotOwner: `, spot.Owner);
-    console.log("SpotImages: ", spot.SpotImages)
+
 
     useEffect(() => {
         dispatch(spotActions.thunkGetSpotDetail(spotId));
@@ -71,7 +74,10 @@ function SpotShow() {
                                 </div>
                             </div>
                             <div>
-                                <button className="reserve-buttonn" type="button">Reserve</button>
+                                <OpenReserveMenuItem
+                                    itemText="Reserve"
+                                    modalComponent={<ReserveFormModal />}
+                                />
                             </div>
                         </div>
                     </div>
