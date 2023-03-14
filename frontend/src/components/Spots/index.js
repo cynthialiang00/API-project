@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as spotActions from '../../store/spot';
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import './Spots.css';
 
 function Spots () {
@@ -33,6 +34,7 @@ function Spots () {
             <div className="spots-grid">
                 {allSpotsArr.map((spot) => (
                     <div key={spot.id} className="spot-container" title={`${spot.city}, ${spot.state}`}>
+                        <NavLink exact to={`/${spot.id}`} className="spot-link">
                         <img className="spot-image" src={`${spot.previewImage}`} alt={`Preview of ${spot.address}`}></img>
                         <div className="spot-description">
                             <div className="spot-title">{`${spot.city}, ${spot.state}`}</div>
@@ -47,6 +49,7 @@ function Spots () {
                                 
                             </span>
                         </div>
+                        </NavLink>
                     </div>
                     
                 ))}
