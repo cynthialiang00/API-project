@@ -87,7 +87,7 @@ router.get('/', validateSpotQuery, async (req,res) => {
                 [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']
             ]
         })
-        if (review) {
+        if (review && review.toJSON().avgRating > 0) {
             spot.avgRating = Number(review.toJSON().avgRating).toFixed(1);
         }
         else spot.avgRating = "No Reviews exist for this spot";
