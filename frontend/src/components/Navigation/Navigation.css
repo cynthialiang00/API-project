@@ -6,26 +6,44 @@
     border: 1px solid grey;
 }
 
+
 .navigation-parent {
+    position: fixed;
+    top: 0em;
+    width: 100vw;
+    background-color: #1e1c1c;
     display: flex;
     justify-content: space-between;
-    margin: 5em 5em;
-    font-size: 18px;
+    font-size: 20px;
+    color: white;
 
 }
-
 
 /* User profile bar */
 .user-utils {
     display: inline-block;
+    margin: 20px;
 }
 
 .home {
     display: inline-block;
-    margin: 1.5em;
 
 }
 
 .profile-button {
     display: inline-block;
+}
+
+.button {
+    display: flex;
+    border-radius: 30px;
+    border: 1px solid grey;
+    background-color: #1e1c1c;
+}
+
+.button-icon {
+    font-size: 20px;
+    color: white;
+    padding: 5px;
+    margin: 5px;
 }

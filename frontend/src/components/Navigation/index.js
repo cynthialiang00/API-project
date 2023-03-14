@@ -12,13 +12,13 @@ function Navigation({ isLoaded }) {
         <div className="navigation-parent">
             <div className='logo'>
                 <div className='logo-container'>
-                    <div className='logo-image'>PartyBnb</div>
+                    <div className='logo-image'>Weebnb</div>
                 </div>
             </div>
             <div className='user-utils'>
-                <div className="home">
+                {/* <div className="home">
                     <NavLink exact to="/">Home</NavLink>
-                </div>
+                </div> */}
                 {isLoaded && (
                     <div className="profile-button">
                         <ProfileButton user={sessionUser} />

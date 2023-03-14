@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as spotActions from '../../store/spot';
 import { useEffect, useState } from "react";
+import './Spots.css';
+
 function Spots () {
     const dispatch = useDispatch();
     const allSpotsObj = useSelector(state=>state.spots.allSpots)
@@ -27,33 +29,36 @@ function Spots () {
     // }
 
     return (
-        <div className="spots-grid">
-        {allSpotsArr.map((spot) => (
-            <div className="spot-container" title={`${spot.city}, ${spot.state}`}>
-                <img className="spot-image" src={`${spot.previewImage}`} alt={`Preview of ${spot.address}`}></img>
-                <div className="spot-description">
-                    <div className="spot-title">{`${spot.city}, ${spot.state}`}</div>
-                    <div className="spot-price">{`${spot.price} night`}</div>
-                    <span className="avg-rating-container">
-                        <span className="avg-rating-star">
-                            <i class="fa-solid fa-star"></i>
-                        </span>
-                        <span className="avg-rating-rating">
-                            {spot.avgRating === "No Reviews exist for this spot" ? `New` : `${spot.avgRating}`}
-                        </span>
-                        
-                    </span>
-                </div>
+        <div className="spots-content">
+            <div className="spots-grid">
+                {allSpotsArr.map((spot) => (
+                    <div key={spot.id} className="spot-container" title={`${spot.city}, ${spot.state}`}>
+                        <img className="spot-image" src={`${spot.previewImage}`} alt={`Preview of ${spot.address}`}></img>
+                        <div className="spot-description">
+                            <div className="spot-title">{`${spot.city}, ${spot.state}`}</div>
+                            <div className="spot-price">{`$${spot.price} night`}</div>
+                            <span className="avg-rating-container">
+                                <span className="avg-rating-star">
+                                    <i class="fa-solid fa-star"></i>
+                                </span>
+                                <span className="avg-rating-rating">
+                                    {spot.avgRating === "No Reviews exist for this spot" ? `New` : `${spot.avgRating}`}
+                                </span>
+                                
+                            </span>
+                        </div>
+                    </div>
+                    
+                ))}
             </div>
-            
-        ))}
-        {/* <button onClick={spotTest}>
-            Get Spots
-        </button>
-        <button onClick={userTest}>
-            Get Spots of Current User
-        </button> */}
         </div>
+        // {/* <button onClick={spotTest}>
+        //     Get Spots
+        // </button>
+        // <button onClick={userTest}>
+        //     Get Spots of Current User
+        // </button> */}
+        
     )
 }
 
