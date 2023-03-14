@@ -12,13 +12,13 @@ module.exports = {
       {
         spotId: 1,
         userId: 1,
-        review: "A bit dark",
+        review: "A bit dark but overall a nice authentic experience",
         stars: 3,
       },
       {
         spotId: 1,
         userId: 3,
-        review: "Convenience is super nice, I like it",
+        review: "The nature here is insane. Convenience is super nice, I like it",
         stars: 4
       },
       {
@@ -42,7 +42,7 @@ module.exports = {
       {
         spotId: 3,
         userId: 2,
-        review: "Worst apartment I have lived in my life!!! water problems every now and then which completely shuts off water for whole day and what we get is just sorry for the inconveniences email from management.",
+        review: "Worst onsen I have ever stayed at in my life!!! water problems every now and then which completely shuts off water for whole day and what we get is just sorry for the inconveniences email from management.",
         stars: 1
       }
     ], {});
