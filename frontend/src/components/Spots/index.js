@@ -41,7 +41,7 @@ function Spots () {
                             <div className="spot-price">{`$${spot.price} night`}</div>
                             <span className="avg-rating-container">
                                 <span className="avg-rating-star">
-                                    <i class="fa-solid fa-star"></i>
+                                    <i className="fa-solid fa-star"></i>
                                 </span>
                                 <span className="avg-rating-rating">
                                     {spot.avgRating === "No Reviews exist for this spot" ? `New` : `${spot.avgRating}`}
