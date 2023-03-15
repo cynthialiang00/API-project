@@ -4,6 +4,7 @@ const GET_SPOTS = "spot/GET_SPOTS";
 const GET_USER_SPOTS = "spot/GET_USER_SPOTS";
 const GET_SPOT_DETAIL = "spot/GET_SPOT_DETAIL";
 
+
 const actionGetSpots= (spots) => {
     return {
         type: GET_SPOTS,
@@ -24,6 +25,8 @@ const actionGetSpotDetail = (spot) => {
         payload: spot
     };
 }
+
+
 
 export const thunkGetSpots = () => async (dispatch) => {
     const response = await csrfFetch('/api/spots', {
@@ -55,6 +58,17 @@ export const thunkGetSpotDetail = (spotId) => async(dispatch) => {
     return response;
 };
 
+export const fetchCreateSpot = async(spot) => {
+    const response = await csrfFetch(`/api/spots`, {
+        method: 'POST',
+        body: spot
+    });
+
+    const data = await response.json();
+    return data;
+    
+};
+
 
 const initialState = {allSpots: {}, singleSpot: {}};
 
@@ -63,14 +77,17 @@ const spotReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_SPOTS:
             newState = Object.assign({}, state);
+            newState.allSpots = {};
             newState.allSpots = action.payload;
             return newState;
         case GET_USER_SPOTS:
             newState = Object.assign({}, state);
+            newState.allSpots = {};
             newState.allSpots = action.payload;
             return newState;
         case GET_SPOT_DETAIL:
             newState = Object.assign({}, state);
+            newState.singleSpot = {};
             newState.singleSpot = action.payload;
             return newState;
         default:

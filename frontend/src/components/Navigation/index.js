@@ -16,6 +16,9 @@ function Navigation({ isLoaded }) {
                 </div>
             </div>
             <div className='user-utils'>
+                <div className="create-spot">
+                    <NavLink to="/spots/new">Create a New Spot</NavLink>
+                </div>
                 {/* <div className="home">
                     <NavLink exact to="/">Home</NavLink>
                 </div> */}
