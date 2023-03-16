@@ -137,8 +137,8 @@ router.get('/current', requireAuth, async (req,res) => {
                 [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']
             ]
         })
-        if (review) {
-            spot.avgRating = review.toJSON().avgRating;
+        if (review && review.toJSON().avgRating > 0) {
+            spot.avgRating = Number(review.toJSON().avgRating).toFixed(1);
         }
         else spot.avgRating = "No Reviews exist for this spot";
 
@@ -195,8 +195,8 @@ router.get('/:spotId', async (req, res, next) => {
         spotObject.avgStarRating = review.toJSON().avgRating;
     }
     else {
-        spotObject.numReviews = null;
-        spotObject.avgRating = null;
+        spotObject.numReviews = 0;
+        spotObject.avgRating = "No Reviews exist for this spot";
     }
 
     if (spotObject.User) {
