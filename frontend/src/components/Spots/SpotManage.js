@@ -18,19 +18,7 @@ function SpotManage() {
     }, [dispatch])
 
     const allSpotsArr = Object.values(allSpotsObj);
-    // console.log(`spotsObj: `, allSpotsObj)
-    // console.log(`spotsArr: `, allSpotsArr)
-    // const spotTest = (e) => {
-    //     e.preventDefault();
-    //     dispatch(spotActions.thunkGetSpots());
-    //     console.log(spots)
-    // }
 
-    // const userTest = (e) => {
-    //     e.preventDefault();
-    //     dispatch(spotActions.thunkGetUserSpots());
-    //     console.log(spots)
-    // }
 
 
     return (
@@ -77,12 +65,6 @@ function SpotManage() {
                 ))}
             </div>
         </div>
-        // {/* <button onClick={spotTest}>
-        //     Get Spots
-        // </button>
-        // <button onClick={userTest}>
-        //     Get Spots of Current User
-        // </button> */}
 
     )
 }
