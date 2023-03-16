@@ -11,28 +11,41 @@ function SpotEditForm() {
     const {spotId} = useParams();
 
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(spotActions.thunkGetSpotDetail(spotId));
     }, [dispatch, spotId])
 
-    
+    useEffect (() => {
+        setCountry(spot.country);
+        setAddress(spot.address);
+        setCity(spot.city);
+        setState(spot.state);
+        setLat(spot.lat);
+        setLng(spot.lng);
+        setDescription(spot.description);
+        setName(spot.name);
+        setPrice(spot.price);
+        
+    }, [spot])
 
     const history = useHistory();
-    const [country, setCountry] = useState(spot.country);
-    const [address, setAddress] = useState(spot.address);
-    const [city, setCity] = useState(spot.city);
-    const [state, setState] = useState(spot.state);
-    const [lat, setLat] = useState(spot.lat);
-    const [lng, setLng] = useState(spot.lng);
-    const [description, setDescription] = useState(spot.description);
-    const [name, setName] = useState(spot.name);
-    const [price, setPrice] = useState(spot.price);
+    
+
+    const [country, setCountry] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [lat, setLat] = useState('');
+    const [lng, setLng] = useState('');
+    const [description, setDescription] = useState('');
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
+
+    
 
 
     const [spotErrors, setSpotErrors] = useState({});
-
-    
-    console.log("SPOTTT ERRORS: ", spotErrors)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -70,7 +83,8 @@ function SpotEditForm() {
     }
 
     
-    if (!spot) return null;
+    if (Object.keys(spot).length === 0) {
+        return null;}
 
     return (
         <div className="create-container">
