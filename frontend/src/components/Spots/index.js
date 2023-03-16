@@ -15,8 +15,8 @@ function Spots () {
     }, [dispatch])
 
     const allSpotsArr = Object.values(allSpotsObj);
-    console.log(`spotsObj: `, allSpotsObj)
-    console.log(`spotsArr: `, allSpotsArr)
+    // console.log(`spotsObj: `, allSpotsObj)
+    // console.log(`spotsArr: `, allSpotsArr)
     // const spotTest = (e) => {
     //     e.preventDefault();
     //     dispatch(spotActions.thunkGetSpots());
