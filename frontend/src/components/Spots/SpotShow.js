@@ -32,7 +32,7 @@ function SpotShow() {
                         </div>
                     </div>
                         {spot.SpotImages.map((img) => (
-                            <div className="spot-images">
+                            <div key={img.id} className="spot-images">
                                 <div className="main-img-container">
                                     <img className="main-pic" src={img.url} alt="spot picture"></img>
                                 </div>
