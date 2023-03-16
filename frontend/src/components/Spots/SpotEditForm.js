@@ -1,79 +1,50 @@
 import React from "react";
 import * as spotActions from '../../store/spot';
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import "./SpotForm.css";
 
 function SpotEditForm() {
-
     const spot = useSelector(state => state.spots.singleSpot)
-    console.log(spot)
+    const {spotId} = useParams();
+
     const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(spotActions.thunkGetSpotDetail(spotId));
+    }, [dispatch, spotId])
+
+    
 
     const history = useHistory();
-    const [country, setCountry] = useState('');
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [lat, setLat] = useState(0);
-    const [lng, setLng] = useState(0);
-    const [description, setDescription] = useState('');
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState(0);
-
-
-    const [prevImgURL, setPrevImgURL] = useState("");
-
-    const [imgURL1, setImgURL1] = useState("");
-    const [imgURL2, setImgURL2] = useState("");
-    const [imgURL3, setImgURL3] = useState("");
-    const [imgURL4, setImgURL4] = useState("");
+    const [country, setCountry] = useState(spot.country);
+    const [address, setAddress] = useState(spot.address);
+    const [city, setCity] = useState(spot.city);
+    const [state, setState] = useState(spot.state);
+    const [lat, setLat] = useState(spot.lat);
+    const [lng, setLng] = useState(spot.lng);
+    const [description, setDescription] = useState(spot.description);
+    const [name, setName] = useState(spot.name);
+    const [price, setPrice] = useState(spot.price);
 
 
     const [spotErrors, setSpotErrors] = useState({});
-    const [imgErrors, setImgErrors] = useState({});
 
-    const imgObjCreator = (imageUrl, previewBool = false) => {
-        return JSON.stringify({
-            url: imageUrl,
-            preview: previewBool
-        })
-    };
-
-    // const testImage = () => {
-    //     const newArr = [];
-
-    //     if (prevImgURL.length) newArr.push(imgObjCreator(prevImgURL,true));
-    //     if (imgURL1.length) newArr.push(imgObjCreator(imgURL1));
-    //     if (imgURL2.length) newArr.push(imgObjCreator(imgURL2));
-    //     if (imgURL3.length) newArr.push(imgObjCreator(imgURL3));
-    //     if (imgURL4.length) newArr.push(imgObjCreator(imgURL4));
-    //     console.log(newArr);
-    //     return;
-    // }
-
-
+    
+    console.log("SPOTTT ERRORS: ", spotErrors)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSpotErrors({});
-        setImgErrors({});
 
-        const imgArr = [];
-
-        if (prevImgURL.length) imgArr.push(imgObjCreator(prevImgURL, true));
-        if (imgURL1.length) imgArr.push(imgObjCreator(imgURL1));
-        if (imgURL2.length) imgArr.push(imgObjCreator(imgURL2));
-        if (imgURL3.length) imgArr.push(imgObjCreator(imgURL3));
-        if (imgURL4.length) imgArr.push(imgObjCreator(imgURL4));
 
         // set default values for lat/lng if no inputs
         if (!lat) {
-            setLat(0);
+            setLat(1.23);
         };
         if (!lng) {
-            setLng(0);
+            setLng(1.23);
         };
 
         const newSpot = JSON.stringify({
@@ -87,30 +58,27 @@ function SpotEditForm() {
             description,
             price
         })
+        console.log("newSpot", newSpot)
+
 
         dispatch(spotActions.thunkEditSpot(spot.id, newSpot))
             .catch(async (response) => {
-                const validationErrors = await response.json();
-                if (validationErrors.errors) setSpotErrors(validationErrors.errors)
+                const data = await response.json();
+                console.log(data)
+                if( data.errors) {
+                    
+                    console.log("There are errors in data entry")
+                    setSpotErrors(data.errors)
+                } 
+                
             })
-        // if (newSpotData && newSpotData.errors) setSpotErrors(newSpotData.errors)
-        // console.log("data: ", newSpotData)
-        // console.log("newspot id: ", newSpotData.id)
+        
 
-        // for (let img of imgArr) {
-        //     const newImgData = await spotActions.fetchAddImg(newSpotData.id, img);
-        //     if (newImgData && newImgData.errors) setImgErrors(newImgData.errors)
-        // }
-
-        return history.push(`/spots/${spot.id}`);
-
-        // return dispatch(sessionActions.thunkLogin({ credential, password }))
-        //     .then(closeModal)
-        //     .catch(async (response) => {
-        //         const data = await response.json();
-        //         if (data && data.errors) setErrors(data.errors);
-        //     });
+        if (Object.keys(spotErrors).length) return;
+        else history.push(`/spots/${spot.id}`);
     }
+
+    
 
     return (
         <div className="create-container">
@@ -127,7 +95,7 @@ function SpotEditForm() {
                         <input
                             type="text"
                             value={country}
-                            placeholder={`${spot.country}`}
+                            placeholder="country"
                             onChange={(e) => setCountry(e.target.value)}
                         />
                     </label>
@@ -139,7 +107,7 @@ function SpotEditForm() {
                         <input
                             type="text"
                             value={address}
-                            placeholder={`${spot.address}`}
+                            placeholder="address"
                             onChange={(e) => setAddress(e.target.value)}
                         />
                     </label>
@@ -151,7 +119,7 @@ function SpotEditForm() {
                         <input
                             type="text"
                             value={city}
-                            placeholder={`${spot.city}`}
+                            placeholder="city"
                             onChange={(e) => setCity(e.target.value)}
                         />
                     </label>
@@ -165,7 +133,7 @@ function SpotEditForm() {
                         <input
                             type="text"
                             value={state}
-                            placeholder={`${spot.state}`}
+                            placeholder="state"
                             onChange={(e) => setState(e.target.value)}
                         />
                     </label>
@@ -177,7 +145,7 @@ function SpotEditForm() {
                         <input
                             type="text"
                             value={lat}
-                            placeholder={`${spot.lat}`}
+                            placeholder="lat"
                             onChange={(e) => setLat(e.target.value)}
                         />
                     </label>
@@ -191,7 +159,7 @@ function SpotEditForm() {
                         <input
                             type="text"
                             value={lng}
-                            placeholder={`${spot.lng}`}
+                            placeholder="lng"
                             onChange={(e) => setLng(e.target.value)}
                         />
                     </label>
@@ -212,7 +180,7 @@ function SpotEditForm() {
                     <textarea
                         type="text"
                         value={description}
-                        placeholder={`${spot.description}`}
+                        placeholder="Please write at least 30 characters"
                         onChange={(e) => setDescription(e.target.value)}
                     />
                     {spotErrors["description"] &&
@@ -230,7 +198,7 @@ function SpotEditForm() {
                     <input
                         type="text"
                         value={name}
-                        placeholder={`${spot.name}`}
+                        placeholder="name"
                         onChange={(e) => setName(e.target.value)}
                     />
                     {spotErrors["name"] &&
@@ -249,56 +217,16 @@ function SpotEditForm() {
                         <input
                             type="text"
                             value={price}
-                            placeholder={`${spot.price}`}
+                            placeholder="price"
                             onChange={(e) => setPrice(e.target.value)}
                         />
                     </label>
                     {spotErrors["price"] &&
                         <p className="errors">{spotErrors["price"]}</p>}
                 </div>
-                <div className="inputs-container">
-                    <div className="inputs-header">
-                        Liven up your spot with photos
-                    </div>
-                    <div className="inputs-brief">
-                        Submit a link to at least one photo to publish
-                        your spot.
-                    </div>
-                    <input
-                        type="text"
-                        value={prevImgURL}
-                        placeholder="Preview Image URL"
-                        onChange={(e) => setPrevImgURL(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        value={imgURL1}
-                        placeholder="Image URL"
-                        onChange={(e) => setImgURL1(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        value={imgURL2}
-                        placeholder="Image URL"
-                        onChange={(e) => setImgURL2(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        value={imgURL3}
-                        placeholder="Image URL"
-                        onChange={(e) => setImgURL3(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        value={imgURL4}
-                        placeholder="Image URL"
-                        onChange={(e) => setImgURL4(e.target.value)}
-                    />
-                </div>
 
-
-                <button type="submit">Create Spot</button>
-                {/* <button type="button" onClick={testImage}>Test Image Array</button> */}
+                
+                <button type="submit">Update Spot</button>
             </form>
         </div>
     )
@@ -308,13 +236,3 @@ function SpotEditForm() {
 }
 
 export default SpotEditForm;
-
-// const testCreate = async (e) => {
-    //     e.preventDefault();
-
-    //     const data = await spotActions.fetchCreateSpot(JSON.stringify(testSpot));
-    //     // then redirect to /spots/${data.id} blah blah blah
-    //     console.log("data: ", data)
-    //     console.log(data.id)
-
-    // }
