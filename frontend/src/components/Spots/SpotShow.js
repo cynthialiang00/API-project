@@ -6,6 +6,8 @@ import { NavLink, useParams } from "react-router-dom";
 import OpenReserveMenuItem from "./OpenReserveMenuItem";
 import ReserveFormModal from "./ReserveFormModal";
 
+import ReadReviews from "../Reviews/ReadReviews";
+
 import './SpotShow.css';
 
 function SpotShow() {
@@ -81,7 +83,9 @@ function SpotShow() {
                             </div>
                         </div>
                     </div>
-                    <div className="divider">_</div>
+                    <div className="review-details">
+                        <ReadReviews />
+                    </div>
                     
                 </div>
 
