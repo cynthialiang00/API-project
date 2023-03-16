@@ -3,6 +3,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import CreateLink from './CreateLink';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
@@ -17,7 +18,7 @@ function Navigation({ isLoaded }) {
             </div>
             <div className='user-utils'>
                 <div className="create-spot">
-                    <NavLink to="/spots/new">Create a New Spot</NavLink>
+                    <CreateLink user={sessionUser}/>
                 </div>
                 {/* <div className="home">
                     <NavLink exact to="/">Home</NavLink>
