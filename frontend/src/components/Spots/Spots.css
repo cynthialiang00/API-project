@@ -3,13 +3,13 @@
 }
 
 .spots-content {
+    margin-top: 10%;
     width: 100vw;
     height: 100vh;
 }
 
 .spots-grid {
     display: grid;
-    margin-top: 10%;
     margin-left: 5.3%;
     margin-right: 5.3%;
     margin-bottom: 0%;
@@ -30,7 +30,12 @@
 
 .spot-link {
     text-decoration: none;
-    color: #031c32;
+    color: #1e1c1c;
+}
+
+.button-link {
+    text-decoration: none;
+    color: #1e1c1c;
 }
 .spot-image {
     width: 100%;
