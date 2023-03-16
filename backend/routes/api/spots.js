@@ -196,7 +196,7 @@ router.get('/:spotId', async (req, res, next) => {
     }
     else {
         spotObject.numReviews = 0;
-        spotObject.avgRating = "No Reviews exist for this spot";
+        spotObject.avgStarRating = "No Reviews exist for this spot";
     }
 
     if (spotObject.User) {
