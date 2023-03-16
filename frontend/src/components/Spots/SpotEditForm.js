@@ -10,6 +10,7 @@ function SpotEditForm() {
     const spot = useSelector(state => state.spots.singleSpot)
 
     const dispatch = useDispatch();
+
     const history = useHistory();
     const [country, setCountry] = useState('');
     const [address, setAddress] = useState('');
@@ -87,19 +88,19 @@ function SpotEditForm() {
             price
         })
 
-        const newSpotData = await spotActions.fetchCreateSpot(newSpot)
+        const newSpotData = await spotActions.thunkEditSpot(spot.id, newSpot)
             .catch(async (response) => {
                 const validationErrors = await response.json();
                 if (validationErrors.errors) setSpotErrors(validationErrors.errors)
             })
         // if (newSpotData && newSpotData.errors) setSpotErrors(newSpotData.errors)
-        console.log("data: ", newSpotData)
-        console.log("newspot id: ", newSpotData.id)
+        // console.log("data: ", newSpotData)
+        // console.log("newspot id: ", newSpotData.id)
 
-        for (let img of imgArr) {
-            const newImgData = await spotActions.fetchAddImg(newSpotData.id, img);
-            if (newImgData && newImgData.errors) setImgErrors(newImgData.errors)
-        }
+        // for (let img of imgArr) {
+        //     const newImgData = await spotActions.fetchAddImg(newSpotData.id, img);
+        //     if (newImgData && newImgData.errors) setImgErrors(newImgData.errors)
+        // }
 
         history.push(`/spots/${newSpotData.id}`);
 

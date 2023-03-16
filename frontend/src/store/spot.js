@@ -3,7 +3,8 @@ import { csrfFetch } from './csrf';
 const GET_SPOTS = "spot/GET_SPOTS";
 const GET_USER_SPOTS = "spot/GET_USER_SPOTS";
 const GET_SPOT_DETAIL = "spot/GET_SPOT_DETAIL";
-
+const EDIT_SPOT = "spot/EDIT_SPOT";
+const DELETE_SPOT = "spot/DELETE_SPOT";
 
 const actionGetSpots= (spots) => {
     return {
@@ -24,8 +25,21 @@ const actionGetSpotDetail = (spot) => {
         type: GET_SPOT_DETAIL,
         payload: spot
     };
-}
+};
 
+const actionEditSpot = (spot) => {
+    return {
+        type: EDIT_SPOT,
+        payload: spot
+    }
+};
+
+const actionDeleteSpot = (id) => {
+    return {
+        type: DELETE_SPOT,
+        payload: id
+    }
+};
 
 
 export const thunkGetSpots = () => async (dispatch) => {
@@ -48,7 +62,7 @@ export const thunkGetUserSpots = () => async (dispatch) => {
     return response;
 };
 
-export const thunkGetSpotDetail = (spotId) => async(dispatch) => {
+export const thunkGetSpotDetail = (spotId) => async (dispatch) => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'GET',
     });
@@ -58,7 +72,28 @@ export const thunkGetSpotDetail = (spotId) => async(dispatch) => {
     return response;
 };
 
-export const fetchCreateSpot = async(spot, imgArr) => {
+export const thunkEditSpot = (spotId, spot) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'PUT',
+        body: spot
+    });
+
+    const data = await response.json();
+    dispatch(actionEditSpot(data));
+    return response;
+}
+
+export const thunkDeleteSpot = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE',
+    });
+
+    const data = await response.json();
+    dispatch(actionDeleteSpot(spotId));
+    return response;
+};
+
+export const fetchCreateSpot = async(spot) => {
     const response = await csrfFetch(`/api/spots`, {
         method: 'POST',
         body: spot
@@ -100,6 +135,17 @@ const spotReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             newState.singleSpot = {};
             newState.singleSpot = action.payload;
+            return newState;
+        case EDIT_SPOT:
+            newState = Object.assign({}, state);
+            newState.singleSpot = {};
+            newState.singleSpot = action.payload;
+            return newState;
+        case DELETE_SPOT:
+            newState = Object.assign({}, state);
+            newState.allSpots = {...state.allSpots};
+            newState.singleSpot = {};
+            delete newState.allSpots[action.payload];
             return newState;
         default:
             return state;
