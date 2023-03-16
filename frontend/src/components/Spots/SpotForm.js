@@ -1,11 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import * as spotActions from '../../store/spot';
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import "./SpotForm.css";
 
 function SpotForm() {
-    const dispatch = useDispatch();
+    const history = useHistory();
     const [country, setCountry] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -17,14 +17,87 @@ function SpotForm() {
     const [price, setPrice] = useState(0);
 
 
-    const [img, setImg] = useState('');
+    const [prevImgURL, setPrevImgURL] = useState("");
 
-    const [errors, setErrors] = useState({});
+    const [imgURL1, setImgURL1] = useState("");
+    const [imgURL2, setImgURL2] = useState("");
+    const [imgURL3, setImgURL3] = useState("");
+    const [imgURL4, setImgURL4] = useState("");
+    
+
+    const [spotErrors, setSpotErrors] = useState({});
+    const [imgErrors, setImgErrors] = useState({});
+
+    const imgObjCreator = (imageUrl, previewBool = false) => {
+        return JSON.stringify({
+            url: imageUrl,
+            preview: previewBool
+        })
+    };
+
+    // const testImage = () => {
+    //     const newArr = [];
+
+    //     if (prevImgURL.length) newArr.push(imgObjCreator(prevImgURL,true));
+    //     if (imgURL1.length) newArr.push(imgObjCreator(imgURL1));
+    //     if (imgURL2.length) newArr.push(imgObjCreator(imgURL2));
+    //     if (imgURL3.length) newArr.push(imgObjCreator(imgURL3));
+    //     if (imgURL4.length) newArr.push(imgObjCreator(imgURL4));
+    //     console.log(newArr);
+    //     return;
+    // }
+    
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({});
+        setSpotErrors({});
+        setImgErrors({});
+        
+        const imgArr = [];
+
+        if (prevImgURL.length) imgArr.push(imgObjCreator(prevImgURL,true));
+        if (imgURL1.length) imgArr.push(imgObjCreator(imgURL1));
+        if (imgURL2.length) imgArr.push(imgObjCreator(imgURL2));
+        if (imgURL3.length) imgArr.push(imgObjCreator(imgURL3));
+        if (imgURL4.length) imgArr.push(imgObjCreator(imgURL4));
+
+        // set default values for lat/lng if no inputs
+        if (!lat) {
+            setLat(0);
+        };
+        if (!lng) {
+            setLng(0);
+        };
+
+        const newSpot = JSON.stringify({
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price
+        })
+
+        const newSpotData = await spotActions.fetchCreateSpot(newSpot)
+            .catch(async (response) => {
+                const validationErrors = await response.json();
+                if (validationErrors.errors) setSpotErrors(validationErrors.errors)
+            })
+        // if (newSpotData && newSpotData.errors) setSpotErrors(newSpotData.errors)
+        console.log("data: ", newSpotData)
+        console.log("newspot id: ",newSpotData.id)
+
+        for (let img of imgArr) {
+            const newImgData = await spotActions.fetchAddImg(newSpotData.id, img);
+            if (newImgData && newImgData.errors) setImgErrors(newImgData.errors)
+        }
+
+        history.push(`/spots/${newSpotData.id}`);
+
         // return dispatch(sessionActions.thunkLogin({ credential, password }))
         //     .then(closeModal)
         //     .catch(async (response) => {
@@ -34,7 +107,9 @@ function SpotForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <div className="create-container">
+        <h3>Create a new Spot</h3>
+        <form className="login-form" onSubmit={handleSubmit}>
             <div className="inputs-container">
                 <div className="inputs-header">Where's your place located?</div>
                 <div className="inputs-brief">
@@ -48,9 +123,10 @@ function SpotForm() {
                         value={country}
                         placeholder="Country"
                         onChange={(e) => setCountry(e.target.value)}
-                        required
                     />
                 </label>
+                    {spotErrors["country"] &&
+                        <p className="errors">{spotErrors["country"]}</p>}
 
                 <label>
                     Street Address
@@ -59,9 +135,10 @@ function SpotForm() {
                         value={address}
                         placeholder="Address"
                         onChange={(e) => setAddress(e.target.value)}
-                        required
                     />
                 </label>
+                    {spotErrors["address"] &&
+                        <p className="errors">{spotErrors["address"]}</p>}
 
                 <label>
                     City
@@ -70,9 +147,10 @@ function SpotForm() {
                         value={city}
                         placeholder="City"
                         onChange={(e) => setCity(e.target.value)}
-                        required
                     />
                 </label>
+                    {spotErrors["city"] &&
+                        <p className="errors">{spotErrors["city"]}</p>}
 
                 <div className="comma">,</div>
 
@@ -83,9 +161,10 @@ function SpotForm() {
                         value={state}
                         placeholder="STATE"
                         onChange={(e) => setState(e.target.value)}
-                        required
                     />
                 </label>
+                    {spotErrors["state"] &&
+                        <p className="errors">{spotErrors["state"]}</p>}
 
                 <label>
                     Latitude
@@ -94,9 +173,10 @@ function SpotForm() {
                         value={lat}
                         placeholder="Latitude"
                         onChange={(e) => setLat(e.target.value)}
-                        required
                     />
                 </label>
+                    {spotErrors["lat"] &&
+                        <p className="errors">{spotErrors["lat"]}</p>}
 
                 <div className="comma">,</div>
 
@@ -107,9 +187,10 @@ function SpotForm() {
                         value={lng}
                         placeholder="Longitude"
                         onChange={(e) => setLng(e.target.value)}
-                        required
                     />
                 </label>
+                    {spotErrors["lng"] &&
+                        <p className="errors">{spotErrors["lng"]}</p>}
             </div>
 
             <div className="divider"></div>
@@ -122,15 +203,14 @@ function SpotForm() {
                     Mention the best features of your space, any special amenities
                     like fast wifi or parking, and what you love about the neighborhood.
                 </div>
-                <label>
                     <textarea
                         type="text"
                         value={description}
                         placeholder="Please write at least 30 characters"
                         onChange={(e) => setDescription(e.target.value)}
-                        required
                     />
-                </label>
+                    {spotErrors["description"] &&
+                        <p className="errors">{spotErrors["description"]}</p>}
             </div>
 
             <div className="inputs-container">
@@ -141,15 +221,14 @@ function SpotForm() {
                     Catch guests' attention with a spot title that highlights what
                     makes your place special.
                 </div>
-                <label>
                     <input
                         type="text"
                         value={name}
                         placeholder="Name of your spot"
                         onChange={(e) => setName(e.target.value)}
-                        required
                     />
-                </label>
+                    {spotErrors["name"] &&
+                        <p className="errors">{spotErrors["name"]}</p>}
             </div>
             <div className="inputs-container">
                 <div className="inputs-header">
@@ -166,9 +245,10 @@ function SpotForm() {
                         value={price}
                         placeholder="Price per night (USD)"
                         onChange={(e) => setPrice(e.target.value)}
-                        required
                     />
                 </label>
+                    {spotErrors["price"] &&
+                        <p className="errors">{spotErrors["price"]}</p>}
             </div>
             <div className="inputs-container">
                 <div className="inputs-header">
@@ -178,23 +258,43 @@ function SpotForm() {
                     Submit a link to at least one photo to publish
                     your spot.
                 </div>
-                <label>
                     <input
                         type="text"
-                        value={price}
-                        placeholder="Price per night (USD)"
-                        onChange={(e) => setPrice(e.target.value)}
-                        required
+                        value={prevImgURL}
+                        placeholder="Preview Image URL"
+                        onChange={(e) => setPrevImgURL(e.target.value)}
                     />
-                </label>
+                    <input
+                        type="text"
+                        value={imgURL1}
+                        placeholder= "Image URL"
+                        onChange={(e) => setImgURL1(e.target.value)}
+                    />                
+                    <input
+                        type="text"
+                        value={imgURL2}
+                        placeholder="Image URL"
+                        onChange={(e) => setImgURL2(e.target.value)}
+                    />                
+                    <input
+                        type="text"
+                        value={imgURL3}
+                        placeholder="Image URL"
+                        onChange={(e) => setImgURL3(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        value={imgURL4}
+                        placeholder="Image URL"
+                        onChange={(e) => setImgURL4(e.target.value)}
+                    />
             </div>
+            
 
             <button type="submit">Create Spot</button>
-            {errors["credential"] &&
-                <p className="errors">{errors["credential"]}</p>}
-            {errors["password"] &&
-                <p className="errors">{errors["password"]}</p>}
+            {/* <button type="button" onClick={testImage}>Test Image Array</button> */}
         </form>
+        </div>
     )
     
     

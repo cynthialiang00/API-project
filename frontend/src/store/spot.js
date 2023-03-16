@@ -58,7 +58,7 @@ export const thunkGetSpotDetail = (spotId) => async(dispatch) => {
     return response;
 };
 
-export const fetchCreateSpot = async(spot) => {
+export const fetchCreateSpot = async(spot, imgArr) => {
     const response = await csrfFetch(`/api/spots`, {
         method: 'POST',
         body: spot
@@ -67,6 +67,17 @@ export const fetchCreateSpot = async(spot) => {
     const data = await response.json();
     return data;
     
+};
+
+export const fetchAddImg = async (spotId, img) => {
+    const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+        method: 'POST',
+        body: img
+    });
+
+    const data = await response.json();
+    return data;
+
 };
 
 
