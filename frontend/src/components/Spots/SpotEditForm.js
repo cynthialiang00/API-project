@@ -8,7 +8,7 @@ import "./SpotForm.css";
 function SpotEditForm() {
 
     const spot = useSelector(state => state.spots.singleSpot)
-
+    console.log(spot)
     const dispatch = useDispatch();
 
     const history = useHistory();
@@ -88,7 +88,7 @@ function SpotEditForm() {
             price
         })
 
-        const newSpotData = await spotActions.thunkEditSpot(spot.id, newSpot)
+        dispatch(spotActions.thunkEditSpot(spot.id, newSpot))
             .catch(async (response) => {
                 const validationErrors = await response.json();
                 if (validationErrors.errors) setSpotErrors(validationErrors.errors)
@@ -102,7 +102,7 @@ function SpotEditForm() {
         //     if (newImgData && newImgData.errors) setImgErrors(newImgData.errors)
         // }
 
-        history.push(`/spots/${newSpotData.id}`);
+        return history.push(`/spots/${spot.id}`);
 
         // return dispatch(sessionActions.thunkLogin({ credential, password }))
         //     .then(closeModal)
@@ -114,7 +114,7 @@ function SpotEditForm() {
 
     return (
         <div className="create-container">
-            <h3>Create a new Spot</h3>
+            <h3>Update Your Spot</h3>
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="inputs-container">
                     <div className="inputs-header">Where's your place located?</div>

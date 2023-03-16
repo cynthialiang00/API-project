@@ -29,12 +29,18 @@ function App() {
           <Route path="/spots/current">
             <SpotManage />
           </Route>
-          <Route exact path="spots/:spotId/edit">
+          <Route path="/spots/:spotId/edit">
             <SpotEditForm />
           </Route>
-          <Route exact path="/spots/:spotId">
+          <Route path="/spots/:spotId">
             <SpotShow />
           </Route>
+          
+          
+          
+          
+          
+          
         </Switch>
       )}
     </>
