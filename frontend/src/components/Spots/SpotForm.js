@@ -48,7 +48,6 @@ function SpotForm() {
     // }
     
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSpotErrors({});
