@@ -64,10 +64,10 @@ function SpotForm() {
 
         // set default values for lat/lng if no inputs
         if (!lat) {
-            setLat(0);
+            setLat(1.23);
         };
         if (!lng) {
-            setLng(0);
+            setLng(1.23);
         };
 
         const newSpot = JSON.stringify({
@@ -87,9 +87,6 @@ function SpotForm() {
                 const validationErrors = await response.json();
                 if (validationErrors.errors) setSpotErrors(validationErrors.errors)
             })
-        // if (newSpotData && newSpotData.errors) setSpotErrors(newSpotData.errors)
-        console.log("data: ", newSpotData)
-        console.log("newspot id: ",newSpotData.id)
 
         for (let img of imgArr) {
             const newImgData = await spotActions.fetchAddImg(newSpotData.id, img);
@@ -98,12 +95,6 @@ function SpotForm() {
 
         history.push(`/spots/${newSpotData.id}`);
 
-        // return dispatch(sessionActions.thunkLogin({ credential, password }))
-        //     .then(closeModal)
-        //     .catch(async (response) => {
-        //         const data = await response.json();
-        //         if (data && data.errors) setErrors(data.errors);
-        //     });
     }
 
     return (

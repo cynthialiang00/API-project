@@ -60,25 +60,17 @@ function SpotEditForm() {
         })
         console.log("newSpot", newSpot)
 
-
-        dispatch(spotActions.thunkEditSpot(spot.id, newSpot))
+        await spotActions.fetchEditSpot(spotId, newSpot)
+            .then(() => history.push(`/spots/${spot.id}`))
             .catch(async (response) => {
-                const data = await response.json();
-                console.log(data)
-                if( data.errors) {
-                    
-                    console.log("There are errors in data entry")
-                    setSpotErrors(data.errors)
-                } 
-                
+                const validationErrors = await response.json();
+                if (validationErrors.errors) setSpotErrors(validationErrors.errors)
             })
         
-
-        if (Object.keys(spotErrors).length) return;
-        else history.push(`/spots/${spot.id}`);
     }
 
     
+    if (!spot) return null;
 
     return (
         <div className="create-container">
