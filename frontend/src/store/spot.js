@@ -123,6 +123,7 @@ const spotReducer = (state = initialState, action) => {
         case GET_USER_SPOTS:
             newState = Object.assign({}, state);
             newState.allSpots = {};
+            newState.singleSpot = {};
             newState.allSpots = action.payload;
             return newState;
         case GET_SPOT_DETAIL:
