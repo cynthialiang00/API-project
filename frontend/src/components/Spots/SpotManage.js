@@ -8,11 +8,12 @@ import './Spots.css';
 function SpotManage() {
     const dispatch = useDispatch();
     const allSpotsObj = useSelector(state => state.spots.allSpots)
+    const sessionUser = useSelector(state => state.session.user);
 
     useEffect(() => {
         dispatch(spotActions.thunkGetUserSpots());
 
-    }, [dispatch])
+    }, [dispatch, sessionUser])
 
     const allSpotsArr = Object.values(allSpotsObj);
     // console.log(`spotsObj: `, allSpotsObj)
@@ -28,15 +29,34 @@ function SpotManage() {
     //     dispatch(spotActions.thunkGetUserSpots());
     //     console.log(spots)
     // }
+    console.log(allSpotsObj);
+    console.log(allSpotsObj.undefined)
+
+    if (allSpotsObj.undefined) {
+        return (
+            <div className="spots-content">
+                <div className="spots-page-header">
+                    <h2>Manage Your Spots</h2>
+                    {allSpotsObj.undefined ?
+                        <button className="small-button" >
+                            <NavLink className="button-link" to="/spots/new">Create a New Spot</NavLink>
+                        </button>
+                        :
+                        <></>
+                    }
+
+                </div>
+            </div>
+        )
+    }
+
 
     return (
         <div className="spots-content">
             <div className="spots-page-header">
-                <h2>Manage Your Spots</h2>
-                <button className="small-button" >
-                    <NavLink className="button-link" to="/spots/new">Create a New Spot</NavLink>
-                </button>
+                <h2>Manage Your Spots</h2>               
             </div>
+
             <div className="spots-grid">
                 {allSpotsArr.map((spot) => (
                     <div key={spot.id} className="spot-container" title={`${spot.city}, ${spot.state}`}>
