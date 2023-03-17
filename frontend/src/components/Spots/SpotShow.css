@@ -90,3 +90,7 @@ img {
 .reserve-box {
     grid-column: 2;
 }
+
+.reviews {
+    margin-top: 20%;
+}

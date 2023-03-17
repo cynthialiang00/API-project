@@ -196,7 +196,7 @@ router.get('/:spotId', async (req, res, next) => {
     }
     else {
         spotObject.numReviews = 0;
-        spotObject.avgRating = "No Reviews exist for this spot";
+        spotObject.avgStarRating = "No Reviews exist for this spot";
     }
 
     if (spotObject.User) {
@@ -222,7 +222,8 @@ router.get('/:spotId/reviews', async (req, res, next) => {
         include: [
             { model: User, attributes: ['id', 'firstName', 'lastName'] },
             { model: ReviewImage, attributes: ['id', 'url'] }
-        ]
+        ],
+        order: [['updatedAt', 'DESC']]
     });
 
     res.status(200);

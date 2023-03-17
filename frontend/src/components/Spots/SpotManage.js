@@ -12,7 +12,6 @@ function SpotManage() {
     const allSpotsObj = useSelector(state => state.spots.allSpots)
 
     useEffect(() => {
-        console.log("use effect triggered")
         dispatch(spotActions.thunkGetUserSpots());
 
     }, [dispatch])

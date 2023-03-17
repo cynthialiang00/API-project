@@ -8,7 +8,6 @@ function DeleteModal({id}) {
 
     const deleteTest = (e) =>{
         e.preventDefault();
-        console.log("delete button clicked")
         dispatch(spotActions.thunkDeleteSpot(id))
     }
     return (
