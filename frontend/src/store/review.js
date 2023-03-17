@@ -19,6 +19,16 @@ export const thunkGetRvws = (spotId) => async (dispatch) => {
     return response;
 };
 
+export const fetchCreateRvw = async (spotId, rvw) => {
+    const response = await csrfFetch(`/api/spots/:spotId/reviews`, {
+        method: 'POST',
+        body: rvw
+    });
+
+    const data = await response.json();
+    return data;
+};
+
 const initialState = { spot: {}, user: {} };
 
 const reviewReducer = (state = initialState, action) => {
