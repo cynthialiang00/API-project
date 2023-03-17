@@ -5,6 +5,7 @@ import { useEffect} from "react";
 import { useParams } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import PostReviewModal from "./PostReviewModal";
+import DeleteReviewModal from "./DeleteReviewModal";
 
 function ReadReviews ({isOwner}) {
     console.log("IS OWNER: ", isOwner)
@@ -64,6 +65,17 @@ function ReadReviews ({isOwner}) {
                             {`${toMonthYear(rvw.updatedAt)[0]}, ${toMonthYear(rvw.updatedAt)[1]}`}
                         </div>
                         <div className="review-body">{rvw.review}</div>
+                        { sessionUser && !isOwner && rvw.User.id === sessionUser.id ?
+                            <div className="review-delete-button">
+                                <OpenModalButton
+                                    buttonText="Delete"
+                                    modalComponent={<DeleteReviewModal id={rvw.id}/>}
+                                />
+                            </div>
+                        :
+                        <></>
+                        }
+                        
                     </div>
                 ))}
             </div>

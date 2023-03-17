@@ -1,7 +1,8 @@
 import { csrfFetch } from './csrf';
 
-const GET_RVWS = "spot/GET_RVWS";
-const NEW_RVW = "spot/NEW_RVW";
+const GET_RVWS = "review/GET_RVWS";
+const NEW_RVW = "review/NEW_RVW";
+const DELETE_RVW = "review/DELETE_RVW";
 
 const actionGetRvws= (rvws) => {
     return {
@@ -15,6 +16,13 @@ const actionNewRvw = (rvw) => {
         type: NEW_RVW,
         payload: rvw
     };
+};
+
+const actionDeleteRvw = (id) => {
+    return {
+        type: DELETE_RVW,
+        payload: id
+    }
 };
 
 export const thunkGetRvws = (spotId) => async (dispatch) => {
@@ -38,6 +46,16 @@ export const thunkCreateRvw = (spotId, rvw) => async (dispatch) => {
     return response;
 };
 
+export const thunkDeleteRvw = (reviewId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'DELETE',
+    });
+
+    await response.json();
+    dispatch(actionDeleteRvw(reviewId));
+    return response;
+};
+
 const initialState = { spot: {}, user: {}, new: {} };
 
 const reviewReducer = (state = initialState, action) => {
@@ -52,6 +70,13 @@ const reviewReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             newState.new = {};
             newState.new[action.payload.id] = action.payload;
+            return newState;
+        case DELETE_RVW:
+            newState = Object.assign({}, state);
+            newState.spot = {...state.spot};
+            delete newState.spot[action.payload];
+            newState.new = {...state.new};
+            delete newState.new[action.payload];
             return newState;
         default:
             return state;
