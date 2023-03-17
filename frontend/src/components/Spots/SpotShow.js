@@ -6,6 +6,9 @@ import { NavLink, useParams } from "react-router-dom";
 import OpenReserveMenuItem from "./OpenReserveMenuItem";
 import ReserveFormModal from "./ReserveFormModal";
 
+import OpenModalButton from "../OpenModalButton";
+import PostReviewModal from "../Reviews/PostReviewModal";
+
 import ReadReviews from "../Reviews/ReadReviews";
 
 import './SpotShow.css';
@@ -15,6 +18,7 @@ function SpotShow() {
     const dispatch = useDispatch();
     
     const spot = useSelector(state=>state.spots.singleSpot)
+    const sessionUser = useSelector(state => state.session.user);
 
 
     useEffect(() => {
@@ -52,41 +56,92 @@ function SpotShow() {
                                 </div>
                             </div>
                         ))}
+                    <div className="reserve-box">
+                        <div className="reserve-price">{`$${spot.price} night`}</div>
+                        <div className="reserve-rvw">
+                            <div className="reserve-rvw-details">
+                                <span className="avg-rating-star">
+                                    <i className="fa-solid fa-star"></i>
+                                </span>
+                                <span className="avg-rating-rating">
+                                    {spot.avgStarRating === null ? `New` : `${spot.avgStarRating.toFixed(1)}`}
+                                </span>
+                            </div>
 
+                            {spot.numReviews ? <div className="dot">· </div>
+                                : <></>}
+
+                            {spot.numReviews === 1 ?
+                                <div className="reserve-rvw-details">
+                                    {`${spot.numReviews} reviews`}
+                                </div>
+                                :
+                                <></>
+                            }
+                            {spot.numReviews > 1 ?
+                                <div className="reserve-rvw-details">
+                                    {`${spot.numReviews} reviews`}
+                                </div>
+                                :
+                                <></>
+                            }
+                            <OpenReserveMenuItem
+                                itemText="Reserve"
+                                modalComponent={<ReserveFormModal />}
+                            />
+
+                        </div>
+                    </div>
                     <div className="spot-details">
                         <div className="spot-details-head">
                             <h2>Hosted by {`${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
                         </div>
-                        <div className="spot-deatils-body">
+                        <div className="spot-details-body">
                             <p>{`${spot.description}`}</p>
                         </div>
-                        <div className="reserve-box">
-                            <div className="reserve-price">{`$${spot.price} night`}</div>
-                            <div className="reserve-rvw">
-                                <div className="reserve-rvw-details">
-                                    <span className="avg-rating-star">
-                                        <i className="fa-solid fa-star"></i>
-                                    </span>
-                                    <span className="avg-rating-rating">
-                                        {/* {spot.avgRating === "No Reviews exist for this spot" ? `New` : `${spot.avgStarRating.toFixed(1)}`} */}
-                                    </span>
-                                </div>
-                                <div className="reserve-rvw-details">
-                                    {`${spot.numReviews} reviews`}
-                                </div>
-                            </div>
-                            <div>
-                                <OpenReserveMenuItem
-                                    itemText="Reserve"
-                                    modalComponent={<ReserveFormModal />}
+                    </div>
+                    <div className="reviews">
+                        <div className="review-head">
+                            <h2>
+                                <span className="avg-rating-star">
+                                    <i className="fa-solid fa-star"></i>
+                                </span>
+                                 <span className="avg-rating-rating">
+                                    {spot.avgStarRating === null ? `New` : `${spot.avgStarRating.toFixed(1)}`}
+                                 </span>
+                                    
+
+                                {spot.numReviews ? <div className="dot">· </div>
+                                : <></>}
+
+                                {spot.numReviews === 1 ?
+                                    <div className="reserve-rvw-details">
+                                        {`${spot.numReviews} reviews`}
+                                    </div>
+                                :
+                                    <></>
+                                }
+                                {spot.numReviews > 1 ?
+                                    <div className="reserve-rvw-details">
+                                        {`${spot.numReviews} reviews`}
+                                    </div>
+                                :
+                                    <></>
+                                }
+                            </h2>
+                        </div>
+                        {sessionUser && sessionUser.id !== spot.Owner.id ?
+                            <div className="post-rvw-button">
+                                <OpenModalButton
+                                    buttonText="Post Your Review"
+                                    modalComponent={<PostReviewModal id={spot.id} />}
                                 />
                             </div>
-                        </div>
-                    </div>
-                    <div className="review-details">
+                            :
+                            <></>
+                        }
                         <ReadReviews />
                     </div>
-                    
                 </div>
 
             </>

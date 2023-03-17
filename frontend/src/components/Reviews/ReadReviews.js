@@ -1,27 +1,23 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as rvwActions from '../../store/review';
-import { useEffect, useState, useRef } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useEffect} from "react";
+import { useParams } from "react-router-dom";
 
 
 function ReadReviews () {
     const {spotId} = useParams();
     const dispatch = useDispatch();
     const reviews = useSelector(state=>state.reviews.spot);
+    const spot = useSelector(state => state.spots.singleSpot)
+    const sessionUser = useSelector(state => state.session.user);
 
     useEffect(() => {
         dispatch(rvwActions.thunkGetRvws(spotId))
     }, [dispatch, spotId])
 
     const reviewsArr = Object.values(reviews);
-    // console.log("arr: ", reviewsArr);
-
-    // reviewsArr.forEach((rvw) => {
-    //     const time = new Date(rvw.updatedAt);
-    //     rvw.epoch = time.getTime();
-    // })
-    // console.log("arrEpoch: ", reviewsArr);
+ 
 
     reviewsArr.reverse();
 
@@ -32,20 +28,30 @@ function ReadReviews () {
         return [splitDate[1], splitDate[3]];
     }
 
-    // console.log(toMonthYear(reviewsArr[0].updatedAt))
+
+    if (!reviewsArr.length && sessionUser && sessionUser.id !== spot.Owner.id) {
+        return (
+            <div>
+                
+                Be the first to post a review!
+            </div>
+        )
+    }
     return (
-        <div>
-            <div className="review-head"></div>
-            {reviewsArr.map((rvw) => (
-                <div key={rvw.id} className="review-container">
-                    <div className="review-firstName">{rvw.User.firstName}</div>
-                    <div className="review-date">
-                        {`${toMonthYear(rvw.updatedAt)[0]}, ${toMonthYear(rvw.updatedAt)[1]}`}
+            <div>
+
+                {reviewsArr.map((rvw) => (
+                    <div key={rvw.id} className="review-container">
+                        <div className="review-firstName">{rvw.User.firstName}</div>
+                        <div className="review-date">
+                            {`${toMonthYear(rvw.updatedAt)[0]}, ${toMonthYear(rvw.updatedAt)[1]}`}
+                        </div>
+                        <div className="review-body">{rvw.review}</div>
                     </div>
-                    <div className="review-body">{rvw.review}</div>
-                </div>
-            ))}
-        </div>
+                ))}
+            </div>
+
+        
     )
 
 }
