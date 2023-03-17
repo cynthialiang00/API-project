@@ -34,7 +34,7 @@ function PostReviewModal ({id}) {
         props.onClick = () => onChange(number);
         return (
             <div key={number} className={activeStars >= number ? "filled" : "empty"} {...props}>
-                <i class="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
             </div>
         );
     };
