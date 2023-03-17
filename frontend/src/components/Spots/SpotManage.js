@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import * as spotActions from '../../store/spot';
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import DeleteModal from "./DeleteModal";
 import './Spots.css';
 
 function SpotManage() {
@@ -64,13 +66,14 @@ function SpotManage() {
 
                         <div className="update-button">
                             <button className="small-button" >
-                                <NavLink className="button-link" to={`spots/${spot.id}/edit`}>Update</NavLink>
+                                <NavLink className="button-link" to={`${spot.id}/edit`}>Update</NavLink>
                             </button>
                         </div>
                         <div className="update-button">
-                            <button className="small-button" >
-                                <NavLink className="button-link" to={`/delete`}>Delete</NavLink>
-                            </button>
+                            <OpenModalButton
+                                buttonText="Delete"
+                                modalComponent={<DeleteModal id={spot.id} />}
+                            />
                         </div>
                     </div>
 
