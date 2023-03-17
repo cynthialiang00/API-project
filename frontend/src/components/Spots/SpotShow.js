@@ -6,8 +6,7 @@ import { NavLink, useParams } from "react-router-dom";
 import OpenReserveMenuItem from "./OpenReserveMenuItem";
 import ReserveFormModal from "./ReserveFormModal";
 
-import OpenModalButton from "../OpenModalButton";
-import PostReviewModal from "../Reviews/PostReviewModal";
+
 
 import ReadReviews from "../Reviews/ReadReviews";
 
@@ -130,17 +129,8 @@ function SpotShow() {
                                 }
                             </h2>
                         </div>
-                        {sessionUser && sessionUser.id !== spot.Owner.id ?
-                            <div className="post-rvw-button">
-                                <OpenModalButton
-                                    buttonText="Post Your Review"
-                                    modalComponent={<PostReviewModal id={spot.id} />}
-                                />
-                            </div>
-                            :
-                            <></>
-                        }
-                        <ReadReviews />
+                        
+                        <ReadReviews isOwner={sessionUser && sessionUser.id === spot.Owner.id}/>
                     </div>
                 </div>
 

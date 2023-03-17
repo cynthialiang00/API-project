@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import * as rvwActions from '../../store/review';
 import { useEffect} from "react";
 import { useParams } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import PostReviewModal from "./PostReviewModal";
 
-
-function ReadReviews () {
+function ReadReviews ({isOwner}) {
+    console.log("IS OWNER: ", isOwner)
     const {spotId} = useParams();
     const dispatch = useDispatch();
     const reviews = useSelector(state=>state.reviews.spot);
-    const spot = useSelector(state => state.spots.singleSpot)
     const sessionUser = useSelector(state => state.session.user);
+
 
     useEffect(() => {
         dispatch(rvwActions.thunkGetRvws(spotId))
@@ -28,18 +30,31 @@ function ReadReviews () {
         return [splitDate[1], splitDate[3]];
     }
 
-
-    if (!reviewsArr.length && sessionUser && sessionUser.id !== spot.Owner.id) {
+    if (!reviewsArr.length && sessionUser && !isOwner) {
         return (
-            <div>
-                
+            <div className="reviews-list">
+                <div className="post-rvw-button">
+                    <OpenModalButton
+                    buttonText="Post Your Review"
+                    modalComponent={<PostReviewModal id={spotId} />}
+                    />
+                </div>
                 Be the first to post a review!
             </div>
         )
     }
     return (
-            <div>
-
+            <div className="reviews-list">
+                { sessionUser && !isOwner && !reviewsArr.find(rvw => rvw.User.id === sessionUser.id) ?
+                    <div className="post-rvw-button">
+                        <OpenModalButton
+                            buttonText="Post Your Review"
+                            modalComponent={<PostReviewModal id={spotId} />}
+                        />
+                    </div>
+                :
+                <></>
+                }
                 {reviewsArr.map((rvw) => (
                     <div key={rvw.id} className="review-container">
                         <div className="review-firstName">{rvw.User.firstName}</div>
