@@ -1,11 +1,19 @@
 import { csrfFetch } from './csrf';
 
 const GET_RVWS = "spot/GET_RVWS";
+const NEW_RVW = "spot/NEW_RVW";
 
 const actionGetRvws= (rvws) => {
     return {
         type: GET_RVWS,
         payload: rvws,
+    };
+};
+
+const actionNewRvw = (rvw) => {
+    return {
+        type: NEW_RVW,
+        payload: rvw
     };
 };
 
@@ -19,17 +27,18 @@ export const thunkGetRvws = (spotId) => async (dispatch) => {
     return response;
 };
 
-export const fetchCreateRvw = async (spotId, rvw) => {
-    const response = await csrfFetch(`/api/spots/:spotId/reviews`, {
+export const thunkCreateRvw = (spotId, rvw) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
         body: rvw
     });
 
     const data = await response.json();
-    return data;
+    dispatch(actionNewRvw(data));
+    return response;
 };
 
-const initialState = { spot: {}, user: {} };
+const initialState = { spot: {}, user: {}, new: {} };
 
 const reviewReducer = (state = initialState, action) => {
     let newState;
@@ -39,7 +48,11 @@ const reviewReducer = (state = initialState, action) => {
             newState.spot = {};
             newState.spot = action.payload;
             return newState;
-        
+        case NEW_RVW:
+            newState = Object.assign({}, state);
+            newState.new = {};
+            newState.new[action.payload.id] = action.payload;
+            return newState;
         default:
             return state;
     }

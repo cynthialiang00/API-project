@@ -11,12 +11,14 @@ function ReadReviews ({isOwner}) {
     const {spotId} = useParams();
     const dispatch = useDispatch();
     const reviews = useSelector(state=>state.reviews.spot);
+    const newestReview = useSelector(state=>state.reviews.new);    
     const sessionUser = useSelector(state => state.session.user);
+
 
 
     useEffect(() => {
         dispatch(rvwActions.thunkGetRvws(spotId))
-    }, [dispatch, spotId])
+    }, [dispatch, spotId, newestReview])
 
     const reviewsArr = Object.values(reviews);
  
