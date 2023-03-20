@@ -14,6 +14,8 @@ function SpotForm() {
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
 
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+
     const lat = 1.23;
     const lng = 1.23;
 
@@ -28,7 +30,42 @@ function SpotForm() {
 
     const [spotErrors, setSpotErrors] = useState({});
     const [imgErrors, setImgErrors] = useState({});
+    const [prevErrors, setPrevErrors] = useState({});
 
+    useEffect(() => {
+        const errors = {};
+        const previewErrors = {};
+        const urlErrors = {};
+
+        if (!country) errors["country"] = "Country is required";
+        if (!address) errors["address"] = "Street address is required";
+        if (!city) errors["city"] = "City is required";
+        if(!state) errors["state"] = "State is required";
+        if(!description) errors["description"] = "Description needs a minimum of 30 characters";
+        if(!name) errors["name"] = "Name is required";
+        if (!price) errors["price"] = "Price per day is required";
+
+        if (!prevImgURL) previewErrors["preview"] = "Preview image is required.";
+        if (prevImgURL && !prevImgURL.endsWith('.png') && !prevImgURL.endsWith('.jpg') && !prevImgURL.endsWith('.jpeg')) {
+            previewErrors["url"] = "Image url must end in .png, .jpg, or .jpeg";
+        }
+        if (imgURL1 && !imgURL1.endsWith('.png') && !imgURL1.endsWith('.jpg') && !imgURL1.endsWith('.jpeg')) {
+            urlErrors["url"] = "Image url must end in .png, .jpg, or .jpeg";
+        }
+        if (imgURL2 && !imgURL2.endsWith('.png') && !imgURL2.endsWith('.jpg') && !imgURL2.endsWith('.jpeg')) {
+            urlErrors["url"] = "Image url must end in .png, .jpg, or .jpeg";
+        }
+        if (imgURL3 && !imgURL3.endsWith('.png') && !imgURL3.endsWith('.jpg') && !imgURL3.endsWith('.jpeg')) {
+            urlErrors["url"] = "Image url must end in .png, .jpg, or .jpeg";
+        }
+        if (imgURL4 && !imgURL4.endsWith('.png') && !imgURL4.endsWith('.jpg') && !imgURL4.endsWith('.jpeg')) {
+            urlErrors["url"] = "Image url must end in .png, .jpg, or .jpeg";
+        }
+
+        setPrevErrors(previewErrors)
+        setImgErrors(urlErrors)
+        setSpotErrors(errors)
+    }, [address, city, state, country, name, description, price, prevImgURL, imgURL1, imgURL2, imgURL3, imgURL4])
 
     const imgObjCreator = (imageUrl, previewBool = false) => {
         return JSON.stringify({
@@ -40,9 +77,13 @@ function SpotForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setHasSubmitted(true);
+        if (Object.keys(prevErrors).length || Object.keys(imgErrors).length) {            
+            return;
+        };
+
         setSpotErrors({});
         setImgErrors({});
-        
         const imgArr = [];
 
         if (prevImgURL.length) imgArr.push(imgObjCreator(prevImgURL,true));
@@ -64,18 +105,18 @@ function SpotForm() {
             price
         })
 
-        const newSpotData = await spotActions.fetchCreateSpot(newSpot)
+        
+    
+        const newSpotData = await spotActions.fetchCreateSpot(newSpot, imgArr)
             .catch(async (response) => {
                 const validationErrors = await response.json();
+                console.log(validationErrors)
                 if (validationErrors.errors) setSpotErrors(validationErrors.errors)
             })
 
-        for (let img of imgArr) {
-            const newImgData = await spotActions.fetchAddImg(newSpotData.id, img);
-            if (newImgData && newImgData.errors) setImgErrors(newImgData.errors)
-        }
 
         history.push(`/spots/${newSpotData.id}`);
+        
 
     }
 
@@ -98,7 +139,7 @@ function SpotForm() {
                         onChange={(e) => setCountry(e.target.value)}
                     />
                 </label>
-                    {spotErrors["country"] &&
+                    {hasSubmitted && spotErrors["country"] &&
                         <p className="errors">{spotErrors["country"]}</p>}
 
                 <label>
@@ -110,7 +151,7 @@ function SpotForm() {
                         onChange={(e) => setAddress(e.target.value)}
                     />
                 </label>
-                    {spotErrors["address"] &&
+                    {hasSubmitted && spotErrors["address"] &&
                         <p className="errors">{spotErrors["address"]}</p>}
 
                 <label>
@@ -122,7 +163,7 @@ function SpotForm() {
                         onChange={(e) => setCity(e.target.value)}
                     />
                 </label>
-                    {spotErrors["city"] &&
+                    {hasSubmitted && spotErrors["city"] &&
                         <p className="errors">{spotErrors["city"]}</p>}
 
                 <div className="comma">,</div>
@@ -136,12 +177,10 @@ function SpotForm() {
                         onChange={(e) => setState(e.target.value)}
                     />
                 </label>
-                    {spotErrors["state"] &&
+                    {hasSubmitted && spotErrors["state"] &&
                         <p className="errors">{spotErrors["state"]}</p>}
 
             </div>
-
-            <div className="divider"></div>
 
             <div className="inputs-container">
                 <div className="inputs-header">
@@ -157,7 +196,7 @@ function SpotForm() {
                         placeholder="Please write at least 30 characters"
                         onChange={(e) => setDescription(e.target.value)}
                     />
-                    {spotErrors["description"] &&
+                    {hasSubmitted && spotErrors["description"] &&
                         <p className="errors">{spotErrors["description"]}</p>}
             </div>
 
@@ -175,7 +214,7 @@ function SpotForm() {
                         placeholder="Name of your spot"
                         onChange={(e) => setName(e.target.value)}
                     />
-                    {spotErrors["name"] &&
+                    {hasSubmitted && spotErrors["name"] &&
                         <p className="errors">{spotErrors["name"]}</p>}
             </div>
             <div className="inputs-container">
@@ -195,7 +234,7 @@ function SpotForm() {
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </label>
-                    {spotErrors["price"] &&
+                    {hasSubmitted && spotErrors["price"] &&
                         <p className="errors">{spotErrors["price"]}</p>}
             </div>
             <div className="inputs-container">
@@ -212,34 +251,47 @@ function SpotForm() {
                         placeholder="Preview Image URL"
                         onChange={(e) => setPrevImgURL(e.target.value)}
                     />
+                    {hasSubmitted && prevErrors.preview &&
+                        <p className="errors">{prevErrors.preview}</p>}
+                    {hasSubmitted && prevErrors.url &&
+                        <p className="errors">{prevErrors.url}</p>}
                     <input
                         type="text"
                         value={imgURL1}
                         placeholder= "Image URL"
                         onChange={(e) => setImgURL1(e.target.value)}
-                    />                
+                    />
+                    {hasSubmitted && imgErrors.url &&
+                        <p className="errors">{imgErrors.url}</p>}                
                     <input
                         type="text"
                         value={imgURL2}
                         placeholder="Image URL"
                         onChange={(e) => setImgURL2(e.target.value)}
-                    />                
+                    />
+                    {hasSubmitted && imgErrors.url &&
+                        <p className="errors">{imgErrors.url}</p>}                
                     <input
                         type="text"
                         value={imgURL3}
                         placeholder="Image URL"
                         onChange={(e) => setImgURL3(e.target.value)}
                     />
+                    {hasSubmitted && imgErrors.url &&
+                        <p className="errors">{imgErrors.url}</p>}
                     <input
                         type="text"
                         value={imgURL4}
                         placeholder="Image URL"
                         onChange={(e) => setImgURL4(e.target.value)}
                     />
+                    {hasSubmitted && imgErrors.url &&
+                        <p className="errors">{imgErrors.url}</p>}
             </div>
             
 
-            <button type="submit">Create Spot</button>
+            <button type="submit"
+            >Create Spot</button>
         </form>
         </div>
     )
@@ -249,13 +301,3 @@ function SpotForm() {
 }
 
 export default SpotForm;
-
-// const testCreate = async (e) => {
-    //     e.preventDefault();
-
-    //     const data = await spotActions.fetchCreateSpot(JSON.stringify(testSpot));
-    //     // then redirect to /spots/${data.id} blah blah blah
-    //     console.log("data: ", data)
-    //     console.log(data.id)
-
-    // }

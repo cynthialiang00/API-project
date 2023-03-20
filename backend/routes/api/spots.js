@@ -192,7 +192,7 @@ router.get('/:spotId', async (req, res, next) => {
     })
     if (review) {
         spotObject.numReviews = review.toJSON().numReviews;
-        spotObject.avgStarRating = review.toJSON().avgRating;
+        spotObject.avgStarRating = Number(review.toJSON().avgRating).toFixed(1);
     }
     else {
         spotObject.numReviews = 0;
@@ -283,6 +283,15 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         const err = new Error('Forbidden');
         err.status = 403;
         return next(err)
+    }
+
+    if (!url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) {
+        const errors = {};
+        const err = new Error("Invalid image");
+        err.status = 400;
+        errors["url"] = "Image url must end in .png, .jpg, or .jpeg";
+        err.errors = errors;
+        return next(err);
     }
 
     const newImg = await spot.createSpotImage({

@@ -77,27 +77,38 @@ export const thunkDeleteSpot = (spotId) => async (dispatch) => {
     return response;
 };
 
-export const fetchCreateSpot = async(spot) => {
+export const fetchCreateSpot = async(spot, imgArr) => {
     const response = await csrfFetch(`/api/spots`, {
         method: 'POST',
         body: spot
     });
 
+    
     const data = await response.json();
+    
+    if (data.id) {
+        for (let img of imgArr) {
+            const imgResponse = await csrfFetch(`/api/spots/${data.id}/images`, {
+                method: 'POST',
+                body: img
+            });
+        }
+    }
+    
     return data;
     
 };
 
-export const fetchAddImg = async (spotId, img) => {
-    const response = await csrfFetch(`/api/spots/${spotId}/images`, {
-        method: 'POST',
-        body: img
-    });
+// export const fetchAddImg = async (spotId, img) => {
+//     const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+//         method: 'POST',
+//         body: img
+//     });
 
-    const data = await response.json();
-    return data;
+//     const data = await response.json();
+//     return data;
 
-};
+// };
 
 export const fetchEditSpot = async(spotId, spot) => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
