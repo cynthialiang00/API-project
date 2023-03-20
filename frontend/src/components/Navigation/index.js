@@ -4,22 +4,21 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import CreateLink from './CreateLink';
+import springbnblogo from '../../images/springbnblogo.png';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
 
     return (
-        <div className="navigation-parent">
-            <div className='logo'>
-                <div className='logo-container'>
-                    <div className='logo-image'>Springbnb</div>
-                </div>
-            </div>
-            <div className='user-utils'>
-                <div className="create-spot">
-                    <CreateLink user={sessionUser}/>
-                </div>
+        <ul className="navigation-parent">
+            <li className='logo'>
+                    <NavLink className='logo-image' exact to="/">
+                        <img src={springbnblogo} alt="Sprinbnb logo"></img>
+                    </NavLink>
+            </li>
+            <li className='user-utils'>
+                <CreateLink user={sessionUser}/>
                 {/* <div className="home">
                     <NavLink exact to="/">Home</NavLink>
                 </div> */}
@@ -28,7 +27,7 @@ function Navigation({ isLoaded }) {
                         <ProfileButton user={sessionUser} />
                     </div>
                 )}
-            </div>
+            </li>
             {/* <ul>
                 <li>
                     <NavLink exact to="/">Home</NavLink>
@@ -39,7 +38,7 @@ function Navigation({ isLoaded }) {
                     </li>
                 )}
             </ul> */}
-        </div>
+        </ul>
     );
 }
 

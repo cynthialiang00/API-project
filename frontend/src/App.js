@@ -8,6 +8,8 @@ import SpotShow from "./components/Spots/SpotShow";
 import SpotForm from "./components/Spots/SpotForm";
 import SpotManage from "./components/Spots/SpotManage";
 import SpotEditForm from "./components/Spots/SpotEditForm";
+
+import "./index.css";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
