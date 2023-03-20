@@ -115,7 +115,7 @@ img {
     justify-content: center;
     grid-column: 1;
     grid-row: 1;
-    margin-top: 15%;
+    margin-top: 1vw;
 }
 .reserve-price {
     font-weight: bold;
@@ -132,7 +132,7 @@ img {
     display: flex;
     justify-content: center;
     font-size: 80%;
-    margin-top: 17%;
+    margin-top: 1.2vw;
     grid-column: 2;
     grid-row: 1;
 
@@ -201,3 +201,10 @@ img {
     box-shadow: .15em .15em black;
 }
 
+.review-delete-button > .modal-button {
+    background-color: grey;
+    color: white;
+    width: 5%;
+    border: .15em solid black;
+    box-shadow: .15em .15em black;
+}
