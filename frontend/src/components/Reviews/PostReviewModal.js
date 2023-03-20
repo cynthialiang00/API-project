@@ -78,11 +78,11 @@ function PostReviewModal ({id}) {
 
     }
     return (
-        <div>
+        <div className="post-review-parent">
             <form className="review-form" onSubmit={handleSubmit}>
                 <h2>How was your stay?</h2>
-                {Object.keys(rvwErrors).length && 
-                    <div>
+                {hasSubmitted && Object.keys(rvwErrors).length && 
+                    <div className="review-errors">
                         <p className="errors">{rvwErrors.review}</p>
                         <p className="errors">{rvwErrors.stars}</p>
                     </div>
@@ -104,8 +104,9 @@ function PostReviewModal ({id}) {
                 
                 <div className="stars-input">
                     {[1, 2, 3, 4, 5].map(number => starsIcon(number))}
+                    <label>Stars</label>
                 </div>
-                <label>Stars</label>
+                
                 {hasSubmitted && dynamicRvwErrors.stars &&
                     <p className="errors">{dynamicRvwErrors.stars}</p>
                 }
