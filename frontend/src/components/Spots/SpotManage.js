@@ -10,12 +10,12 @@ import './Spots.css';
 function SpotManage({user}) {
     const dispatch = useDispatch();
     const allSpotsObj = useSelector(state => state.spots.allSpots)
-    const sessionUser = useSelector(state => state.session.user);
     const history = useHistory();
+
     useEffect(() => {
         dispatch(spotActions.thunkGetUserSpots());
 
-    }, [dispatch, sessionUser, allSpotsObj])
+    }, [dispatch])
 
     const allSpotsArr = Object.values(allSpotsObj);
 

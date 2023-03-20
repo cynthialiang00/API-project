@@ -274,7 +274,11 @@ function SpotForm({user}) {
                     <div className="inputs-brief">
                         Submit a link to at least one photo to publish
                         your spot.
+                        {hasSubmitted && imgErrors.url &&
+                            <p className="errors">{imgErrors.url}</p>}
+                        
                     </div>
+                    
                     <div className="form-label-input">
                         <input
                             type="text"
@@ -294,8 +298,7 @@ function SpotForm({user}) {
                             placeholder="Image URL"
                             onChange={(e) => setImgURL1(e.target.value)}
                         />
-                        {hasSubmitted && imgErrors.url &&
-                            <p className="errors">{imgErrors.url}</p>} 
+                        
                     </div>
                     <div className="form-label-input">
                         <input
@@ -304,8 +307,6 @@ function SpotForm({user}) {
                             placeholder="Image URL"
                             onChange={(e) => setImgURL2(e.target.value)}
                         />
-                        {hasSubmitted && imgErrors.url &&
-                            <p className="errors">{imgErrors.url}</p>} 
                     </div>         
                     <div className="form-label-input">
                         <input
@@ -314,8 +315,6 @@ function SpotForm({user}) {
                             placeholder="Image URL"
                             onChange={(e) => setImgURL3(e.target.value)}
                         />
-                        {hasSubmitted && imgErrors.url &&
-                            <p className="errors">{imgErrors.url}</p>}
                     </div>  
                     <div className="form-label-input">
                         <input
@@ -324,8 +323,7 @@ function SpotForm({user}) {
                             placeholder="Image URL"
                             onChange={(e) => setImgURL4(e.target.value)}
                         />
-                        {hasSubmitted && imgErrors.url &&
-                            <p className="errors">{imgErrors.url}</p>}
+                        
                     </div>
                         
                 </div>
