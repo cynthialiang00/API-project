@@ -63,7 +63,7 @@ function SpotShow() {
                                     <i className="fa-solid fa-star"></i>
                                 </span>
                                 <span className="avg-rating-rating">
-                                    {spot.avgStarRating === null ? `New` : `${spot.avgStarRating.toFixed(1)}`}
+                                    {spot.avgStarRating === null ? `New` : `${spot.avgStarRating}`}
                                 </span>
                             </div>
 
@@ -106,7 +106,7 @@ function SpotShow() {
                                     <i className="fa-solid fa-star"></i>
                                 </span>
                                  <span className="avg-rating-rating">
-                                    {spot.avgStarRating === null ? `New` : `${spot.avgStarRating.toFixed(1)}`}
+                                    {spot.avgStarRating === null ? `New` : `${spot.avgStarRating}`}
                                  </span>
                                     
 
