@@ -72,7 +72,7 @@ function SpotShow() {
 
                             {spot.numReviews === 1 ?
                                 <div className="reserve-rvw-details">
-                                    {`${spot.numReviews} reviews`}
+                                    {`${spot.numReviews} review`}
                                 </div>
                                 :
                                 <></>
@@ -115,7 +115,7 @@ function SpotShow() {
 
                                 {spot.numReviews === 1 ?
                                     <div className="reserve-rvw-details">
-                                        {`${spot.numReviews} reviews`}
+                                        {`${spot.numReviews} review`}
                                     </div>
                                 :
                                     <></>
