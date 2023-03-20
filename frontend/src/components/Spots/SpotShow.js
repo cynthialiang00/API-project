@@ -19,20 +19,23 @@ function SpotShow() {
     const spot = useSelector(state=>state.spots.singleSpot)
     const sessionUser = useSelector(state => state.session.user);
 
+    const reviews = useSelector(state => state.reviews.spot);
+    const newestReview = useSelector(state => state.reviews.new);    
+
 
     useEffect(() => {
         dispatch(spotActions.thunkGetSpotDetail(spotId));
-    }, [dispatch, spotId])
+    }, [dispatch, spotId, reviews, newestReview])
 
     if (Object.keys(spot).length) {
         return (
             <>
                 <div className="details-content">
                     <div className="spot-header">
-                        <div>
+                        <div className="spot-title">
                             <h2>{spot.name}</h2>
                         </div>
-                        <div>
+                        <div className="spot-title">
                             <p>{`${spot.city}, ${spot.state}, ${spot.country}`}</p>
                         </div>
                     </div>
@@ -55,42 +58,7 @@ function SpotShow() {
                                 </div>
                             </div>
                         ))}
-                    <div className="reserve-box">
-                        <div className="reserve-price">{`$${spot.price} night`}</div>
-                        <div className="reserve-rvw">
-                            <div className="reserve-rvw-details">
-                                <span className="avg-rating-star">
-                                    <i className="fa-solid fa-star"></i>
-                                </span>
-                                <span className="avg-rating-rating">
-                                    {spot.avgStarRating === null ? `New` : `${spot.avgStarRating}`}
-                                </span>
-                            </div>
-
-                            {spot.numReviews ? <div className="dot">· </div>
-                                : <></>}
-
-                            {spot.numReviews === 1 ?
-                                <div className="reserve-rvw-details">
-                                    {`${spot.numReviews} review`}
-                                </div>
-                                :
-                                <></>
-                            }
-                            {spot.numReviews > 1 ?
-                                <div className="reserve-rvw-details">
-                                    {`${spot.numReviews} reviews`}
-                                </div>
-                                :
-                                <></>
-                            }
-                            <OpenReserveMenuItem
-                                itemText="Reserve"
-                                modalComponent={<ReserveFormModal />}
-                            />
-
-                        </div>
-                    </div>
+                    
                     <div className="spot-details">
                         <div className="spot-details-head">
                             <h2>Hosted by {`${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
@@ -98,7 +66,48 @@ function SpotShow() {
                         <div className="spot-details-body">
                             <p>{`${spot.description}`}</p>
                         </div>
+                        <div className="reserve-box">
+                            <div className="price-details">
+                                <span className="reserve-price">{`$${spot.price}`}</span>
+                                <span className="night">night</span>
+                            </div>
+                            
+                            <div className="reserve-rvw-details">
+                                <span className="avg-rating-star">
+                                    <i className="fa-solid fa-star"></i>
+                                </span>
+                                <span className="avg-rating-rating">
+                                    {spot.avgStarRating === "0.0" ? `New` : `${spot.avgStarRating}`}
+                                </span>
+                                {spot.numReviews ? <span className="dot">· </span>
+                                    : <></>}
+
+                                {spot.numReviews === 1 ?
+                                    <span>
+                                        {`${spot.numReviews} review`}
+                                    </span>
+                                    :
+                                    <></>
+                                }
+                                {spot.numReviews > 1 ?
+                                    <span>
+                                        {`${spot.numReviews} reviews`}
+                                    </span>
+                                    :
+                                    <></>
+                                }
+                            </div>
+
+                            <div className="reserve-rvw">
+                                <OpenReserveMenuItem
+                                    itemText="Reserve"
+                                    modalComponent={<ReserveFormModal />}
+                                />
+
+                            </div>
+                        </div>
                     </div>
+
                     <div className="reviews">
                         <div className="review-head">
                             <h2>
@@ -106,24 +115,24 @@ function SpotShow() {
                                     <i className="fa-solid fa-star"></i>
                                 </span>
                                  <span className="avg-rating-rating">
-                                    {spot.avgStarRating === null ? `New` : `${spot.avgStarRating}`}
+                                    {spot.avgStarRating === "0.0" ? `New` : `${spot.avgStarRating}`}
                                  </span>
                                     
 
-                                {spot.numReviews ? <div className="dot">· </div>
+                                {spot.numReviews ? <span className="dot">· </span>
                                 : <></>}
 
                                 {spot.numReviews === 1 ?
-                                    <div className="reserve-rvw-details">
+                                    <span>
                                         {`${spot.numReviews} review`}
-                                    </div>
+                                    </span>
                                 :
                                     <></>
                                 }
                                 {spot.numReviews > 1 ?
-                                    <div className="reserve-rvw-details">
+                                    <span>
                                         {`${spot.numReviews} reviews`}
-                                    </div>
+                                    </span>
                                 :
                                     <></>
                                 }
