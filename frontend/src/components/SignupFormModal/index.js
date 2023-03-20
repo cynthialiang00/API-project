@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
@@ -12,8 +12,22 @@ function SignupFormModal() {
     const [lastName, setLastName] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
     const [errors, setErrors] = useState({});
+    const [dynamicErrors, setDynamicErrors] = useState({});
     const { closeModal } = useModal();
+
+
+    useEffect(() => {
+        const errors = {};
+        if(!email.length) errors["submit"] = "Fields must not be empty";
+        if(!firstName.length) errors["submit"]= "Fields must not be empty";
+        if (!lastName.length) errors["submit"] = "Fields must not be empty";
+        if(username.length < 4) errors["submit"] = "Username must be at least 4 characters long";
+        if(password.length < 6) errors["submit"] = "Password must be at least 6 characters long";
+        if(password !== confirmPassword) errors["submit"] = "Passwords do not match";
+        setDynamicErrors(errors);
+    }, [email, firstName, lastName, username, password, confirmPassword]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,6 +46,20 @@ function SignupFormModal() {
     return (
         <>
             <h1>Sign Up</h1>
+            {errors["email"] &&
+                <p className="errors">{errors["email"]}</p>}
+            {errors["username"] &&
+                <p className="errors">{errors["username"]}</p>}
+            {errors["firstName"] &&
+                <p className="errors">{errors["firstName"]}</p>}
+            {errors["lastName"] &&
+                <p className="errors">{errors["lastName"]}</p>}
+            {errors["password"] &&
+                <p className="errors">{errors["password"]}</p>}
+
+
+
+
             <form onSubmit={handleSubmit}>
                 {/* <ul>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -45,6 +73,7 @@ function SignupFormModal() {
                         required
                     />
                 </label>
+                
                 <label>
                     Username
                     <input
@@ -90,17 +119,11 @@ function SignupFormModal() {
                         required
                     />
                 </label>
-                <button type="submit">Sign Up</button>
-                {errors["email"] &&
-                    <p className="errors">{errors["email"]}</p>}
-                {errors["username"] &&
-                    <p className="errors">{errors["username"]}</p>}
-                {errors["firstName"] &&
-                    <p className="errors">{errors["firstName"]}</p>}
-                {errors["lastName"] &&
-                    <p className="errors">{errors["lastName"]}</p>}
-                {errors["password"] &&
-                    <p className="errors">{errors["password"]}</p>}
+                <button type="submit"
+                        disabled={Object.keys(dynamicErrors).length}
+                >Sign Up
+                </button>
+                
             </form>
         </>
     );

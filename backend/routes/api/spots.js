@@ -137,8 +137,8 @@ router.get('/current', requireAuth, async (req,res) => {
                 [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']
             ]
         })
-        if (review) {
-            spot.avgRating = review.toJSON().avgRating;
+        if (review && review.toJSON().avgRating > 0) {
+            spot.avgRating = Number(review.toJSON().avgRating).toFixed(1);
         }
         else spot.avgRating = "No Reviews exist for this spot";
 
@@ -192,11 +192,11 @@ router.get('/:spotId', async (req, res, next) => {
     })
     if (review) {
         spotObject.numReviews = review.toJSON().numReviews;
-        spotObject.avgStarRating = review.toJSON().avgRating;
+        spotObject.avgStarRating = Number(review.toJSON().avgRating).toFixed(1);
     }
     else {
-        spotObject.numReviews = null;
-        spotObject.avgRating = null;
+        spotObject.numReviews = 0;
+        spotObject.avgStarRating = "No Reviews exist for this spot";
     }
 
     if (spotObject.User) {
@@ -222,7 +222,8 @@ router.get('/:spotId/reviews', async (req, res, next) => {
         include: [
             { model: User, attributes: ['id', 'firstName', 'lastName'] },
             { model: ReviewImage, attributes: ['id', 'url'] }
-        ]
+        ],
+        order: [['updatedAt', 'DESC']]
     });
 
     res.status(200);
@@ -282,6 +283,15 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         const err = new Error('Forbidden');
         err.status = 403;
         return next(err)
+    }
+
+    if (!url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) {
+        const errors = {};
+        const err = new Error("Invalid image");
+        err.status = 400;
+        errors["url"] = "Image url must end in .png, .jpg, or .jpeg";
+        err.errors = errors;
+        return next(err);
     }
 
     const newImg = await spot.createSpotImage({

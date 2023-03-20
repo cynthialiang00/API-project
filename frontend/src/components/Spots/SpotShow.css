@@ -1,0 +1,290 @@
+.details-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    border: 0;
+    margin: 0 auto;
+    margin-top: 8%;
+    max-width: 1000px;
+}
+/* Spot Details Header */
+.spot-header {
+    margin-bottom: 3%;
+}
+/* Pictures */
+.spot-images{
+    display: grid;
+    width: 98%;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    grid-template-columns: 50% 25% 25%;
+    grid-template-rows: 28% 28%;
+    grid-gap: 0.5vw;
+}
+
+img {
+    border-radius: 3%;
+}
+
+.main-img-container {
+    grid-column: 1/2;
+    grid-row: 1/3;
+}
+.main-pic {
+    width: 100%;
+    height: 100%;
+}
+
+.img-1-container {
+    grid-column: 2;
+    grid-row: 1;
+}
+.small-pic1 {
+    width: 100%;
+    height: 100%;
+}
+.img-2-container {
+    grid-column: 3;
+    grid-row: 1;
+}
+.small-pic2 {
+    width: 100%;
+    height: 100%;
+}
+.img-3-container {
+    grid-column: 2;
+    grid-row: 2;
+}
+.small-pic3 {
+    width: 100%;
+    height: 100%;
+}
+.img-4-container {
+    grid-column: 3;
+    grid-row: 2;
+}
+.small-pic4 {
+    width: 100%;
+    height: 100%;
+}
+/* Spot Details */
+.spot-details {
+    margin-top: -20%;
+    border: 0;
+    padding-bottom: 3%;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 65% 35%;
+    border-bottom: .1em solid black;
+}
+
+.spot-title {
+    padding-top: 5%;
+}
+.spot-details-head {
+    grid-column: 1;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.spot-details-body {
+    display: inline-block;
+    grid-column: 1;
+    margin-top: 2%;
+}
+
+/* Reserve Box*/
+.reserve-box {
+    font-size: 120%;
+    width: 97%;
+    height: 8vw;
+    display: grid;
+    grid-column: 2;
+    margin-top: -6%;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+    border: .15em solid black;
+    border-radius: 1em;
+}
+
+.price-details {
+    display: flex;
+    justify-content: center;
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 1vw;
+}
+.reserve-price {
+    font-weight: bold;
+    font-size: 110%;
+    padding-right: 5%;
+}
+
+.night {
+    margin-top: 3%;
+    font-size: 80%;
+}
+
+.reserve-rvw-details {
+    display: flex;
+    justify-content: center;
+    font-size: 80%;
+    margin-top: 1.2vw;
+    grid-column: 2;
+    grid-row: 1;
+
+}
+
+.reserve-rvw {
+    display: flex;
+    justify-content: center;
+    grid-column: 1/3;
+    grid-row: 2;
+}
+
+.reserve-button {
+    color: white;
+    background-color: #ff4545;
+    width: 92%;
+    height: 70%;
+    border: .15em solid black;
+    box-shadow: .15em .15em black;
+}
+
+/* Review Details */
+
+.reviews {
+    margin-top: 3%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.dot {
+    padding: .75%;
+}
+
+.reviews-list {
+    margin-top: 2%;
+}
+
+.review-container {
+    border: 0;
+    margin: 0;
+    padding: 2%;
+    padding-left: 0;
+}
+
+.review-firstName {
+    font-size: 115%;
+    font-weight: bold;
+}
+
+.review-date {
+    font-size: 95%;
+    color: grey;
+}
+
+.review-body {
+    font-size: 95%;
+}
+
+/* MODAL BUTTON */
+.post-rvw-button > .modal-button {
+    background-color: grey;
+    color: white;
+    width: 15%;
+    border: .15em solid black;
+    box-shadow: .15em .15em black;
+}
+
+.review-delete-button > .modal-button {
+    background-color: grey;
+    color: white;
+    width: 5%;
+    border: .15em solid black;
+    box-shadow: .15em .15em black;
+}
+
+/* Review Form */
+.post-review-parent {
+    width: 25vw;
+    max-width: 25vw;
+    height: 25vw;
+    max-height: 20vw;
+    border: .25em solid black;
+    border-radius: 1em;
+}
+.review-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 5% 15%;
+    width: 100%;
+    height: 95%;
+}
+.review-input {
+    margin: 5% -5%;
+    padding: 0;
+    border: 0;
+    width: 80%;
+    height: 50%;
+    border: .15em solid black;
+}
+
+.review-text-area {
+    width: 100%;
+    height: 100%;
+}
+.stars-input {
+    display: flex;
+    margin: 0 15%;
+    flex-direction: row;
+}
+
+.review-form > button {
+    color: white;
+    background-color: #ff4545;
+    margin: 0 -10%;
+    width: 92%;
+    height: 2.5vw;
+    border: .15em solid black;
+    box-shadow: .15em .15em black;
+}
+
+/* Delete Modal */
+.delete-review-parent {
+    width: 25vw;
+    height: 15vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: .25em solid black;
+    border-radius: 1em;
+}
+
+.delete-review-parent > p {
+    margin: -10%;
+}
+
+.delete-review-yes {
+    color: white;
+    background-color: #ff4545;
+    width: 92%;
+    height: 2.5vw;
+    border: .15em solid black;
+    box-shadow: .15em .15em black;
+}
+.delete-review-no {
+    color: white;
+    background-color: grey;
+    margin-top: -10%;
+    width: 92%;
+    height: 2.5vw;
+    border: .15em solid black;
+    box-shadow: .15em .15em black;
+}
