@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./SpotForm.css";
 
-function SpotForm() {
+function SpotForm({user}) {
     const history = useHistory();
     const [country, setCountry] = useState('');
     const [address, setAddress] = useState('');
@@ -118,6 +118,10 @@ function SpotForm() {
         history.push(`/spots/${newSpotData.id}`);
         
 
+    }
+
+    if (!user) {
+        return history.push("/not-found");
     }
 
     return (

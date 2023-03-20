@@ -33,7 +33,7 @@ function Spots () {
         <div className="spots-content">
             <div className="spots-grid">
                 {allSpotsArr.map((spot) => (
-                    <NavLink exact to={`/spots/${spot.id}`} className="spot-link" title={`${spot.city}, ${spot.state}`}>
+                    <NavLink key={spot.id} exact to={`/spots/${spot.id}`} className="spot-link" title={`${spot.city}, ${spot.state}`}>
                     <div key={spot.id} className="spot-container">
                         <img className="spot-image" src={`${spot.previewImage}`} alt={`Preview of ${spot.address}`}></img>
                         <div className="spot-description">

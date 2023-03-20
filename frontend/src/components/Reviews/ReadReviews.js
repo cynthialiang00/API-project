@@ -8,7 +8,6 @@ import PostReviewModal from "./PostReviewModal";
 import DeleteReviewModal from "./DeleteReviewModal";
 
 function ReadReviews ({isOwner}) {
-    console.log("IS OWNER: ", isOwner)
     const {spotId} = useParams();
     const dispatch = useDispatch();
     const reviews = useSelector(state=>state.reviews.spot);

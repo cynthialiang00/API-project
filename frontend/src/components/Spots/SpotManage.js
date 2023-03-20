@@ -2,22 +2,26 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as spotActions from '../../store/spot';
 import { useEffect} from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteModal from "./DeleteModal";
 import './Spots.css';
 
-function SpotManage() {
+function SpotManage({user}) {
     const dispatch = useDispatch();
     const allSpotsObj = useSelector(state => state.spots.allSpots)
     const sessionUser = useSelector(state => state.session.user);
-
+    const history = useHistory();
     useEffect(() => {
         dispatch(spotActions.thunkGetUserSpots());
 
     }, [dispatch, sessionUser, allSpotsObj])
 
     const allSpotsArr = Object.values(allSpotsObj);
+
+    if (!user) {
+        return history.push("/not-found");
+    };
 
     if (allSpotsObj.undefined) {
         return (
@@ -41,6 +45,7 @@ function SpotManage() {
     }
 
 
+    
     return (
         <div className="spots-content">
             <div className="spots-page-header">

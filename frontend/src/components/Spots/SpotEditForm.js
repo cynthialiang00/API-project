@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import "./SpotForm.css";
 
-function SpotEditForm() {
+function SpotEditForm({user}) {
     const spot = useSelector(state => state.spots.singleSpot)
     const {spotId} = useParams();
 
@@ -77,10 +77,12 @@ function SpotEditForm() {
         
     }
 
-    
+    if (!user) {
+        return history.push("/not-found");
+    }
     if (Object.keys(spot).length === 0) {
         return null;}
-
+    
     return (
         <div className="create-container">
             <h3>Create a new Spot</h3>
