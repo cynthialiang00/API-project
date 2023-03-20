@@ -1,7 +1,7 @@
 // frontend/src/components/LoginFormPage/index.js
 import React, { useEffect, useState } from 'react';
 import * as sessionActions from '../../store/session';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
 
