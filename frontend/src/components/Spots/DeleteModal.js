@@ -18,7 +18,7 @@ function DeleteModal({id}) {
             <h2>Confirm Delete</h2>
             <p>Are you sure you want to remove this spot from the listings?</p>
             <button className="delete-spot-yes" onClick={deleteTest}>Yes (Delete Spot)</button>
-            <button className="delete-spot-no">Yes (Keep Spot)</button>
+            <button className="delete-spot-no" onClick={closeModal}>No (Keep Spot)</button>
         </div>
     )
 }

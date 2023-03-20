@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as spotActions from '../../store/spot';
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteModal from "./DeleteModal";
@@ -15,7 +15,7 @@ function SpotManage() {
     useEffect(() => {
         dispatch(spotActions.thunkGetUserSpots());
 
-    }, [dispatch, sessionUser])
+    }, [dispatch, sessionUser, allSpotsObj])
 
     const allSpotsArr = Object.values(allSpotsObj);
 

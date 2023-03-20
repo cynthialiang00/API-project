@@ -100,10 +100,10 @@
     width: 18%;
     border: .15em solid black;
     box-shadow: .15em .15em black;
-    margin: 0 2%;
+    margin-right: 2%;
 }
 
-.spot-util-button >button > .button-link {
+.spot-util-button > button > .button-link {
     color:white;
 }
 
