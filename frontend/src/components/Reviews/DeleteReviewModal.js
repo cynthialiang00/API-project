@@ -13,11 +13,11 @@ function DeleteReviewModal({ id }) {
         closeModal();
     }
     return (
-        <div>
-            <h2>Delete Review</h2>
-            <div>Are you sure you want to delete this review?</div>
-            <button onClick={deleteTest}>Yes (Delete Review)</button>
-            <button onClick={closeModal}>No (Keep Review)</button>
+        <div className="delete-review-parent">
+            <h2>Confirm Delete</h2>
+            <p>Are you sure you want to delete this review?</p>
+            <button className="delete-review-yes" onClick={deleteTest}>Yes (Delete Review)</button>
+            <button className="delete-review-no" onClick={closeModal} >No (Keep Review)</button>
         </div>
     )
 }

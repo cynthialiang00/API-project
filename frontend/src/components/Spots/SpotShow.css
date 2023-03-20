@@ -254,3 +254,37 @@ img {
     border: .15em solid black;
     box-shadow: .15em .15em black;
 }
+
+/* Delete Modal */
+.delete-review-parent {
+    width: 25vw;
+    height: 15vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: .25em solid black;
+    border-radius: 1em;
+}
+
+.delete-review-parent > p {
+    margin: -10%;
+}
+
+.delete-review-yes {
+    color: white;
+    background-color: #ff4545;
+    width: 92%;
+    height: 2.5vw;
+    border: .15em solid black;
+    box-shadow: .15em .15em black;
+}
+.delete-review-no {
+    color: white;
+    background-color: grey;
+    margin-top: -10%;
+    width: 92%;
+    height: 2.5vw;
+    border: .15em solid black;
+    box-shadow: .15em .15em black;
+}
