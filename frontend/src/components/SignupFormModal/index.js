@@ -124,10 +124,6 @@ function SignupFormModal() {
                 >Sign Up
                 </button>
                 
-                
-                
-                
-                
             </form>
         </>
     );
