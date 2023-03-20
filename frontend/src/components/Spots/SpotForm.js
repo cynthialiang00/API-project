@@ -10,8 +10,8 @@ function SpotForm() {
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
-    const [lat, setLat] = useState(0);
-    const [lng, setLng] = useState(0);
+    const [lat, setLat] = useState(1.23);
+    const [lng, setLng] = useState(1.23);
     const [description, setDescription] = useState('');
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
@@ -35,18 +35,6 @@ function SpotForm() {
         })
     };
 
-    // const testImage = () => {
-    //     const newArr = [];
-
-    //     if (prevImgURL.length) newArr.push(imgObjCreator(prevImgURL,true));
-    //     if (imgURL1.length) newArr.push(imgObjCreator(imgURL1));
-    //     if (imgURL2.length) newArr.push(imgObjCreator(imgURL2));
-    //     if (imgURL3.length) newArr.push(imgObjCreator(imgURL3));
-    //     if (imgURL4.length) newArr.push(imgObjCreator(imgURL4));
-    //     console.log(newArr);
-    //     return;
-    // }
-    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -61,13 +49,6 @@ function SpotForm() {
         if (imgURL3.length) imgArr.push(imgObjCreator(imgURL3));
         if (imgURL4.length) imgArr.push(imgObjCreator(imgURL4));
 
-        // set default values for lat/lng if no inputs
-        if (!lat) {
-            setLat(1.23);
-        };
-        if (!lng) {
-            setLng(1.23);
-        };
 
         const newSpot = JSON.stringify({
             address,
@@ -156,31 +137,6 @@ function SpotForm() {
                     {spotErrors["state"] &&
                         <p className="errors">{spotErrors["state"]}</p>}
 
-                <label>
-                    Latitude
-                    <input
-                        type="text"
-                        value={lat}
-                        placeholder="Latitude"
-                        onChange={(e) => setLat(e.target.value)}
-                    />
-                </label>
-                    {spotErrors["lat"] &&
-                        <p className="errors">{spotErrors["lat"]}</p>}
-
-                <div className="comma">,</div>
-
-                <label>
-                    Longitude
-                    <input
-                        type="text"
-                        value={lng}
-                        placeholder="Longitude"
-                        onChange={(e) => setLng(e.target.value)}
-                    />
-                </label>
-                    {spotErrors["lng"] &&
-                        <p className="errors">{spotErrors["lng"]}</p>}
             </div>
 
             <div className="divider"></div>
@@ -282,7 +238,6 @@ function SpotForm() {
             
 
             <button type="submit">Create Spot</button>
-            {/* <button type="button" onClick={testImage}>Test Image Array</button> */}
         </form>
         </div>
     )
