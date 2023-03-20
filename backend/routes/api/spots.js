@@ -285,6 +285,15 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         return next(err)
     }
 
+    if (!url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) {
+        const errors = {};
+        const err = new Error("Invalid image");
+        err.status = 400;
+        errors["url"] = "Image url must end in .png, .jpg, or .jpeg";
+        err.errors = errors;
+        return next(err);
+    }
+
     const newImg = await spot.createSpotImage({
         url, preview
     });

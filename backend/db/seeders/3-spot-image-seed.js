@@ -15,16 +15,6 @@ module.exports = {
         preview: true
       },
       {
-        spotId: 1,
-        url: "random1-url.com/random.jpg",
-        preview: false
-      },
-      {
-        spotId: 1,
-        url: "random2-url.com/random.png",
-        preview: true
-      },
-      {
         spotId: 2,
         url: "https://visitkinosaki.com/travel-professionals/wp-content/uploads/2018/06/kinosaki-sakura01.jpg",
         preview: true
