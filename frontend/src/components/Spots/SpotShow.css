@@ -193,7 +193,7 @@ img {
 }
 
 /* MODAL BUTTON */
-.modal-button {
+.post-rvw-button > .modal-button {
     background-color: grey;
     color: white;
     width: 15%;
