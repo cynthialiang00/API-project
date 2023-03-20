@@ -80,6 +80,9 @@ img {
     border-bottom: .1em solid black;
 }
 
+.spot-title {
+    padding-top: 5%;
+}
 .spot-details-head {
     grid-column: 1;
     margin: 0;
@@ -90,6 +93,7 @@ img {
 .spot-details-body {
     display: inline-block;
     grid-column: 1;
+    margin-top: 2%;
 }
 
 /* Reserve Box*/
@@ -175,17 +179,17 @@ img {
 }
 
 .review-firstName {
-    font-size: 100%;
+    font-size: 115%;
     font-weight: bold;
 }
 
 .review-date {
-    font-size: 85%;
+    font-size: 95%;
     color: grey;
 }
 
 .review-body {
-    font-size: 85%;
+    font-size: 95%;
 }
 
 /* MODAL BUTTON */

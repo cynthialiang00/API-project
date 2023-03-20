@@ -29,10 +29,10 @@ function SpotShow() {
             <>
                 <div className="details-content">
                     <div className="spot-header">
-                        <div>
+                        <div className="spot-title">
                             <h2>{spot.name}</h2>
                         </div>
-                        <div>
+                        <div className="spot-title">
                             <p>{`${spot.city}, ${spot.state}, ${spot.country}`}</p>
                         </div>
                     </div>
@@ -74,7 +74,7 @@ function SpotShow() {
                                     <i className="fa-solid fa-star"></i>
                                 </span>
                                 <span className="avg-rating-rating">
-                                    {spot.avgStarRating === null ? `New` : `${spot.avgStarRating}`}
+                                    {spot.avgStarRating === "0.0" ? `New` : `${spot.avgStarRating}`}
                                 </span>
                                 {spot.numReviews ? <span className="dot">· </span>
                                     : <></>}
@@ -112,7 +112,7 @@ function SpotShow() {
                                     <i className="fa-solid fa-star"></i>
                                 </span>
                                  <span className="avg-rating-rating">
-                                    {spot.avgStarRating === null ? `New` : `${spot.avgStarRating}`}
+                                    {spot.avgStarRating === "0.0" ? `New` : `${spot.avgStarRating}`}
                                  </span>
                                     
 
