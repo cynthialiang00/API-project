@@ -26,3 +26,13 @@ React.js, Redux, PostGresSQL, Express, Postman (for testing)
 5. Navigate to localhost:3000 to see the website
 
 -----DEMONSTRATION
+
+LANDING PAGE
+<img width="1470" alt="landing" src="https://user-images.githubusercontent.com/118590381/226367297-bb5e1896-3eb3-4f5f-85ec-201ccc0fe56c.png">
+
+
+CLICK ON USER PROFILE BUTTON TO LOGIN OR SIGN UP
+
+
+
+
