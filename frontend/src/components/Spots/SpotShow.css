@@ -17,11 +17,12 @@
 .spot-images{
     display: grid;
     width: 98%;
+    height: 60vh;
     border: 0;
     padding: 0;
     margin: 0;
     grid-template-columns: 50% 25% 25%;
-    grid-template-rows: 28% 28%;
+    grid-template-rows: 50% 50%;
     grid-gap: 0.5vw;
 }
 
@@ -29,11 +30,12 @@ img {
     border-radius: 3%;
 }
 
-.main-img-container {
+.img-0-container {
     grid-column: 1/2;
     grid-row: 1/3;
+    max-width: 100%;
 }
-.main-pic {
+.pic-0 {
     width: 100%;
     height: 100%;
 }
@@ -42,7 +44,7 @@ img {
     grid-column: 2;
     grid-row: 1;
 }
-.small-pic1 {
+.pic-1 {
     width: 100%;
     height: 100%;
 }
@@ -50,7 +52,7 @@ img {
     grid-column: 3;
     grid-row: 1;
 }
-.small-pic2 {
+.pic-2 {
     width: 100%;
     height: 100%;
 }
@@ -58,7 +60,7 @@ img {
     grid-column: 2;
     grid-row: 2;
 }
-.small-pic3 {
+.pic-3 {
     width: 100%;
     height: 100%;
 }
@@ -66,13 +68,13 @@ img {
     grid-column: 3;
     grid-row: 2;
 }
-.small-pic4 {
+.pic-4{
     width: 100%;
     height: 100%;
 }
 /* Spot Details */
 .spot-details {
-    margin-top: -20%;
+    margin-top: 5%;
     border: 0;
     padding-bottom: 3%;
     display: grid;
