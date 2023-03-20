@@ -42,7 +42,10 @@ function ReadReviews ({isOwner}) {
                     modalComponent={<PostReviewModal id={spotId} />}
                     />
                 </div>
-                Be the first to post a review!
+                <div className="review-container">
+                    Be the first to post a review!
+                </div>
+                
             </div>
         )
     }
