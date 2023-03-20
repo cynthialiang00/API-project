@@ -8,7 +8,7 @@
 
 
 .navigation-parent {
-    position: fixed;
+    position: absolute;
     top: 0em;
     width: 100vw;
     background-color:#1e1c1c;
@@ -21,7 +21,6 @@
 
 /* User profile bar */
 .user-utils {
-    display: inline-block;
     margin: 1.5%;
 }
 
@@ -34,16 +33,63 @@
     display: inline-block;
 }
 
-.button {
+.profile-button > .button {
     display: flex;
     border-radius: 30px;
     border: 1px solid grey;
     background-color: #1e1c1c;
+    margin: 0 20%;
 }
 
-.button-icon {
+.profile-button>.button > .button-icon {
     font-size: 20px;
     color: white;
     padding: 5px;
     margin: 5px;
+}
+
+/* Dropdown */
+
+.profile-dropdown > li {
+    font-size: 80%;
+    padding-bottom: 3%;
+    list-style-type: none;
+    text-align: center;
+    
+}
+
+.manage-spots-link {
+    color: white;
+    text-decoration: none;
+    border-top: .05em solid white;
+    border-bottom: .05em solid white;
+
+}
+
+.profile-dropdown > li > button {
+    background-color: white;
+    margin: 5% 0;
+    padding: 5%;
+    width: 5vw;
+    border-radius: 3em;
+}
+
+.profile-dropdown > ul > user-util-modals {
+    cursor: pointer;
+}
+
+/* Create Spot */
+.nav-create-spot {
+    position: absolute;
+    top: 2.3em;
+    right: 7em;
+    text-decoration: none;
+    font-size: 80%;
+    color: white;
+}
+/* Logo */
+.logo > .logo-image > img{
+    margin: 20% 20%;
+    max-width: 125px;
+    max-height: 100px;
 }

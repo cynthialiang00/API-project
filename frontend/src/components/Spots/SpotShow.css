@@ -10,6 +10,7 @@
 }
 /* Spot Details Header */
 .spot-header {
+    margin-top: .5vw;
     margin-bottom: 3%;
 }
 /* Pictures */
@@ -247,7 +248,6 @@ img {
 
 .review-form > button {
     color: white;
-    background-color: #ff4545;
     margin: 0 -10%;
     width: 92%;
     height: 2.5vw;

@@ -112,6 +112,7 @@ function PostReviewModal ({id}) {
                 }
                 <button type="submit"
                         disabled={Object.keys(dynamicRvwErrors).length}
+                        className={Object.keys(dynamicRvwErrors).length ? "disabled" : "enabled"}
                 >
                     Submit Your Review
                 </button>
