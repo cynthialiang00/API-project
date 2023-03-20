@@ -1,6 +1,6 @@
 import React from "react";
 import * as spotActions from '../../store/spot';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./SpotForm.css";
 
@@ -10,11 +10,12 @@ function SpotForm() {
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
-    const [lat, setLat] = useState(1.23);
-    const [lng, setLng] = useState(1.23);
     const [description, setDescription] = useState('');
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
+
+    const lat = 1.23;
+    const lng = 1.23;
 
 
     const [prevImgURL, setPrevImgURL] = useState("");
@@ -27,6 +28,7 @@ function SpotForm() {
 
     const [spotErrors, setSpotErrors] = useState({});
     const [imgErrors, setImgErrors] = useState({});
+
 
     const imgObjCreator = (imageUrl, previewBool = false) => {
         return JSON.stringify({
