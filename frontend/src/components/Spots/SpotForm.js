@@ -114,20 +114,6 @@ function SpotForm() {
                 if (validationErrors.errors) setSpotErrors(validationErrors.errors)
             })
 
-        // for (let img of imgArr) {
-        //     const newImgData = await spotActions.fetchAddImg(newSpotData.id, img)
-        //         .catch(async (response) => {
-        //             const imageValidationErrors = await response.json();
-        //             console.log(imageValidationErrors.errors)
-        //             if (imageValidationErrors.errors) {
-        //                 console.log("VALIDATION ERROR HIT")
-        //                 setImgErrors(imageValidationErrors.errors)
-        //                 return;
-        //             }
-        //         });
-        // }
-        console.log("prev image errors: ", prevErrors)
-        console.log("imgErrors: ", imgErrors)
 
         history.push(`/spots/${newSpotData.id}`);
         
@@ -315,13 +301,3 @@ function SpotForm() {
 }
 
 export default SpotForm;
-
-// const testCreate = async (e) => {
-    //     e.preventDefault();
-
-    //     const data = await spotActions.fetchCreateSpot(JSON.stringify(testSpot));
-    //     // then redirect to /spots/${data.id} blah blah blah
-    //     console.log("data: ", data)
-    //     console.log(data.id)
-
-    // }
