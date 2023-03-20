@@ -14,6 +14,8 @@ function SpotForm() {
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
 
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+
     const lat = 1.23;
     const lng = 1.23;
 
@@ -28,7 +30,13 @@ function SpotForm() {
 
     const [spotErrors, setSpotErrors] = useState({});
     const [imgErrors, setImgErrors] = useState({});
+    const [prevErrors, setPrevErrors] = useState({});
 
+    useEffect(() => {
+        const errors = {};
+        if (!prevImgURL) errors["prevImgURL"] = "Preview image is required.";
+        setPrevErrors(errors)
+    }, [prevImgURL])
 
     const imgObjCreator = (imageUrl, previewBool = false) => {
         return JSON.stringify({
@@ -42,7 +50,7 @@ function SpotForm() {
         e.preventDefault();
         setSpotErrors({});
         setImgErrors({});
-        
+        setHasSubmitted(true);
         const imgArr = [];
 
         if (prevImgURL.length) imgArr.push(imgObjCreator(prevImgURL,true));
@@ -75,7 +83,9 @@ function SpotForm() {
             if (newImgData && newImgData.errors) setImgErrors(newImgData.errors)
         }
 
-        history.push(`/spots/${newSpotData.id}`);
+        if (newSpotData) history.push(`/spots/${newSpotData.id}`);
+        else return;
+        
 
     }
 
@@ -140,8 +150,6 @@ function SpotForm() {
                         <p className="errors">{spotErrors["state"]}</p>}
 
             </div>
-
-            <div className="divider"></div>
 
             <div className="inputs-container">
                 <div className="inputs-header">
@@ -212,30 +220,42 @@ function SpotForm() {
                         placeholder="Preview Image URL"
                         onChange={(e) => setPrevImgURL(e.target.value)}
                     />
+                    {hasSubmitted && prevErrors.prevImgURL &&
+                        <p className="errors">{prevErrors.prevImgURL}</p>}
+                    {imgErrors.url &&
+                        <p className="errors">{imgErrors.url}</p>}
                     <input
                         type="text"
                         value={imgURL1}
                         placeholder= "Image URL"
                         onChange={(e) => setImgURL1(e.target.value)}
-                    />                
+                    />
+                    {imgErrors.url &&
+                        <p className="errors">{imgErrors.url}</p>}                
                     <input
                         type="text"
                         value={imgURL2}
                         placeholder="Image URL"
                         onChange={(e) => setImgURL2(e.target.value)}
-                    />                
+                    />
+                    {imgErrors.url &&
+                        <p className="errors">{imgErrors.url}</p>}                
                     <input
                         type="text"
                         value={imgURL3}
                         placeholder="Image URL"
                         onChange={(e) => setImgURL3(e.target.value)}
                     />
+                    {imgErrors.url &&
+                        <p className="errors">{imgErrors.url}</p>}
                     <input
                         type="text"
                         value={imgURL4}
                         placeholder="Image URL"
                         onChange={(e) => setImgURL4(e.target.value)}
                     />
+                    {imgErrors.url &&
+                        <p className="errors">{imgErrors.url}</p>}
             </div>
             
 
