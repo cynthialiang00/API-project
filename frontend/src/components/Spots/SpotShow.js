@@ -19,10 +19,13 @@ function SpotShow() {
     const spot = useSelector(state=>state.spots.singleSpot)
     const sessionUser = useSelector(state => state.session.user);
 
+    const reviews = useSelector(state => state.reviews.spot);
+    const newestReview = useSelector(state => state.reviews.new);    
+
 
     useEffect(() => {
         dispatch(spotActions.thunkGetSpotDetail(spotId));
-    }, [dispatch, spotId])
+    }, [dispatch, spotId, reviews, newestReview])
 
     if (Object.keys(spot).length) {
         return (
