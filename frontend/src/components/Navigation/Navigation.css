@@ -90,6 +90,6 @@
 /* Logo */
 .logo > .logo-image > img{
     margin: 20% 20%;
-    max-width: 10vw;
-    max-height: 20vw;
+    max-width: 125px;
+    max-height: 100px;
 }
