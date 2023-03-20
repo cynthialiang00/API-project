@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { useModal } from '../../context/Modal';
+import "./SpotShow.css";
 
 function OpenReserveMenuItem({
     modalComponent, // component to render inside the modal
@@ -17,7 +18,7 @@ function OpenReserveMenuItem({
     };
 
     return (
-        <button onClick={onClick}>{itemText}</button>
+        <button className="reserve-button" onClick={onClick}>{itemText}</button>
     );
 }
 
