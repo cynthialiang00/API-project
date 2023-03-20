@@ -15,6 +15,26 @@ module.exports = {
         preview: true
       },
       {
+        spotId: 1,
+        url: "https://visitkinosaki.com/vkcore/wp-content/uploads/2021/04/about-top-slider1-5.jpg",
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: "https://photos.smugmug.com/Kyoto/Kinosaki-Onsen/i-JvX4wKT/0/a7cad879/L/shutterstock_645280435-L.jpg",
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: "https://cdn.jalan.jp/jalan/images/pict3L/Y8/Y371928/Y371928268.jpg",
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: "https://i0.wp.com/outoftownblog.com/wp-content/uploads/2020/01/Yukata-Rental-with-Sakura-1.jpg?fit=1000%2C1500&ssl=1",
+        preview: false
+      },
+      {
         spotId: 2,
         url: "https://visitkinosaki.com/travel-professionals/wp-content/uploads/2018/06/kinosaki-sakura01.jpg",
         preview: true

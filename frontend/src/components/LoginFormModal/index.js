@@ -45,32 +45,34 @@ function LoginFormModal() {
 
     return (
         <div className='login-form-parent'>
-            <form onSubmit={handleSubmit}>
+            <form className="login-form" onSubmit={handleSubmit}>
+                <h2>Log In</h2>
                 {errors.invalid &&
                     <p className="errors">{errors.invalid}</p>}
 
-                <label>
-                    Username or Email
-                    <input
-                        type="text"
-                        value={credential}
-                        onChange={(e) => setCredential(e.target.value)}
-                        required
-                    />
-                </label>
+                <div>                        
+                        <input
+                            type="text"
+                            value={credential}
+                            placeholder="Username or Email"
+                            onChange={(e) => setCredential(e.target.value)}
+                            required
+                        />
+                </div>
                 
-                <label>
-                    Password
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </label>
+                <div>
+                        <input
+                            type="password"
+                            value={password}
+                            placeholder="password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                </div>
                 
                 <button type="submit"
                         disabled={Object.keys(dynamicErrors).length}
+                        className={Object.keys(dynamicErrors).length ? "disabled" : "enabled"}
                 >Log In
                 </button>
                 

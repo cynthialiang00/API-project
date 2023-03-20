@@ -1,0 +1,53 @@
+.login-form-parent {
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+    max-width: 25vw;
+    height: 15vw;
+    max-height: 17vw;
+    border: .25em solid black;
+    border-radius: 1em;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 95%;
+}
+
+.login-form > div {
+    width: 100%;
+}
+
+.login-form > div > input {
+    border: .1em solid darkslategray;
+    width: 90%;
+    margin: 2% 5%;
+    height: 2vw;
+    padding: 0;
+}
+
+.login-form > .enabled {
+    background-color: #ff4545;
+    color: white;
+    width: 90%;
+    height: 2vw;
+    border: .15em solid black;
+    box-shadow: .15em .15em black;
+}
+
+.login-form>.disabled {
+    background-color: grey;
+    color: white;
+    width: 90%;
+    height: 2vw;
+    border: .15em solid black;
+    box-shadow: .15em .15em black;
+}
+
+.login-form-parent > .demo-user-link {
+    align-self: center;
+    margin-top: -10%;
+}

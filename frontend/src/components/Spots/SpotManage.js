@@ -1,23 +1,27 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as spotActions from '../../store/spot';
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect} from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteModal from "./DeleteModal";
 import './Spots.css';
 
-function SpotManage() {
+function SpotManage({user}) {
     const dispatch = useDispatch();
     const allSpotsObj = useSelector(state => state.spots.allSpots)
-    const sessionUser = useSelector(state => state.session.user);
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(spotActions.thunkGetUserSpots());
 
-    }, [dispatch, sessionUser])
+    }, [dispatch])
 
     const allSpotsArr = Object.values(allSpotsObj);
+
+    if (!user) {
+        return history.push("/not-found");
+    };
 
     if (allSpotsObj.undefined) {
         return (
@@ -25,9 +29,12 @@ function SpotManage() {
                 <div className="spots-page-header">
                     <h2>Manage Your Spots</h2>
                     {allSpotsObj.undefined ?
-                        <button className="small-button" >
-                            <NavLink className="button-link" to="/spots/new">Create a New Spot</NavLink>
-                        </button>
+                    <div className="spot-util-button">
+                            <button  >
+                                <NavLink className="button-link" to="/spots/new">Create a New Spot</NavLink>
+                            </button>
+                    </div>
+                        
                         :
                         <></>
                     }
@@ -38,6 +45,7 @@ function SpotManage() {
     }
 
 
+    
     return (
         <div className="spots-content">
             <div className="spots-page-header">
@@ -64,17 +72,21 @@ function SpotManage() {
                             </div>
                         </NavLink>
 
-                        <div className="update-button">
-                            <button className="small-button" >
-                                <NavLink className="button-link" to={`${spot.id}/edit`}>Update</NavLink>
-                            </button>
-                        </div>
-                        <div className="update-button">
-                            <OpenModalButton
-                                buttonText="Delete"
-                                modalComponent={<DeleteModal id={spot.id} />}
-                            />
-                        </div>
+
+                            <span className="spot-util-button">
+                                <button >
+                                    <NavLink className="button-link" to={`${spot.id}/edit`}>Update</NavLink>
+                                </button>
+                            </span>
+                            
+                        
+                            <span className="spot-util-button">
+                                <OpenModalButton
+                                    buttonText="Delete"
+                                    modalComponent={<DeleteModal id={spot.id} />}
+                                />
+                            </span>
+                        
                     </div>
 
                 ))}

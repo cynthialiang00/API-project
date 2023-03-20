@@ -4,3 +4,21 @@
     border: 0;
     padding: 0;
 }
+
+.enabled {
+    background-color: #ff4545;
+}
+
+.disabled {
+    background-color: grey;
+}
+
+button {
+    cursor: pointer;
+}
+
+li {
+    list-style-type: none;
+    cursor: pointer;
+}
+

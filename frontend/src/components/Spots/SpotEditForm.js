@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import "./SpotForm.css";
 
-function SpotEditForm() {
+function SpotEditForm({user}) {
     const spot = useSelector(state => state.spots.singleSpot)
     const {spotId} = useParams();
 
@@ -36,11 +36,13 @@ function SpotEditForm() {
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
-    const [lat, setLat] = useState('');
-    const [lng, setLng] = useState('');
+    const [lat, setLat] = useState(1.23);
+    const [lng, setLng] = useState(1.23);
     const [description, setDescription] = useState('');
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
+
+    const[hasSubmitted, setHasSubmitted] = useState(false);
 
     
 
@@ -49,16 +51,9 @@ function SpotEditForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setHasSubmitted(true);
         setSpotErrors({});
 
-
-        // set default values for lat/lng if no inputs
-        if (!lat) {
-            setLat(1.23);
-        };
-        if (!lng) {
-            setLng(1.23);
-        };
 
         const newSpot = JSON.stringify({
             address,
@@ -82,98 +77,88 @@ function SpotEditForm() {
         
     }
 
-    
+    if (!user) {
+        return history.push("/not-found");
+    }
     if (Object.keys(spot).length === 0) {
         return null;}
-
+    
     return (
         <div className="create-container">
-            <h3>Update Your Spot</h3>
-            <form className="login-form" onSubmit={handleSubmit}>
+            <h3>Create a new Spot</h3>
+            <form className="create-form" onSubmit={handleSubmit}>
                 <div className="inputs-container">
                     <div className="inputs-header">Where's your place located?</div>
                     <div className="inputs-brief">
                         Guests will only get your exact address once they booked
                         a reservation.
                     </div>
-                    <label>
-                        Country
-                        <input
-                            type="text"
-                            value={country}
-                            placeholder="country"
-                            onChange={(e) => setCountry(e.target.value)}
-                        />
-                    </label>
-                    {spotErrors["country"] &&
-                        <p className="errors">{spotErrors["country"]}</p>}
+                    <div className="form-label-input">
+                        <label>
+                            Country
+                            <input
+                                type="text"
+                                value={country}
+                                placeholder="Country"
+                                onChange={(e) => setCountry(e.target.value)}
+                            />
+                        </label>
+                        {hasSubmitted && spotErrors["country"] &&
+                            <p className="errors">{spotErrors["country"]}</p>}
+                    </div>
 
-                    <label>
-                        Street Address
-                        <input
-                            type="text"
-                            value={address}
-                            placeholder="address"
-                            onChange={(e) => setAddress(e.target.value)}
-                        />
-                    </label>
-                    {spotErrors["address"] &&
-                        <p className="errors">{spotErrors["address"]}</p>}
+                    <div className="form-label-input">
+                        <label>
+                            Street Address
+                            <input
+                                type="text"
+                                value={address}
+                                placeholder="Address"
+                                onChange={(e) => setAddress(e.target.value)}
+                            />
+                        </label>
+                        {hasSubmitted && spotErrors["address"] &&
+                            <p className="errors">{spotErrors["address"]}</p>}
 
-                    <label>
-                        City
-                        <input
-                            type="text"
-                            value={city}
-                            placeholder="city"
-                            onChange={(e) => setCity(e.target.value)}
-                        />
-                    </label>
-                    {spotErrors["city"] &&
-                        <p className="errors">{spotErrors["city"]}</p>}
+                    </div>
 
-                    <div className="comma">,</div>
+                    <div className="form-label-input">
+                        <span>
+                            <label>
+                                City
 
-                    <label>
-                        State
-                        <input
-                            type="text"
-                            value={state}
-                            placeholder="state"
-                            onChange={(e) => setState(e.target.value)}
-                        />
-                    </label>
-                    {spotErrors["state"] &&
-                        <p className="errors">{spotErrors["state"]}</p>}
+                            </label>
+                            <input
+                                className="city"
+                                type="text"
+                                value={city}
+                                placeholder="City"
+                                onChange={(e) => setCity(e.target.value)}
+                            />
 
-                    <label>
-                        Latitude
-                        <input
-                            type="text"
-                            value={lat}
-                            placeholder="lat"
-                            onChange={(e) => setLat(e.target.value)}
-                        />
-                    </label>
-                    {spotErrors["lat"] &&
-                        <p className="errors">{spotErrors["lat"]}</p>}
+                            {hasSubmitted && spotErrors["city"] &&
+                                <p className="errors">{spotErrors["city"]}</p>}
+                        </span>
+                        <span className="comma">,</span>
+                        <span>
+                            <label>
+                                State
 
-                    <div className="comma">,</div>
+                            </label>
+                            <input
+                                className="state"
+                                type="text"
+                                value={state}
+                                placeholder="STATE"
+                                onChange={(e) => setState(e.target.value)}
+                            />
 
-                    <label>
-                        Longitude
-                        <input
-                            type="text"
-                            value={lng}
-                            placeholder="lng"
-                            onChange={(e) => setLng(e.target.value)}
-                        />
-                    </label>
-                    {spotErrors["lng"] &&
-                        <p className="errors">{spotErrors["lng"]}</p>}
+                            {hasSubmitted && spotErrors["state"] &&
+                                <p className="errors">{spotErrors["state"]}</p>}
+                        </span>
+                    </div>
+
                 </div>
-
-                <div className="divider"></div>
 
                 <div className="inputs-container">
                     <div className="inputs-header">
@@ -183,14 +168,17 @@ function SpotEditForm() {
                         Mention the best features of your space, any special amenities
                         like fast wifi or parking, and what you love about the neighborhood.
                     </div>
-                    <textarea
-                        type="text"
-                        value={description}
-                        placeholder="Please write at least 30 characters"
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                    {spotErrors["description"] &&
-                        <p className="errors">{spotErrors["description"]}</p>}
+                    <div className="form-label-input">
+                        <textarea
+                            type="text"
+                            value={description}
+                            placeholder="Please write at least 30 characters"
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                        {hasSubmitted && spotErrors["description"] &&
+                            <p className="errors">{spotErrors["description"]}</p>}
+                    </div>
+
                 </div>
 
                 <div className="inputs-container">
@@ -201,15 +189,19 @@ function SpotEditForm() {
                         Catch guests' attention with a spot title that highlights what
                         makes your place special.
                     </div>
-                    <input
-                        type="text"
-                        value={name}
-                        placeholder="name"
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    {spotErrors["name"] &&
-                        <p className="errors">{spotErrors["name"]}</p>}
+                    <div className="form-label-input">
+                        <input
+                            type="text"
+                            value={name}
+                            placeholder="Name of your spot"
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                        {hasSubmitted && spotErrors["name"] &&
+                            <p className="errors">{spotErrors["name"]}</p>}
+                    </div>
+
                 </div>
+
                 <div className="inputs-container">
                     <div className="inputs-header">
                         Set a base price for your spot
@@ -218,21 +210,24 @@ function SpotEditForm() {
                         Competitive pricing can help your listing stand out
                         and rank higher in search results.
                     </div>
-                    <label>
-                        $
+                    <div className="form-label-input">
+                        <label className="pricetag">
+                            $
+                        </label>
                         <input
                             type="text"
                             value={price}
-                            placeholder="price"
+                            placeholder="Price per night (USD)"
                             onChange={(e) => setPrice(e.target.value)}
                         />
-                    </label>
-                    {spotErrors["price"] &&
-                        <p className="errors">{spotErrors["price"]}</p>}
+                        {hasSubmitted && spotErrors["price"] &&
+                            <p className="errors">{spotErrors["price"]}</p>}
+                    </div>
+
                 </div>
 
-                
-                <button type="submit">Update Spot</button>
+                <button type="submit"
+                >Update Spot</button>
             </form>
         </div>
     )
