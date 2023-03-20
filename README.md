@@ -40,4 +40,6 @@ MANAGE SPOTS IF LOGGED IN
 <img width="1470" alt="manage" src="https://user-images.githubusercontent.com/118590381/226367740-f57be1c6-7caa-495b-93cd-77ecd63ffcce.png">
 
 
+REDIRECTED IF NOT LOGGED IN
+<img width="1470" alt="redirect" src="https://user-images.githubusercontent.com/118590381/226367976-f1fb262d-e7a8-4e0c-8255-51d52e172073.png">
 
