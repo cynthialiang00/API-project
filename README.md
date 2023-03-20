@@ -31,7 +31,9 @@ LANDING PAGE
 <img width="1470" alt="landing" src="https://user-images.githubusercontent.com/118590381/226367297-bb5e1896-3eb3-4f5f-85ec-201ccc0fe56c.png">
 
 
-CLICK ON USER PROFILE BUTTON TO LOGIN OR SIGN UP
+SPOT DETAILS PAGE
+
+<img width="1470" alt="details" src="https://user-images.githubusercontent.com/118590381/226367562-64598204-f7f2-4e7f-b837-cdb754ea75f2.png">
 
 
 
