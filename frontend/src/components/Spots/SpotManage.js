@@ -25,9 +25,12 @@ function SpotManage() {
                 <div className="spots-page-header">
                     <h2>Manage Your Spots</h2>
                     {allSpotsObj.undefined ?
-                        <button className="small-button" >
-                            <NavLink className="button-link" to="/spots/new">Create a New Spot</NavLink>
-                        </button>
+                    <div className="spot-util-button">
+                            <button  >
+                                <NavLink className="button-link" to="/spots/new">Create a New Spot</NavLink>
+                            </button>
+                    </div>
+                        
                         :
                         <></>
                     }
@@ -64,17 +67,21 @@ function SpotManage() {
                             </div>
                         </NavLink>
 
-                        <div className="update-button">
-                            <button className="small-button" >
-                                <NavLink className="button-link" to={`${spot.id}/edit`}>Update</NavLink>
-                            </button>
-                        </div>
-                        <div className="update-button">
-                            <OpenModalButton
-                                buttonText="Delete"
-                                modalComponent={<DeleteModal id={spot.id} />}
-                            />
-                        </div>
+
+                            <span className="spot-util-button">
+                                <button >
+                                    <NavLink className="button-link" to={`${spot.id}/edit`}>Update</NavLink>
+                                </button>
+                            </span>
+                            
+                        
+                            <span className="spot-util-button">
+                                <OpenModalButton
+                                    buttonText="Delete"
+                                    modalComponent={<DeleteModal id={spot.id} />}
+                                />
+                            </span>
+                        
                     </div>
 
                 ))}
