@@ -21,18 +21,18 @@ Check out [SpringBnb](https://cynthia-new-auth-me.onrender.com/)!
 
 <br />
 
-##OVERVIEW
+## OVERVIEW
 
-###LANDING PAGE
+### LANDING PAGE
 <img width="1470" alt="landing" src="https://user-images.githubusercontent.com/118590381/226367297-bb5e1896-3eb3-4f5f-85ec-201ccc0fe56c.png">
 
 
-###SPOT DETAILS PAGE
+### SPOT DETAILS PAGE
 
 <img width="1470" alt="details" src="https://user-images.githubusercontent.com/118590381/226367562-64598204-f7f2-4e7f-b837-cdb754ea75f2.png">
 
 
-###MANAGE SPOTS IF LOGGED IN
+### MANAGE SPOTS IF LOGGED IN
 <img width="1470" alt="manage" src="https://user-images.githubusercontent.com/118590381/226367740-f57be1c6-7caa-495b-93cd-77ecd63ffcce.png">
 
 ###WRITE A REVIEW
