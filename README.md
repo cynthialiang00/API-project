@@ -35,7 +35,7 @@ Check out [SpringBnb](https://cynthia-new-auth-me.onrender.com/)!
 ### MANAGE SPOTS IF LOGGED IN
 <img width="1470" alt="manage" src="https://user-images.githubusercontent.com/118590381/226367740-f57be1c6-7caa-495b-93cd-77ecd63ffcce.png">
 
-###WRITE A REVIEW
+### WRITE A REVIEW
 <img width="1469" alt="Screen Shot 2023-05-07 at 3 35 28 PM" src="https://user-images.githubusercontent.com/118590381/236705799-af9c17f0-9a02-441a-8692-fcb89591bb0d.png">
 
 <br/>
