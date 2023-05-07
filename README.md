@@ -45,7 +45,7 @@ Check out [SpringBnb](https://cynthia-new-auth-me.onrender.com/)!
 1. Clone the repository from github on branch 'main'
 2. Install dependencies in the root project directory.
 ```bash
-npm start
+npm install
 ```
 3. In the backend folder, Create a .env file using the .envexample provided.
 
