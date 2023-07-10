@@ -43,7 +43,7 @@ function SpotShow() {
                         {spot.SpotImages.map((img, index) => (
                             
                             <div key={img.id} className={`img-${index}-container`}>
-                                <img className={`pic-${index}`} src={img.url} alt="spot picture"></img>
+                                <img className={`pic-${index}`} src={img.url} alt="spot preview"></img>
                             </div>
 
                             // <div className="img-1-container">
@@ -81,25 +81,29 @@ function SpotShow() {
                                 <span className="avg-rating-star">
                                     <i className="fa-solid fa-star"></i>
                                 </span>
+
                                 <span className="avg-rating-rating">
                                     {spot.avgStarRating === "0.0" ? `New` : `${spot.avgStarRating}`}
                                 </span>
-                                {spot.numReviews ? <span className="dot">· </span>
-                                    : <></>}
+
+                                {spot.numReviews > 0 ? <span className="dot">· </span>
+                                    :
+                                    null
+                                }
 
                                 {spot.numReviews === 1 ?
                                     <span>
                                         {`${spot.numReviews} review`}
                                     </span>
                                     :
-                                    <></>
+                                    null
                                 }
                                 {spot.numReviews > 1 ?
                                     <span>
                                         {`${spot.numReviews} reviews`}
                                     </span>
                                     :
-                                    <></>
+                                    null
                                 }
                             </div>
 
