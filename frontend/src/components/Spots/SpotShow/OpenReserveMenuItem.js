@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useModal } from '../../context/Modal';
+import { useModal } from '../../../context/Modal';
 import "./SpotShow.css";
 
 function OpenReserveMenuItem({

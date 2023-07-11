@@ -5,7 +5,7 @@ import { Switch, Route, useParams } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Spots from "./components/Spots";
-import SpotShow from "./components/Spots/SpotShow";
+import SpotShow from "./components/Spots/SpotShow/SpotShow";
 import SpotForm from "./components/Spots/SpotForm";
 import SpotManage from "./components/Spots/SpotManage";
 import SpotEditForm from "./components/Spots/SpotEditForm";
