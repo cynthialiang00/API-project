@@ -35,6 +35,9 @@ function App() {
           <Route path="/spots/current">
             <SpotManage user={sessionUser}/>
           </Route>
+          <Route path="/bookings/current">
+            
+          </Route>
           <Route path="/spots/:spotId/edit">
             <SpotEditForm user={sessionUser}/>
           </Route>

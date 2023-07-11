@@ -63,7 +63,7 @@ function ProfileButton({ user }) {
                             <NavLink id="manage-spots-link" to="/spots/current">Manage Spots</NavLink>
                         </li>
                         <li>
-                            <NavLink id="manage-trips-link" to="/trips">Manage Trips</NavLink>
+                            <NavLink id="manage-trips-link" to="/bookings/current">Manage Trips</NavLink>
                         </li>
                         <li>
                             <button onClick={logout}>Log Out</button>
