@@ -8,17 +8,17 @@
 
 
 .navigation-parent {
-    position: absolute;
-    top: 0em;
-    width: 100vw;
-    background-color:#1e1c1c;
     display: flex;
-    justify-content: space-between;
-    font-size: 20px;
-    color: white;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  background-color: #1e1c1c;
 
 }
 
+.nav-create-spot {
+    margin-right: 50px;
+}
 /* User profile bar */
 .user-utils {
     margin: 1.5%;
@@ -31,9 +31,10 @@
 
 .profile-button {
     display: inline-block;
+    margin-right: 20px;
 }
 
-.profile-button > .button {
+.profile-button > button {
     display: flex;
     border-radius: 30px;
     border: 1px solid grey;
@@ -41,7 +42,7 @@
     margin: 0 20%;
 }
 
-.profile-button>.button > .button-icon {
+.button-icon > i {
     font-size: 20px;
     color: white;
     padding: 5px;
@@ -49,20 +50,38 @@
 }
 
 /* Dropdown */
-
+.profile-dropdown {
+    background-color: #1e1c1c;
+    position: absolute;
+    right: 10px;
+    border: none;
+    border-radius: 10px;
+    width: 200px;
+}
 .profile-dropdown > li {
-    font-size: 80%;
+    font-size: 16px;
     padding-bottom: 3%;
     list-style-type: none;
     text-align: center;
+    color: white;
     
 }
 
-.manage-spots-link {
+.profile-dropdown>li:first-child {
+    cursor: auto;
+}
+
+#manage-spots-link {
     color: white;
     text-decoration: none;
-    border-top: .05em solid white;
-    border-bottom: .05em solid white;
+    border-top: 1px solid rgba(113, 113, 113, .5);
+
+}
+
+#manage-trips-link {
+    color: white;
+    text-decoration: none;
+    border-top: 1px solid rgba(113, 113, 113, .5);
 
 }
 

@@ -1,11 +1,19 @@
 import React from "react";
 import { useState } from "react";
-
+import { thunkAddBooking } from "../../../../store/booking";
+import { useDispatch } from "react-redux";
 
 import '../SpotShow.css';
 
-function ReserveForm({ handleSetNumDays, numDays, user }) {
+function FindAllMethods(obj) {
+    return Object.getOwnPropertyNames(obj).filter(function (property) {
+        return typeof obj[property] == "function";
+    });
+}
+
+function ReserveForm({ handleSetNumDays, numDays, user, spotId }) {
     
+    const dispatch = useDispatch();
 
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
@@ -29,12 +37,13 @@ function ReserveForm({ handleSetNumDays, numDays, user }) {
         const diffStartEnd = end.getTime() - start.getTime();
 
         return diffStartEnd / (1000 * 3600 * 24);
-    }
+    };
+
 
     if (startDate && endDate) {
         const numOfDays = calculateDays(startDate, endDate);
         handleSetNumDays(numOfDays);
-    }
+    };
 
     const handleSubmitDates = (e) => {
         e.preventDefault();
@@ -43,6 +52,14 @@ function ReserveForm({ handleSetNumDays, numDays, user }) {
             startDate: startDate,
             endDate: endDate
         });
+
+        const createBooking = dispatch(thunkAddBooking(spotId, newBooking))
+                                .then((res) => {
+                                    if (res.statusCode === 400) {
+                                        return alert(`${res.message}`)
+                                    }
+                                    return;
+                                })
 
     }
 

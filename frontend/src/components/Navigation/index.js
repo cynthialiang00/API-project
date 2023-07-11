@@ -11,23 +11,23 @@ function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
 
     return (
-        <ul className="navigation-parent">
-            <li className='logo'>
+        <nav className="navigation-parent">
+            <div className='logo'>
                     <NavLink className='logo-image' exact to="/">
                         <img src={springbnblogo} alt="Sprinbnb logo"></img>
                     </NavLink>
-            </li>
-            <li className='user-utils'>
+            </div>
+            <div className='user-utils'>
                 <CreateLink user={sessionUser}/>
                 {/* <div className="home">
                     <NavLink exact to="/">Home</NavLink>
                 </div> */}
                 {isLoaded && (
-                    <div className="profile-button">
+                    
                         <ProfileButton user={sessionUser} />
-                    </div>
+                    
                 )}
-            </li>
+            </div>
             {/* <ul>
                 <li>
                     <NavLink exact to="/">Home</NavLink>
@@ -38,7 +38,7 @@ function Navigation({ isLoaded }) {
                     </li>
                 )}
             </ul> */}
-        </ul>
+        </nav>
     );
 }
 

@@ -19,7 +19,7 @@ function ReserveBox({spot, user}) {
         <div className="reserve-box">
             <ReserveStats spot={spot}/>
             
-            <ReserveForm handleSetNumDays={handleSetNumDays} numDays={numDays} user={user}/>
+            <ReserveForm handleSetNumDays={handleSetNumDays} numDays={numDays} user={user} spotId={spot.id}/>
 
             {
                 numDays > 0 ?
