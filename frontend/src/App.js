@@ -10,6 +10,7 @@ import SpotForm from "./components/Spots/SpotForm";
 import SpotManage from "./components/Spots/SpotManage";
 import SpotEditForm from "./components/Spots/SpotEditForm";
 import Forbidden from "./components/Forbidden/Forbidden";
+import UserBookings from "./components/Bookings/UserBookings/UserBookings";
 
 import "./index.css";
 function App() {
@@ -36,7 +37,7 @@ function App() {
             <SpotManage user={sessionUser}/>
           </Route>
           <Route path="/bookings/current">
-            
+            <UserBookings user={sessionUser}/>
           </Route>
           <Route path="/spots/:spotId/edit">
             <SpotEditForm user={sessionUser}/>

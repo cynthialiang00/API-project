@@ -1,0 +1,14 @@
+.user-bookings-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+
+}
+/* User Bookings Card */
+.user-bookings-card-wrapper {
+    width: 290px;
+    height: 225px;
+    padding: 0;
+    text-decoration: none;
+}
