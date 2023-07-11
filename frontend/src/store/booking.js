@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const GET_USER_BOOKINGS = "booking/GET_USER_BOOKINGS";
 const ADD_BOOKING = "booking/ADD_BOOKING";
+const DELETE_USER_BOOKING = "booking/DELETE_USER_BOOKING";
 
 
 const addBooking = (data) => ({
@@ -12,6 +13,11 @@ const addBooking = (data) => ({
 const getUserBookings = (data) => ({
     type: GET_USER_BOOKINGS,
     payload: data
+});
+
+const deleteUserBooking = (bookingId) => ({
+    type: DELETE_USER_BOOKING,
+    payload: bookingId
 });
 
 export const thunkAddBooking = (spotId, bookingBody) => async (dispatch) => {
@@ -41,6 +47,21 @@ export const thunkGetUserBookings = () => async (dispatch) => {
     return data;
 };
 
+export const thunkDeleteUserBooking = (bookingId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/bookings/${bookingId}`, {
+        method: 'DELETE'
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        dispatch(deleteUserBooking(bookingId));
+    }
+
+    return data;
+};
+
+
 
 
 const initialState = { user: {} , spot: {}};
@@ -64,6 +85,12 @@ const bookingReducer = (state = initialState, action) => {
                 newState.user[book.id] = book
             });
 
+            return newState;
+
+        case DELETE_USER_BOOKING:
+            newState = {...state};
+            newState.user = {...state.user};
+            delete newState.user[action.payload];
             return newState;
         default:
             return state;

@@ -26,7 +26,7 @@ function UserBookings ({ user }) {
         <div className="user-bookings-wrapper">
             {userBookingsArr.length > 0 ?
                 userBookingsArr.map((booking) => (
-                    <UserBookingCard key={booking.id} booking={booking} />
+                    <UserBookingCard key={booking.id} booking={booking} user={user}/>
                 ))
                 :
                 <h2> No Bookings. </h2>
