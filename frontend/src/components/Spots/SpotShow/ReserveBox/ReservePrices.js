@@ -16,10 +16,15 @@ function ReservePrices({numDays, price}) {
 
             <div className="reserve-prices-preview-price-line">
                 <div>
-                    {`$${price} x ${numDays} nights`}
+
+                    {numDays === 1 ?
+                        `$${price} x ${numDays} night`
+                    :
+                        `$${price} x ${numDays} nights`
+                    }
                 </div>
                 <div>
-                    {`$${price}`}
+                    {`$${price * numDays}`}
                 </div>
             </div>
             <div className="reserve-prices-preview-price-line">
@@ -46,7 +51,7 @@ function ReservePrices({numDays, price}) {
                     Total
                 </div>
                 <div>
-                    {`$${price+cleaningFee+servFee}`}
+                    {`$${(price*numDays)+cleaningFee+servFee}`}
                 </div>
             </div>
 

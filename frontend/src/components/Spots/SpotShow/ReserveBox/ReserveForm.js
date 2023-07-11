@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import '../SpotShow.css';
 
-function ReserveForm({ handleSetNumDays }) {
+function ReserveForm({ handleSetNumDays, numDays, user }) {
     
 
     const [startDate, setStartDate] = useState(null);
@@ -31,15 +31,25 @@ function ReserveForm({ handleSetNumDays }) {
         return diffStartEnd / (1000 * 3600 * 24);
     }
 
-    console.log("DAYS BETWEEN: ", calculateDays(startDate, endDate));
-
     if (startDate && endDate) {
         const numOfDays = calculateDays(startDate, endDate);
         handleSetNumDays(numOfDays);
     }
 
+    const handleSubmitDates = (e) => {
+        e.preventDefault();
+
+        const newBooking = JSON.stringify({
+            startDate: startDate,
+            endDate: endDate
+        });
+
+    }
+
     return (
-        <form className="reserve-form">
+        <form className="reserve-form"
+              onSubmit={handleSubmitDates}
+        >
 
             <div className="reserve-form-inputs">
                 <div className="reserve-form-date">
@@ -63,7 +73,10 @@ function ReserveForm({ handleSetNumDays }) {
                 </div>
             </div>
 
-            <button className="reserve-form-submit-btn">
+            <button className="reserve-form-submit-btn"
+                    disabled={numDays === 0 || !user}
+                    type="submit"
+            >
                 Reserve
             </button>
         </form>

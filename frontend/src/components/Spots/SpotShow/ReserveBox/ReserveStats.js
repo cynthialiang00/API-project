@@ -21,9 +21,9 @@ function ReserveStats({ spot }) {
                         <i className="fa-solid fa-star"></i>
 
                         {spot.avgStarRating === "0.0" ?
-                            `New`
+                            ` New`
                             :
-                            `${spot.avgStarRating}`
+                            ` ${spot.avgStarRating}`
                         }
 
                     </div>

@@ -59,8 +59,13 @@ function SpotShow() {
                             </div>
                         </div>
                         
-                        
-                        <ReserveBox spot={spot} />  
+                        {
+                            spot.ownerId !== sessionUser.id ?
+                                <ReserveBox spot={spot} user={sessionUser} />  
+                            :
+                            null
+
+                        }
                         
                     </div>
 

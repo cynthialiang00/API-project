@@ -5,7 +5,7 @@ import ReservePrices from "./ReservePrices";
 
 import '../SpotShow.css';
 
-function ReserveBox({spot}) {
+function ReserveBox({spot, user}) {
 
     const [numDays, setNumDays] = useState(0);
 
@@ -14,13 +14,12 @@ function ReserveBox({spot}) {
         return;
     }
 
-    console.log("RESERVE BOX NUM DAYS: ", numDays);
     
     return(
         <div className="reserve-box">
             <ReserveStats spot={spot}/>
             
-            <ReserveForm handleSetNumDays={handleSetNumDays}/>
+            <ReserveForm handleSetNumDays={handleSetNumDays} numDays={numDays} user={user}/>
 
             {
                 numDays > 0 ?
