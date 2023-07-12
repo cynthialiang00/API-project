@@ -6,18 +6,33 @@
     border: 1px solid grey;
 }
 
+.navigation-wrapper {
+    height: 80px;
+    width: 100%;
+    border-bottom: 1px solid #f6e8e0;
+}
 
-.navigation-parent {
+.navigation-content {
     display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 70px;
-  background-color: #1e1c1c;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    width: 95%;
+    margin: 0 auto;
+    height: 100%;
 
 }
 
 .nav-create-spot {
-    margin-right: 50px;
+    margin-right: 100px;
+    background-color: red;
+}
+
+
+.logo-image img {
+    width: 70%;
+    height: 78%;
+    object-fit: cover;
 }
 /* User profile bar */
 .user-utils {
@@ -37,8 +52,7 @@
 .profile-button > button {
     display: flex;
     border-radius: 30px;
-    border: 1px solid grey;
-    background-color: #1e1c1c;
+    background-color: #fa6e79;
     margin: 0 20%;
 }
 
@@ -51,19 +65,22 @@
 
 /* Dropdown */
 .profile-dropdown {
-    background-color: #1e1c1c;
-    position: absolute;
-    right: 10px;
+    background-color: white;
     border: none;
+    box-shadow: 0 0 10px rgba(250, 110, 121, .3);
+    position: absolute;
+    right: 30px;
     border-radius: 10px;
     width: 200px;
+    z-index: 2;
+    
 }
 .profile-dropdown > li {
     font-size: 16px;
-    padding-bottom: 3%;
+    padding-top: 15px;
     list-style-type: none;
     text-align: center;
-    color: white;
+    color: rgb(250, 110, 121);
     
 }
 
@@ -71,26 +88,33 @@
     cursor: auto;
 }
 
+.dropdown-user-stats div{
+    color: rgba(113, 113, 113, .8);
+    font-size: 14px;
+}
+
 #manage-spots-link {
-    color: white;
+    color: rgb(250, 110, 121);
     text-decoration: none;
-    border-top: 1px solid rgba(113, 113, 113, .5);
+    font-size: 14px;
 
 }
 
 #manage-trips-link {
-    color: white;
+    color: rgb(250, 110, 121);
     text-decoration: none;
-    border-top: 1px solid rgba(113, 113, 113, .5);
+    font-size: 14px;
 
 }
 
 .profile-dropdown > li > button {
-    background-color: white;
-    margin: 5% 0;
-    padding: 5%;
-    width: 5vw;
-    border-radius: 3em;
+    color: rgba(113, 113, 113, .8);
+        font-size: 14px;
+        background-color: transparent;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        width: 100%;
+        border-top: 1px solid rgba(250, 110, 121, .3);
 }
 
 .profile-dropdown > ul > user-util-modals {
