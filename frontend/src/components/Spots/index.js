@@ -31,29 +31,42 @@ function Spots () {
 
     return (
         <div className="spots-content">
+
             <div className="spots-grid">
+
                 {allSpotsArr.map((spot) => (
-                    <NavLink key={spot.id} exact to={`/spots/${spot.id}`} className="spot-link" title={`${spot.city}, ${spot.state}`}>
-                    <div key={spot.id} className="spot-container">
-                        <img className="spot-image" src={`${spot.previewImage}`} alt={`Preview of ${spot.address}`}></img>
-                        <div className="spot-description">
-                            <div className="spot-title">{`${spot.city}, ${spot.state}`}</div>
-                            <div className="spot-price">{`$${spot.price} night`}</div>
-                            <span className="avg-rating-container">
-                                <span className="avg-rating-star">
-                                    <i className="fa-solid fa-star"></i>
-                                </span>
-                                <span className="avg-rating-rating">
-                                    {spot.avgRating === "No Reviews exist for this spot" ? `New` : `${spot.avgRating}`}
-                                </span>
+
+                    <NavLink key={spot.id} exact to={`/spots/${spot.id}`} className="spot-container" title={`${spot.city}, ${spot.state}`}>
+                            
+                            <img className="spot-image" src={`${spot.previewImage}`} alt={`Preview of ${spot.address}`}></img>
+
+                            <div className="spot-description">
+
+                                <div className="spot-description-stats">
+                                    <div className="spot-description-title">{`${spot.city}, ${spot.state}`}</div>
+
+                                    <span className="avg-rating-container">
+                                        <span className="avg-rating-star">
+                                            <i className="fa-solid fa-star" style={{color: "#222222"}}></i>
+                                        </span>
+                                        <span className="avg-rating-rating">
+                                            {spot.avgRating === "No Reviews exist for this spot" ? `New` : `${spot.avgRating}`}
+                                        </span>
+
+                                    </span>
+                                </div>
+
+                                <div className="spot-description-price">{`$${spot.price} night`}</div>
+
                                 
-                            </span>
-                        </div>
-                        
-                    </div>
+                            </div>
+                            
                     </NavLink>
+
                 ))}
+
             </div>
+
         </div>
         // {/* <button onClick={spotTest}>
         //     Get Spots
