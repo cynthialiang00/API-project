@@ -1,14 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as spotActions from '../../../store/spot';
-import { useEffect, useState, useRef } from "react";
-import { NavLink, useParams } from "react-router-dom";
-import OpenReserveMenuItem from "./OpenReserveMenuItem";
-import ReserveFormModal from "../ReserveFormModal";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 
 
-import ReadReviews from "../../Reviews/ReadReviews";
+import ReadReviews from "./Reviews/ReadReviews";
 
 import './SpotShow.css';
 import ReserveBox from "./ReserveBox/ReserveBox";
@@ -74,35 +72,38 @@ function SpotShow() {
                      
 
                     <div className="reviews">
-                        <div className="review-head">
-                            <h2>
-                                <span className="avg-rating-star">
+                        <h3 className="reviews-head">
+                                <span className="reviews-avg-rating-star">
                                     <i className="fa-solid fa-star"></i>
                                 </span>
-                                 <span className="avg-rating-rating">
-                                    {spot.avgStarRating === "0.0" ? `New` : `${spot.avgStarRating}`}
+                                 <span className="reviews-avg-rating">
+                                    {spot.avgStarRating === "0.0" ? `New` : `${spot.avgStarRating} `}
                                  </span>
                                     
 
-                                {spot.numReviews ? <span className="dot">· </span>
-                                : <></>}
+                                {
+                                    spot.numReviews && spot.numReviews > 0 ? 
+                                        <span>·</span>
+                                    : 
+                                    null
+                                }
 
-                                {spot.numReviews === 1 ?
-                                    <span>
-                                        {`${spot.numReviews} review`}
-                                    </span>
-                                :
-                                    <></>
+                                {
+                                    spot.numReviews && spot.numReviews > 1 ?
+                                        <span>
+                                            {` ${spot.numReviews} reviews`}
+                                        </span>
+                                    : spot.numReviews && spot.numReviews === 1 ?
+                                        <span>
+                                            {` ${spot.numReviews} review`}
+                                        </span>
+                                    :
+                                    null
+
                                 }
-                                {spot.numReviews > 1 ?
-                                    <span>
-                                        {`${spot.numReviews} reviews`}
-                                    </span>
-                                :
-                                    <></>
-                                }
-                            </h2>
-                        </div>
+
+                                
+                        </h3>
                         
                         <ReadReviews isOwner={sessionUser && sessionUser.id === spot.Owner.id}/>
                     </div>

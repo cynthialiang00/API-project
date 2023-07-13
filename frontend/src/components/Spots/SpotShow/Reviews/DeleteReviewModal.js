@@ -1,6 +1,6 @@
 import React from 'react';
-import { useModal } from "../../context/Modal";
-import * as rvwActions from '../../store/review';
+import { useModal } from '../../../../context/Modal';
+import * as rvwActions from '../../../../store/review';
 import { useDispatch } from 'react-redux';
 
 function DeleteReviewModal({ id }) {

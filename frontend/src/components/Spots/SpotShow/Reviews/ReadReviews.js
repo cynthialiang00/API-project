@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as rvwActions from '../../store/review';
+import * as rvwActions from '../../../../store/review';
 import { useEffect} from "react";
 import { useParams } from "react-router-dom";
-import OpenModalButton from "../OpenModalButton";
+import OpenModalButton from "../../../OpenModalButton/index";
 import PostReviewModal from "./PostReviewModal";
 import DeleteReviewModal from "./DeleteReviewModal";
 

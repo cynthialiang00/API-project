@@ -12,6 +12,18 @@
     padding-top: 5vh;
     margin-bottom: 2.5vh;
 }
+
+.spot-header h2{
+    font-size: 26px;
+    color: #fa6e79;
+    padding-bottom: 10px;
+}
+
+.spot-header p {
+    font-size: 14px;
+    color: #717171;
+}
+
 /* Pictures */
 .spot-images{
     display: grid;
@@ -98,6 +110,7 @@
 .spot-details-owner {
     font-weight: 600;
     font-size: 22px;
+    color: #fa6e79;
     
 }
 
@@ -308,6 +321,12 @@
 
 .review-body {
     font-size: 95%;
+}
+
+.reviews-head * {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fa6e79;
 }
 
 /* MODAL BUTTON */

@@ -1,8 +1,8 @@
 import React from "react";
-import * as rvwActions from "../../store/review";
+import * as rvwActions from '../../../../store/review';
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useModal } from '../../context/Modal';
+import { useModal } from "../../../../context/Modal";
 import { useDispatch } from "react-redux";
 import "./Reviews.css";
 
