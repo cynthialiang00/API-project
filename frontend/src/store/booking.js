@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 const GET_USER_BOOKINGS = "booking/GET_USER_BOOKINGS";
 const ADD_BOOKING = "booking/ADD_BOOKING";
 const DELETE_USER_BOOKING = "booking/DELETE_USER_BOOKING";
+const EDIT_USER_BOOKING = "booking/EDIT_USER_BOOKING";
 
 
 const addBooking = (data) => ({
@@ -12,6 +13,11 @@ const addBooking = (data) => ({
 
 const getUserBookings = (data) => ({
     type: GET_USER_BOOKINGS,
+    payload: data
+});
+
+const editUserBooking = (data) => ({
+    type: EDIT_USER_BOOKING,
     payload: data
 });
 
@@ -32,6 +38,21 @@ export const thunkAddBooking = (spotId, bookingBody) => async (dispatch) => {
         dispatch(addBooking(data));
     }
     
+    return data;
+};
+
+export const thunkEditBooking = (bookingId, bookingBody) => async (dispatch) => {
+    const response = await csrfFetch(`/api/bookings/${bookingId}`, {
+        method: 'PUT',
+        body: bookingBody
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        dispatch(editUserBooking(data));
+    }
+
     return data;
 };
 
@@ -75,6 +96,13 @@ const bookingReducer = (state = initialState, action) => {
             newState.spot[action.payload.id] = action.payload;
             newState.user = {...state.user};
             newState.user[action.payload.id] = action.payload;
+
+            return newState;
+        case EDIT_USER_BOOKING:
+            newState = {...state};
+            newState.user = {...state.user};
+            newState.user[action.payload.id] = action.payload;
+            newState.user[action.payload.id]["Spot"] = {...state.user[action.payload.id]["Spot"]};
 
             return newState;
 

@@ -46,8 +46,8 @@ function Spots () {
                                     <div className="spot-description-title">{`${spot.city}, ${spot.state}`}</div>
 
                                     <span className="avg-rating-container">
-                                        <span className="avg-rating-star">
-                                            <i className="fa-solid fa-star" style={{color: "#222222"}}></i>
+                                        <span>
+                                            <i className="fa-solid fa-star"></i>
                                         </span>
                                         <span className="avg-rating-rating">
                                             {spot.avgRating === "No Reviews exist for this spot" ? `New` : `${spot.avgRating}`}
@@ -56,7 +56,10 @@ function Spots () {
                                     </span>
                                 </div>
 
-                                <div className="spot-description-price">{`$${spot.price} night`}</div>
+                                <div className="spot-description-price">
+                                    <span>{`$${spot.price} `}</span>
+                                    <span>night</span>
+                                </div>
 
                                 
                             </div>

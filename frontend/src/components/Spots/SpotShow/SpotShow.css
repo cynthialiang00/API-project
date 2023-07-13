@@ -113,6 +113,7 @@
     border: 1px solid rgba(113, 113, 113, .25);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(113, 113, 113, .2);
+    background-color: white;
 }
 
 /* Reserve Box ReserveStats*/
@@ -202,6 +203,25 @@
 }
 
 .reserve-form-submit-btn:disabled {
+    background-color: rgba(113, 113, 113, .2);
+    cursor: not-allowed;
+}
+
+/* Reserve Box Edit Reserve Form */
+.reserve-form-edit-btn {
+    display: block;
+    width: 320px;
+    margin: 0 auto;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #fa6e79;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.reserve-form-edit-btn:disabled {
     background-color: rgba(113, 113, 113, .2);
     cursor: not-allowed;
 }

@@ -42,17 +42,33 @@
 
 .spot-description-stats * {
     color: #222222;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 16px;
 }
 
 .spot-description-price {
     padding-top: 10px;
-    color: #717171;
-    font-weight: 400;
-    font-size: 14px;
 }
 
+.avg-rating-rating {
+    color: #ffa2ac;
+}
+
+.spot-description-price > span:first-child {
+    font-weight: 600;
+    font-size: 14px;
+    color: #717171;
+}
+
+.spot-description-price>span:last-child {
+    font-weight: 400;
+    font-size: 14px;
+    color: #717171;
+}
+
+.avg-rating-container > span:first-child > i {
+    color: #ffa2ac;
+}
 
 
 

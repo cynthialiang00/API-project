@@ -3,6 +3,7 @@ import './bookings.css';
 import OpenModalButton from "../../OpenModalButton";
 import { useDispatch } from "react-redux";
 import { thunkDeleteUserBooking } from "../../../store/booking";
+import EditBookingBox from "./EditBookingsModal/EditBookingBox";
 
 function UserBookingCard({booking, user}) {
     const moment = require('moment');
@@ -17,6 +18,7 @@ function UserBookingCard({booking, user}) {
 
     }
 
+    
 
     return (
         <div className="user-bookings-card-wrapper">
@@ -33,7 +35,9 @@ function UserBookingCard({booking, user}) {
                 </div>
 
                 <div className="user-bookings-card-details-dates">
-                    {`${moment(booking.startDate).format("MMM D")} - ${moment(booking.endDate).format("MMM D")}`}
+                    {`${moment(booking.startDate.split("T")[0]).format("MMM D")}
+                        - ${moment(booking.endDate.split("T")[0]).format("MMM D")}`}
+                    
                 </div>
 
                 
@@ -43,6 +47,7 @@ function UserBookingCard({booking, user}) {
                 <OpenModalButton 
                     id={"user-bookings-card-edit-btn"}
                     buttonText={<i className="fa-solid fa-pen-to-square"></i>}
+                    modalComponent={<EditBookingBox bookingId={booking.id} spot={booking.Spot} user={user}/>}
                 />
                 {/* <button id="user-bookings-card-edit-btn">
                     <i class="fa-solid fa-pen-to-square"></i>
