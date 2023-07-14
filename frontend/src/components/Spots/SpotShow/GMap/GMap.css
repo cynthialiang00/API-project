@@ -1,0 +1,30 @@
+/* Section */
+.spot-map-section {
+    width: 100%;
+    padding-top: 40px;
+    margin-bottom: 60px;
+}
+
+.spot-map-section > div:first-child {
+    font-size: 22px;
+    font-weight: 600;
+    padding-bottom: 20px;
+}
+
+.spot-map-section>div:last-child {
+    font-size: 16px;
+    font-weight: 600;
+    padding-top: 20px;
+}
+
+
+.spot-google-map {
+    height: 500px;
+    width: 100%;
+}
+
+.map-container {
+    height: 100%;
+    width: 100%;
+}
+

@@ -4,12 +4,10 @@ import * as spotActions from '../../../store/spot';
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-
-
 import ReadReviews from "./Reviews/ReadReviews";
-
-import './SpotShow.css';
 import ReserveBox from "./ReserveBox/ReserveBox";
+import MapShow from "./GMap/MapShow";
+import './SpotShow.css';
 
 function SpotShow() {
     const {spotId} = useParams();
@@ -69,7 +67,7 @@ function SpotShow() {
 
                     
 
-                     
+                    <div className="divider"></div>
 
                     <div className="reviews">
                         <h3 className="reviews-head">
@@ -106,7 +104,12 @@ function SpotShow() {
                         </h3>
                         
                         <ReadReviews isOwner={sessionUser && sessionUser.id === spot.Owner.id}/>
+
                     </div>
+                    
+                    <div className="divider"></div>
+                    <MapShow spot={spot}/>
+                    
                 </div>
 
     )}

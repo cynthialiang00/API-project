@@ -7,6 +7,12 @@
     margin: 0 auto;
     max-width: 1120px;
 }
+
+.divider {
+    width: 100%;
+    border-bottom: 1px solid rgba(113, 113, 113, .5);
+}
+
 /* Spot Details Header */
 .spot-header {
     padding-top: 5vh;
@@ -288,7 +294,8 @@
 /* Review Details */
 
 .reviews {
-    margin-top: 3%;
+    padding-top: 40px;
+    padding-bottom: 40px;
     display: flex;
     flex-direction: column;
     width: 100%;
