@@ -78,7 +78,7 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         validationErrors.endDate = "endDate cannot be on or before startDate"
     }
     if (Object.keys(validationErrors).length) {
-        const err = Error("Validation Error");
+        const err = Error("Booking dates cannot involve past dates or end on days before the checkin dates");
         err.errors = validationErrors;
         err.status = 400;
         return next(err);
@@ -87,7 +87,7 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     // Error response: Can't edit a booking that's past the end date
     if (booking.endDate < currentDate) {
         const err = new Error("Past bookings can't be modified");
-        err.status = 403;
+        err.status = 400;
         return next(err);
     }
 
@@ -126,7 +126,7 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     if (Object.keys(conflictErrors).length) {
         const err = Error("Sorry, this spot is already booked for the specified dates");
         err.errors = conflictErrors;
-        err.status = 403;
+        err.status = 400;
         return next(err);
     }
 
