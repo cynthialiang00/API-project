@@ -4,20 +4,11 @@ import OpenModalButton from "../../OpenModalButton";
 import { useDispatch } from "react-redux";
 import { thunkDeleteUserBooking } from "../../../store/booking";
 import EditBookingBox from "./EditBookingsModal/EditBookingBox";
+import DeleteBookingsModal from "../DeleteBookingsModal/DeleteBookingsModal";
 
 function UserBookingCard({booking, user}) {
     const moment = require('moment');
     const dispatch = useDispatch();
-    
-    const handleDeleteBooking = async (e) => {
-        e.preventDefault();
-
-        await dispatch(thunkDeleteUserBooking(booking.id));
-
-        return;
-
-    }
-
     
 
     return (
@@ -46,17 +37,15 @@ function UserBookingCard({booking, user}) {
             <div className="user-bookings-card-btns-wrapper">
                 <OpenModalButton 
                     id={"user-bookings-card-edit-btn"}
-                    buttonText={<i className="fa-solid fa-pen-to-square"></i>}
+                    buttonText={"Edit"}
                     modalComponent={<EditBookingBox bookingId={booking.id} spot={booking.Spot} user={user}/>}
                 />
-                {/* <button id="user-bookings-card-edit-btn">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </button> */}
-                <button id="user-bookings-card-cancel-btn"
-                        onClick={handleDeleteBooking}
-                >
-                    <i className="fa-solid fa-circle-xmark"></i>
-                </button>
+                
+                <OpenModalButton
+                    id={"user-bookings-card-delete-btn"}
+                    buttonText={"Delete"}
+                    modalComponent={<DeleteBookingsModal bookingId={booking.id}/>}
+                />
             </div>
             
         </div>

@@ -50,20 +50,32 @@
 
 .user-bookings-card-btns-wrapper {
     position: absolute;
-    bottom: 80px;
-    right: 20px;
     display: flex;
     flex-direction: row;
-    column-gap: 20px;
+    column-gap: 10px;
+    right: 0px;
+    bottom: 0;
 }
 
 .user-bookings-card-btns-wrapper button {
-    background-color: transparent;
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+    font-size: 12px;
 }
 
-.user-bookings-card-btns-wrapper button i {
-    background-color: transparent;
-    font-size: 26px;
-    color: rgba(255, 255, 255, .8);
+#user-bookings-card-edit-btn {
+    background-color: #ffa2ac;
+}
 
+#user-bookings-card-edit-btn:hover {
+    background-color: #fa6e79;
+}
+
+#user-bookings-card-delete-btn {
+    background-color: rgba(113, 113, 113, .5);
+}
+
+#user-bookings-card-delete-btn:hover {
+    background-color: rgba(113, 113, 113, 1);
 }

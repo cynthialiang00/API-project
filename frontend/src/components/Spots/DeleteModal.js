@@ -2,23 +2,31 @@ import React from 'react';
 import { useModal } from "../../context/Modal";
 import * as spotActions from '../../store/spot';
 import { useDispatch } from 'react-redux';
+import './DeleteModal.css';
 
-function DeleteModal({id}) {
+function DeleteModal({spotId}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
-    const deleteTest = (e) =>{
+    const handleDelete = (e) =>{
         e.preventDefault();
-        dispatch(spotActions.thunkDeleteSpot(id))
+        dispatch(spotActions.thunkDeleteSpot(spotId))
         closeModal();
 
     }
     return (
-        <div className="delete-spot-parent">
-            <h2>Confirm Delete</h2>
-            <p>Are you sure you want to remove this spot from the listings?</p>
-            <button className="delete-spot-yes" onClick={deleteTest}>Yes (Delete Spot)</button>
-            <button className="delete-spot-no" onClick={closeModal}>No (Keep Spot)</button>
+        <div className="delete-modal-wrapper">
+            <h2>Delete this listing?</h2>
+            <div>Are you sure you want to remove this listing?</div>
+
+            <div className="delete-modal-btns">
+                <button onClick={handleDelete}>
+                    Delete
+                </button>
+                <button onClick={closeModal}>
+                    Nevermind
+                </button>
+            </div>
         </div>
     )
 }

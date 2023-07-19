@@ -71,12 +71,6 @@ function Spots () {
             </div>
 
         </div>
-        // {/* <button onClick={spotTest}>
-        //     Get Spots
-        // </button>
-        // <button onClick={userTest}>
-        //     Get Spots of Current User
-        // </button> */}
         
     )
 }

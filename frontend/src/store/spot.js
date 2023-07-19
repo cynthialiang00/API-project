@@ -35,10 +35,6 @@ const actionDeleteSpot = (id) => {
     }
 };
 
-// const actionCreateSpot = (data) => ({
-//     type: ADD_SPOT,
-//     payload: data
-// });
 
 
 export const thunkGetSpots = () => async (dispatch) => {
@@ -83,8 +79,12 @@ export const thunkDeleteSpot = (spotId) => async (dispatch) => {
     });
 
     const data = await response.json();
-    dispatch(actionDeleteSpot(spotId));
-    return response;
+
+    if (response.ok) {
+        dispatch(actionDeleteSpot(spotId));
+    }
+    
+    return data;
 };
 
 export const thunkCreateSpot = (spot, imgArr) => async (dispatch) => {
@@ -147,7 +147,7 @@ const spotReducer = (state = initialState, action) => {
             newState.singleSpot = action.payload;
             return newState;
         case DELETE_SPOT:
-            newState = Object.assign({}, state);
+            newState = {...state};
             newState.allSpots = {...state.allSpots};
             newState.singleSpot = {};
             delete newState.allSpots[action.payload];

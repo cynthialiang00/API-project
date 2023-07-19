@@ -19,6 +19,11 @@
     height: 380px;
     text-decoration: none;
     color: #222222;
+    position: relative;
+}
+
+.spot-container:hover {
+    cursor: pointer;
 }
 
 .button-link {
@@ -72,98 +77,44 @@
 
 
 
-
-
 /* Manage Spots */
-.spots-page-header {
-    margin-left: 5.3%;
-    margin-right: 5.3%;
-    margin-bottom: 2%;
+#spots-content-header {
+    color: #fa6e79;
+    padding-bottom: 40px;
 }
 
-.spot-container > button {
-    
-    background-color: grey;
-    color: white;
-    width: 18%;
-    border: .15em solid black;
-    box-shadow: .15em .15em black;
-}
-
-.spot-util-button > button {
-    background-color: grey;
-    color: white;
-    width: 18%;
-    border: .15em solid black;
-    box-shadow: .15em .15em black;
-    margin-right: 2%;
-}
-
-.spot-util-button > button > .button-link {
-    color:white;
-}
-
-.spot-util-button > .modal-button {
-    background-color: grey;
-    color: white;
-    width: 18%;
-    border: .15em solid black;
-    box-shadow: .15em .15em black;
-}
-
-/* Delete Modal */
-.delete-spot-parent {
-    width: 25vw;
-    height: 15vw;
+.spot-btns {
+    position: absolute;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    border: .25em solid black;
-    border-radius: 1em;
+    flex-direction: row;
+    column-gap: 10px;
+    right: 0px;
+    bottom: 10px;
 }
 
-.delete-spot-parent>p {
-    margin: -10%;
-}
-
-.delete-spot-yes {
+.spot-btns button {
+    padding: 5px;
+    border-radius: 10px;
     color: white;
-    background-color: #ff4545;
-    width: 92%;
-    height: 2.5vw;
-    border: .15em solid black;
-    box-shadow: .15em .15em black;
+    font-size: 12px;
 }
 
-.delete-spot-no {
-    color: white;
-    background-color: grey;
-    margin-top: -10%;
-    width: 92%;
-    height: 2.5vw;
-    border: .15em solid black;
-    box-shadow: .15em .15em black;
+#spot-edit-btn {
+    background-color: #ffa2ac;
 }
 
-
-/* @media (min-width: 0) {
-    .spots-grid {
-        grid-template-columns: repeat(1, 1fr);
-    }
+#spot-edit-btn:hover {
+    background-color: #fa6e79;
 }
 
-@media (min-width: 768px) {
-    .spots-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+#spot-delete-btn {
+    background-color: rgba(113, 113, 113, .5);
 }
 
-@media (min-width: 960px) {
-    .spots-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-} */
+#spot-delete-btn:hover {
+    background-color: rgba(113, 113, 113, 1);
+}
+
 
 @media (min-width: 0px) {
     .spots-grid {
