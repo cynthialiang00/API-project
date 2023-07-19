@@ -5,13 +5,15 @@
     padding: 0;
     border: 0;
     margin: 0 auto;
-    margin-top: 10%;
+    margin-top: 3vh;
     max-width: 1000px;
 }
 
 .create-container > h3 {
     margin: 0 25%;
     padding: 0;
+    color: #fa6e79;
+    font-size: 22px;
 }
 
 .create-form {
@@ -24,19 +26,20 @@
 
 .inputs-container {
     padding-bottom: 5%;
-    border-bottom: .1em solid black;
+    border-bottom: 1px solid rgba(113, 113, 113, .5);
     width: 100%;
 }
 
 .inputs-header {
     padding-top: 5%;
-    font-weight: bold;
-    font-size: 110%;
+    font-weight: 400px;
+    font-size: 18px;
 }
 
 .inputs-brief {
     font-size: 100%;
     margin-bottom: 5%;
+    font-size: 14px;
 }
 
 
@@ -44,25 +47,46 @@
     margin-top: 2.5%;
 }
 
+
+
 .form-label-input > label > input {
     display: block;
     border: .1em solid darkslategray;
     width: 100%;
 }
 
-
-.form-label-input > span> .city { 
+#city-state-label {
     display: block;
-    width: 60%;
+}
+
+#city-state-inputs {
+    display: flex;
+    flex-direction: row;
+
+}
+
+#city { 
+    width: 150px;
     border: .1em solid darkslategray;
 }
 
-.form-label-input>span>.state{
-    display: block;
-    width: 30%;
+#state{
+    width: 50px;
     border: .1em solid darkslategray;
 }
 
+#lat-lng-inputs {
+    display: flex;
+    flex-direction: row;
+}
+
+#lat-lng-inputs input {
+    border: .1em solid darkslategray;
+}
+
+.form-label-input label {
+    padding-bottom: 5px;
+}
 /* Describe */
 .form-label-input > textarea {
     width: 100%;
@@ -78,11 +102,14 @@
 }
 
 /* Price */
-.form-label-input > .pricetag {
-    display: inline-block;
+#price-tag {
+    display: inline;
+    width: 20px;
 }
-.form-label-input>.pricetag>input {
-    display: inline-block;
+
+#price {
+    display: inline;
+    width: 100px;
 }
 
 /* Submit */
@@ -97,4 +124,9 @@
 
 .errors {
     color: red;
+}
+
+#invalid-geocode {
+    color: red;
+    
 }

@@ -4,6 +4,7 @@ const GET_SPOTS = "spot/GET_SPOTS";
 const GET_USER_SPOTS = "spot/GET_USER_SPOTS";
 const GET_SPOT_DETAIL = "spot/GET_SPOT_DETAIL";
 const DELETE_SPOT = "spot/DELETE_SPOT";
+// const ADD_SPOT = "spot/ADD_SPOT";
 
 const actionGetSpots= (spots) => {
     return {
@@ -34,6 +35,11 @@ const actionDeleteSpot = (id) => {
     }
 };
 
+// const actionCreateSpot = (data) => ({
+//     type: ADD_SPOT,
+//     payload: data
+// });
+
 
 export const thunkGetSpots = () => async (dispatch) => {
     const response = await csrfFetch('/api/spots', {
@@ -61,8 +67,12 @@ export const thunkGetSpotDetail = (spotId) => async (dispatch) => {
     });
 
     const data = await response.json();
-    dispatch(actionGetSpotDetail(data));
-    return response;
+
+    if (response.ok) {
+        dispatch(actionGetSpotDetail(data));
+    }
+    
+    return data;
 };
 
 
@@ -77,7 +87,7 @@ export const thunkDeleteSpot = (spotId) => async (dispatch) => {
     return response;
 };
 
-export const fetchCreateSpot = async(spot, imgArr) => {
+export const thunkCreateSpot = (spot, imgArr) => async (dispatch) => {
     const response = await csrfFetch(`/api/spots`, {
         method: 'POST',
         body: spot
@@ -85,30 +95,24 @@ export const fetchCreateSpot = async(spot, imgArr) => {
 
     
     const data = await response.json();
-    
-    if (data.id) {
+
+    if (response.ok) {
+
         for (let img of imgArr) {
+            console.log("UPLOADING IMG...");
             const imgResponse = await csrfFetch(`/api/spots/${data.id}/images`, {
                 method: 'POST',
                 body: img
             });
         }
+
+        return data;
     }
     
     return data;
     
 };
 
-// export const fetchAddImg = async (spotId, img) => {
-//     const response = await csrfFetch(`/api/spots/${spotId}/images`, {
-//         method: 'POST',
-//         body: img
-//     });
-
-//     const data = await response.json();
-//     return data;
-
-// };
 
 export const fetchEditSpot = async(spotId, spot) => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
@@ -138,7 +142,7 @@ const spotReducer = (state = initialState, action) => {
             newState.allSpots = action.payload;
             return newState;
         case GET_SPOT_DETAIL:
-            newState = Object.assign({}, state);
+            newState = {...state};
             newState.singleSpot = {};
             newState.singleSpot = action.payload;
             return newState;

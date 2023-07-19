@@ -13,7 +13,7 @@ function SpotShow() {
     const {spotId} = useParams();
     const dispatch = useDispatch();
     
-    const spot = useSelector(state=>state.spots.singleSpot)
+    const spot = useSelector(state=>state.spots.singleSpot);
     const sessionUser = useSelector(state => state.session.user);
 
     const reviews = useSelector(state => state.reviews.spot);
@@ -21,7 +21,9 @@ function SpotShow() {
 
 
     useEffect(() => {
+
         dispatch(spotActions.thunkGetSpotDetail(spotId));
+        
     }, [dispatch, spotId, reviews, newestReview])
 
     if (Object.keys(spot).length) {
@@ -33,7 +35,7 @@ function SpotShow() {
                     </div>
 
                     <div className="spot-images">
-                        {spot.SpotImages.map((img, index) => (
+                        {spot.SpotImages && spot.SpotImages.map((img, index) => (
                             
                             <div key={img.id} className={`img-${index}-container`}>
                                 <img className={`pic-${index}`} src={img.url} alt="spot preview"></img>
@@ -56,7 +58,7 @@ function SpotShow() {
                         </div>
                         
                         {
-                            spot.ownerId !== sessionUser.id ?
+                            sessionUser && spot.ownerId !== sessionUser.id ?
                                 <ReserveBox spot={spot} user={sessionUser} />  
                             :
                             null
