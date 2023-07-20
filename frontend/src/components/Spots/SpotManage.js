@@ -17,12 +17,17 @@ function SpotManage({user}) {
 
     }, [dispatch])
 
+
+
     const editSpotHandler = (e, spotId) => {
         e.preventDefault();
         return history.push(`/spots/${spotId}/edit`);
     }
 
-
+    const clickSpotHandler = (e, spotId) => {
+        e.preventDefault();
+        return history.push(`/spots/${spotId}`);
+    }
 
     const allSpotsArr = Object.values(allSpotsObj);
 
@@ -66,6 +71,7 @@ function SpotManage({user}) {
                     <div key={spot.id} 
                          className="spot-container" 
                          title={`${spot.city}, ${spot.state}`}
+                         onClick={(e) => clickSpotHandler(e, spot.id)}
                     >
                             
                             <img className="spot-image" src={`${spot.previewImage}`} alt={`Preview of ${spot.address}`}></img>

@@ -35,12 +35,13 @@ function ReadReviews ({isOwner}) {
     if (!reviewsArr.length && sessionUser && !isOwner) {
         return (
             <div className="reviews-list">
-                <div className="post-rvw-button">
-                    <OpenModalButton
-                    buttonText="Post Your Review"
+
+                <OpenModalButton
+                    buttonText="Add Your Review!"
                     modalComponent={<PostReviewModal id={spotId} />}
-                    />
-                </div>
+                    id={"post-rvw-btn"}
+                />
+
                 <div className="review-container">
                     Be the first to post a review!
                 </div>
@@ -51,31 +52,33 @@ function ReadReviews ({isOwner}) {
     return (
             <div className="reviews-list">
                 { sessionUser && !isOwner && !reviewsArr.find(rvw => rvw.User.id === sessionUser.id) ?
-                    <div className="post-rvw-button">
-                        <OpenModalButton
-                            buttonText="Post Your Review"
-                            modalComponent={<PostReviewModal id={spotId} />}
-                        />
-                    </div>
+                    <OpenModalButton
+                        buttonText="Add Your Review!"
+                        modalComponent={<PostReviewModal id={spotId} />}
+                        id={"post-rvw-btn"}
+                    />
                 :
-                <></>
+                null
                 }
+
                 {reviewsArr.map((rvw) => (
                     <div key={rvw.id} className="review-container">
+
                         <div className="review-firstName">{rvw.User.firstName}</div>
+
                         <div className="review-date">
                             {`${toMonthYear(rvw.updatedAt)[0]}, ${toMonthYear(rvw.updatedAt)[1]}`}
                         </div>
                         <div className="review-body">{rvw.review}</div>
+
                         { sessionUser && !isOwner && rvw.User.id === sessionUser.id ?
-                            <div className="review-delete-button">
                                 <OpenModalButton
                                     buttonText="Delete"
                                     modalComponent={<DeleteReviewModal id={rvw.id}/>}
+                                    id={"delete-rvw-btn"}
                                 />
-                            </div>
                         :
-                        <></>
+                            null
                         }
                         
                     </div>

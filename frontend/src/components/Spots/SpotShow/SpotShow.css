@@ -310,10 +310,15 @@
 }
 
 .review-container {
+    position: relative;
     border: 0;
     margin: 0;
     padding: 2%;
     padding-left: 0;
+}
+
+.review-container * {
+    margin-top: 5px;
 }
 
 .review-firstName {
@@ -336,100 +341,3 @@
     color: #fa6e79;
 }
 
-/* MODAL BUTTON */
-.post-rvw-button > .modal-button {
-    background-color: grey;
-    color: white;
-    width: 15%;
-    border: .15em solid black;
-    box-shadow: .15em .15em black;
-}
-
-.review-delete-button > .modal-button {
-    background-color: grey;
-    color: white;
-    width: 5%;
-    border: .15em solid black;
-    box-shadow: .15em .15em black;
-}
-
-/* Review Form */
-.post-review-parent {
-    width: 25vw;
-    max-width: 25vw;
-    height: 25vw;
-    max-height: 20vw;
-    border: .25em solid black;
-    border-radius: 1em;
-}
-.review-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 5% 15%;
-    width: 100%;
-    height: 95%;
-}
-.review-input {
-    margin: 5% -5%;
-    padding: 0;
-    border: 0;
-    width: 80%;
-    height: 50%;
-    border: .15em solid black;
-}
-
-.review-text-area {
-    width: 100%;
-    height: 100%;
-}
-.stars-input {
-    display: flex;
-    margin: 0 15%;
-    flex-direction: row;
-}
-
-.review-form > button {
-    color: white;
-    margin: 0 -10%;
-    width: 92%;
-    height: 2.5vw;
-    border: .15em solid black;
-    box-shadow: .15em .15em black;
-}
-
-
-
-/* Delete Modal */
-.delete-review-parent {
-    width: 25vw;
-    height: 15vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    border: .25em solid black;
-    border-radius: 1em;
-}
-
-.delete-review-parent > p {
-    margin: -10%;
-}
-
-.delete-review-yes {
-    color: white;
-    background-color: #ff4545;
-    width: 92%;
-    height: 2.5vw;
-    border: .15em solid black;
-    box-shadow: .15em .15em black;
-}
-.delete-review-no {
-    color: white;
-    background-color: grey;
-    margin-top: -10%;
-    width: 92%;
-    height: 2.5vw;
-    border: .15em solid black;
-    box-shadow: .15em .15em black;
-}
