@@ -19,7 +19,7 @@ function SpotManage({user}) {
 
     const editSpotHandler = (e, spotId) => {
         e.preventDefault();
-        return history.push(`/spots/${spotId}`);
+        return history.push(`/spots/${spotId}/edit`);
     }
 
 

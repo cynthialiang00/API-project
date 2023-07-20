@@ -17,7 +17,6 @@ function SpotFormGeocode({ address, city, state, lat, lng, setLat, setLng }) {
             .then((parsedRes) => 
                 {
                 if (parsedRes.status === 'OK') {
-                    console.log(parsedRes)
                     setLat(+parsedRes.results[0].geometry.location.lat)
                     setLng(+parsedRes.results[0].geometry.location.lng)
                     return;

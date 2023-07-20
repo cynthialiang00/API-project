@@ -22,8 +22,6 @@ function SpotForm({ user }) {
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
     const [isCreatingListing, setIsCreatingListing] = useState(false);
-    // const lat = 1.23;
-    // const lng = 1.23;
 
 
     const [prevImgURL, setPrevImgURL] = useState("");
@@ -46,9 +44,9 @@ function SpotForm({ user }) {
         if (!country) errors["country"] = "Country is required";
         if (!address) errors["address"] = "Street address is required";
         if (!city) errors["city"] = "City is required";
-        if(!state) errors["state"] = "State is required";
-        if(!description) errors["description"] = "Description needs a minimum of 30 characters";
-        if(!name) errors["name"] = "Name is required";
+        if(!state || state.length < 2) errors["state"] = "State is required";
+        if(!description || description.length < 30) errors["description"] = "Description needs a minimum of 30 characters";
+        if (!name || name.length < 5) errors["name"] = "Name is required and must be a minimum of 5 characters";
         if (!price || price <= 0) errors["price"] = "Price per day is required";
         if(!lat || !lng) errors["coords"] = "Valid lat and lng coordinates required";
 

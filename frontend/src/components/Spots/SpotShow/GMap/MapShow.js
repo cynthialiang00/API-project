@@ -6,17 +6,15 @@ function MapShow({ spot }) {
 
     const [addr, setAddr] = useState();
 
-    const spotLat = spot.lat;
-    const spotLng = spot.lng; 
     const googleMapsApiKey = process.env.REACT_APP_GOOGLE_API_KEY;
     
     useEffect(() => {
-        const addr = fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${spotLat},${spotLng}&key=${googleMapsApiKey}`)
+        const addr = fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${spot.lat},${spot.lng}&key=${googleMapsApiKey}`)
             .then((res) => res.json())
             .then((parsedRes) => (
                 setAddr(parsedRes.results[4].formatted_address)
             ))
-    }, []);
+    }, [spot.lat, spot.lng]);
 
 
 
@@ -26,7 +24,7 @@ function MapShow({ spot }) {
     return (
         <div className="spot-map-section">
             <div>Where you'll be</div>
-            <GMap spotLat={spotLat} spotLng={spotLng} />
+            <GMap spotLat={spot.lat} spotLng={spot.lng} />
             <div>
                 {addr}
             </div>

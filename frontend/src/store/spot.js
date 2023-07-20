@@ -114,7 +114,7 @@ export const thunkCreateSpot = (spot, imgArr) => async (dispatch) => {
 };
 
 
-export const fetchEditSpot = async(spotId, spot) => {
+export const thunkEditSpot = async(spotId, spot) => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'PUT',
         body: spot
