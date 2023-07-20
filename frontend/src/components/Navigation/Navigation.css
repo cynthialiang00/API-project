@@ -24,8 +24,18 @@
 }
 
 .nav-create-spot {
-    margin-right: 100px;
-    background-color: red;
+    margin-right: 80px;
+    background-color: none;
+
+}
+
+.nav-create-spot > i {
+    font-size: 22px;
+    color: rgba(113, 113, 113, 1);
+}
+
+.nav-create-spot:hover i {
+    color: #fa6e79;
 }
 
 

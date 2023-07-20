@@ -38,20 +38,22 @@ function SpotManage({user}) {
     if (allSpotsObj.undefined) {
         return (
             <div className="spots-content">
-                <div className="spots-page-header">
-                    <h2>Manage Your Spots</h2>
-                    {allSpotsObj.undefined ?
-                    <div className="spot-util-button">
-                            <button  >
-                                <NavLink className="button-link" to="/spots/new">Create a New Spot</NavLink>
-                            </button>
-                    </div>
-                        
-                        :
-                        <></>
-                    }
+                <h2 id="spots-content-header">
+                    Manage Your Listings
+                </h2>
+                    
 
-                </div>
+
+                {allSpotsObj.undefined ?
+                    <div className="spot-util-button">
+                        <button  >
+                            <NavLink className="button-link" to="/spots/new">Create a New Listing</NavLink>
+                        </button>
+                    </div>
+
+                    :
+                    <></>
+                }
             </div>
         )
     }
@@ -71,10 +73,15 @@ function SpotManage({user}) {
                     <div key={spot.id} 
                          className="spot-container" 
                          title={`${spot.city}, ${spot.state}`}
-                         onClick={(e) => clickSpotHandler(e, spot.id)}
                     >
                             
-                            <img className="spot-image" src={`${spot.previewImage}`} alt={`Preview of ${spot.address}`}></img>
+                            <img className="spot-image" 
+                                src={`${spot.previewImage}`} 
+                                alt={`Preview of ${spot.address}`}
+                                onClick={(e) => clickSpotHandler(e, spot.id)}
+                            >
+
+                            </img>
 
                             <div className="spot-description">
 
