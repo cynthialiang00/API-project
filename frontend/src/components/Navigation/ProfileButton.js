@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
-import OpenModalMenuItem from './OpenModalMenuItem';
+import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { NavLink, useHistory } from "react-router-dom";
@@ -74,13 +74,15 @@ function ProfileButton({ user }) {
                     </>
                 ) : (
                     <>
-                        <OpenModalMenuItem
-                            itemText="Log In"
+                        <OpenModalButton
+                            buttonText="Log In"
+                            id={"nav-log-in"}
                             onItemClick={closeMenu}
                             modalComponent={<LoginFormModal />}
                         />
-                        <OpenModalMenuItem
-                            itemText="Sign Up"
+                        <OpenModalButton
+                            buttonText="Sign Up"
+                            id={"nav-sign-up"}
                             onItemClick={closeMenu}
                             modalComponent={<SignupFormModal />}
                         />

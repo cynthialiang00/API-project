@@ -117,15 +117,26 @@
 
 }
 
-.profile-dropdown > li > button {
-    color: rgba(113, 113, 113, .8);
-        font-size: 14px;
-        background-color: transparent;
-        padding-bottom: 20px;
-        padding-top: 20px;
-        width: 100%;
-        border-top: 1px solid rgba(250, 110, 121, .3);
+.profile-dropdown button {
+    font-size: 16px;
+    padding-top: 15px;
+    list-style-type: none;
+    text-align: center;
+    color: rgb(250, 110, 121);
+    z-index: 3;
+    background-color: transparent;
+    display: block;
+    margin: 0 auto;
 }
+
+#nav-log-in {
+    margin-top: 5px;
+}
+
+#nav-sign-up {
+    padding-bottom: 20px;
+}
+
 
 .profile-dropdown > ul > user-util-modals {
     cursor: pointer;
