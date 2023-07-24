@@ -42,14 +42,10 @@
     margin-bottom: 20px;
 }
 
-.login-enabled-btn:hover {
+.login-form button:hover {
     background-color: #fa6e79;
 }
 
-.login-disabled-btn {
-    background-color: rgba(113, 113, 113, .8);
-    cursor: not-allowed;
-}
 
 .login-form-parent > .demo-user-link {
     align-self: center;

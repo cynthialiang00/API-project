@@ -41,7 +41,8 @@ function LoginFormModal() {
             .then(async (response) => {
                 console.log(response)
                 if (response.ok) {
-                    return closeModal;
+                    closeModal();
+                    return;
                 }
                 if (response.status === 401) {
                     const errors = {}
@@ -89,8 +90,6 @@ function LoginFormModal() {
                         />
                 
                         <button type="submit"
-                                disabled={hasSubmit && Object.keys(errors).length}
-                                className={hasSubmit && Object.keys(errors).length ? "login-disabled-btn" : "login-enabled-btn"}
                         >
                                 Log In
                         </button>
