@@ -13,14 +13,15 @@ function LoginFormModal() {
     const [credential, setCredential] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
-    const [dynamicErrors, setDynamicErrors] = useState({});
     const { closeModal } = useModal();
+
+    const [hasSubmit, setHasSubmit] = useState(false);
 
     useEffect(() => {
         const errors = {};
         if(credential.length < 4) errors["credential"] = "Username must be at least 4 characters long";
         if (password.length < 6) errors["password"] = "Password must be at least 6 characters long";
-        setDynamicErrors(errors);
+        setErrors(errors);
     }, [credential, password]);
 
 
@@ -35,22 +36,42 @@ function LoginFormModal() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors({});
-        return dispatch(sessionActions.thunkLogin({ credential, password }))
-            .then(closeModal)
-            .catch(async (response) => {
-                const data = await response.json();
-                if (data && data.errors) setErrors({invalid: "The provided credentials were invalid"});
+        setHasSubmit(true);
+        dispatch(sessionActions.thunkLogin({ credential, password }))
+            .then(async (response) => {
+                console.log(response)
+                if (response.ok) {
+                    return closeModal;
+                }
+                if (response.status === 401) {
+                    const errors = {}
+                    errors['invalid'] = "Invalid credentials";
+                    setErrors(errors);
+                    return;
+                }
+                else {
+                    const errors = {};
+                    errors["credential"] = "Username must be at least 4 characters long";
+                    errors["password"] = "Password must be at least 6 characters long";
+                    setErrors(errors);
+                    return;
+
+                }
             });
+        return;
     }
 
     return (
         <div className='login-form-parent'>
             <form className="login-form" onSubmit={handleSubmit}>
                 <h2>Log In</h2>
-                {errors.invalid &&
+                {hasSubmit && errors.invalid &&
                     <p className="errors">{errors.invalid}</p>}
+                {hasSubmit && errors.credential &&
+                    <p className="errors">{errors.credential}</p>}
+                {hasSubmit && errors.password &&
+                    <p className="errors">{errors.password}</p>}
 
-                <div>                        
                         <input
                             type="text"
                             value={credential}
@@ -58,9 +79,7 @@ function LoginFormModal() {
                             onChange={(e) => setCredential(e.target.value)}
                             required
                         />
-                </div>
                 
-                <div>
                         <input
                             type="password"
                             value={password}
@@ -68,13 +87,13 @@ function LoginFormModal() {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                </div>
                 
-                <button type="submit"
-                        disabled={Object.keys(dynamicErrors).length}
-                        className={Object.keys(dynamicErrors).length ? "disabled" : "enabled"}
-                >Log In
-                </button>
+                        <button type="submit"
+                                disabled={hasSubmit && Object.keys(errors).length}
+                                className={hasSubmit && Object.keys(errors).length ? "login-disabled-btn" : "login-enabled-btn"}
+                        >
+                                Log In
+                        </button>
                 
             </form>
 
