@@ -34,8 +34,8 @@ function UserBookingCard({booking, user}) {
                 
             </div>
 
-            {
-                booking.startDate > dateNow ?
+            
+                
                     <div className="user-bookings-card-btns-wrapper">
                         <OpenModalButton
                             id={"user-bookings-card-edit-btn"}
@@ -49,10 +49,7 @@ function UserBookingCard({booking, user}) {
                             modalComponent={<DeleteBookingsModal bookingId={booking.id} />}
                         />
                     </div>
-                :
-                    null
 
-            }
             
             
             
