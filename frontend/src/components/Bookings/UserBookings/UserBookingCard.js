@@ -9,7 +9,7 @@ import DeleteBookingsModal from "../DeleteBookingsModal/DeleteBookingsModal";
 function UserBookingCard({booking, user}) {
     const moment = require('moment');
     const dispatch = useDispatch();
-    
+    const dateNow = new Date();
 
     return (
         <div className="user-bookings-card-wrapper">
@@ -33,20 +33,28 @@ function UserBookingCard({booking, user}) {
 
                 
             </div>
+
+            {
+                booking.startDate > dateNow ?
+                    <div className="user-bookings-card-btns-wrapper">
+                        <OpenModalButton
+                            id={"user-bookings-card-edit-btn"}
+                            buttonText={"Edit"}
+                            modalComponent={<EditBookingBox bookingId={booking.id} spot={booking.Spot} user={user} />}
+                        />
+
+                        <OpenModalButton
+                            id={"user-bookings-card-delete-btn"}
+                            buttonText={"Delete"}
+                            modalComponent={<DeleteBookingsModal bookingId={booking.id} />}
+                        />
+                    </div>
+                :
+                    null
+
+            }
             
-            <div className="user-bookings-card-btns-wrapper">
-                <OpenModalButton 
-                    id={"user-bookings-card-edit-btn"}
-                    buttonText={"Edit"}
-                    modalComponent={<EditBookingBox bookingId={booking.id} spot={booking.Spot} user={user}/>}
-                />
-                
-                <OpenModalButton
-                    id={"user-bookings-card-delete-btn"}
-                    buttonText={"Delete"}
-                    modalComponent={<DeleteBookingsModal bookingId={booking.id}/>}
-                />
-            </div>
+            
             
         </div>
 
