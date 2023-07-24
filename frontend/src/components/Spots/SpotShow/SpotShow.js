@@ -35,13 +35,24 @@ function SpotShow() {
                     </div>
 
                     <div className="spot-images">
-                        {spot.SpotImages && spot.SpotImages.map((img, index) => (
+                        {spot.SpotImages && spot.SpotImages.length > 1 ?
+                        
+                            spot.SpotImages.map((img, index) => (
                             
-                            <div key={img.id} className={`img-${index}-container`}>
-                                <img className={`pic-${index}`} src={img.url} alt="spot preview"></img>
-                            </div>
+                                <div key={img.id} className={`img-${index}-container`}>
+                                    <img className={`pic-${index}`} src={img.url} alt="spot preview"></img>
+                                </div>
+                            ))
+                            
+                            : spot.SpotImages && spot.SpotImages.length === 1 ?
+                                <div className={`only-prvw-img-container`}>
+                                    <img className={`only-prvw-pic`} src={spot.SpotImages[0].url} alt="spot preview"></img>
+                                </div>
+                            :
+                            null
 
-                        ))}
+
+                        }
                     </div>
 
                     
