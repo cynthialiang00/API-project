@@ -6,10 +6,6 @@ const DELETE_USER_BOOKING = "booking/DELETE_USER_BOOKING";
 const EDIT_USER_BOOKING = "booking/EDIT_USER_BOOKING";
 
 
-const addBooking = (data) => ({
-    type: ADD_BOOKING,
-    payload: data
-});
 
 const getUserBookings = (data) => ({
     type: GET_USER_BOOKINGS,
@@ -33,10 +29,6 @@ export const thunkAddBooking = (spotId, bookingBody) => async (dispatch) => {
     });
 
     const data = await response.json();
-
-    if (response.ok) {
-        dispatch(addBooking(data));
-    }
     
     return data;
 };
@@ -90,14 +82,7 @@ const initialState = { user: {} , spot: {}};
 const bookingReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
-        case ADD_BOOKING:
-            newState = {...state};
-            newState.spot = {...state.spot};
-            newState.spot[action.payload.id] = action.payload;
-            newState.user = {...state.user};
-            newState.user[action.payload.id] = action.payload;
-
-            return newState;
+        
         case EDIT_USER_BOOKING:
             newState = {...state};
             newState.user = {...state.user};

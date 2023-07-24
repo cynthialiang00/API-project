@@ -6,7 +6,7 @@ function GMap({spotLat, spotLng}) {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
     });
-    const center = useMemo(() => ({ lat: spotLat, lng: spotLng }), [spotLat, spotLng]);
+    const center = useMemo(() => ({ lat: +spotLat, lng: +spotLng }), [spotLat, spotLng]);
 
     // console.log("MAPLAT: ", spotLat)
     // console.log("MAPLNG: ", spotLng)
