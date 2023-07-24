@@ -412,7 +412,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     if (Object.keys(conflictErrors).length) {
         const err = Error("Sorry, this spot is already booked for the specified dates");
         err.errors = conflictErrors;
-        err.status = 403;
+        err.status = 400;
         return next(err);
     }
     const newBook = await Booking.create({

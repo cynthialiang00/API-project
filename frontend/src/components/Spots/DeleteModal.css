@@ -1,0 +1,56 @@
+.delete-modal-wrapper {
+    width: 400px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(113, 113, 113, .5);
+}
+
+.delete-modal-wrapper h2 {
+    color: #fa6e79;
+    margin-top: 20px;
+    font-size: 26px;
+}
+
+.delete-modal-wrapper div:nth-child(2) {
+    color: #222222;
+    font-size: 16px;
+    width: 300px;
+    text-align: center;
+}
+
+.delete-modal-btns {
+    display: flex;
+    flex-direction: row;
+    column-gap: 40px;
+}
+
+.delete-modal-btns button {
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+}
+
+.delete-modal-btns button:first-child {
+    background-color: #ffa2ac;
+    width: 150px;
+}
+
+.delete-modal-btns button:first-child:hover {
+    background-color: #fa6e79;
+}
+
+.delete-modal-btns button:last-child {
+    background-color: rgba(113, 113, 113, .5);
+    width: 150px;
+}
+
+.delete-modal-btns button:last-child:hover {
+    background-color: rgba(113, 113, 113, 1);
+}

@@ -1,23 +1,21 @@
 import React from 'react';
-import { useModal } from "../../context/Modal";
-import * as spotActions from '../../store/spot';
+import { useModal } from '../../../../context/Modal';
+import * as rvwActions from '../../../../store/review';
 import { useDispatch } from 'react-redux';
-import './DeleteModal.css';
 
-function DeleteModal({spotId}) {
+function DeleteReviewModal({ id }) {
     const dispatch = useDispatch();
-    const { closeModal } = useModal();
+    const {closeModal} = useModal();
 
-    const handleDelete = (e) =>{
+    const handleDelete = (e) => {
         e.preventDefault();
-        dispatch(spotActions.thunkDeleteSpot(spotId))
+        dispatch(rvwActions.thunkDeleteRvw(id))
         closeModal();
-
     }
     return (
         <div className="delete-modal-wrapper">
-            <h2>Delete this listing?</h2>
-            <div>Are you sure you want to remove this listing?</div>
+            <h2>Delete your review?</h2>
+            <div>Are you sure you want to remove this review?</div>
 
             <div className="delete-modal-btns">
                 <button onClick={handleDelete}>
@@ -31,4 +29,4 @@ function DeleteModal({spotId}) {
     )
 }
 
-export default DeleteModal;
+export default DeleteReviewModal;

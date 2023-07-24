@@ -67,9 +67,8 @@ const reviewReducer = (state = initialState, action) => {
             newState.spot = action.payload;
             return newState;
         case NEW_RVW:
-            newState = Object.assign({}, state);
-            newState.new = {};
-            newState.new[action.payload.id] = action.payload;
+            newState = {...state};
+            newState.new = action.payload;
             return newState;
         case DELETE_RVW:
             newState = Object.assign({}, state);

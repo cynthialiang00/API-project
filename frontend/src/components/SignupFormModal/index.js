@@ -14,33 +14,46 @@ function SignupFormModal() {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const [errors, setErrors] = useState({});
-    const [dynamicErrors, setDynamicErrors] = useState({});
     const { closeModal } = useModal();
 
 
     useEffect(() => {
         const errors = {};
-        if(!email.length) errors["submit"] = "Fields must not be empty";
-        if(!firstName.length) errors["submit"]= "Fields must not be empty";
-        if (!lastName.length) errors["submit"] = "Fields must not be empty";
-        if(username.length < 4) errors["submit"] = "Username must be at least 4 characters long";
-        if(password.length < 6) errors["submit"] = "Password must be at least 6 characters long";
-        if(password !== confirmPassword) errors["submit"] = "Passwords do not match";
-        setDynamicErrors(errors);
+        if(!email.length) errors["email"] = "Fields must not be empty";
+        if(!firstName.length) errors["firstName"]= "Fields must not be empty";
+        if (!lastName.length) errors["lastName"] = "Fields must not be empty";
+        if(username.length < 4) errors["username"] = "Username must be at least 4 characters long";
+        if(password.length < 6) errors["password"] = "Password must be at least 6 characters long";
+        if(password !== confirmPassword) errors["password"] = "Passwords do not match";
+        setErrors(errors);
     }, [email, firstName, lastName, username, password, confirmPassword]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (password === confirmPassword) {
             setErrors({});
-            return dispatch(sessionActions.thunkSignup({ email, username, firstName, lastName, password }))
-                .then(closeModal)
-                .catch(async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) setErrors(data.errors);
+            dispatch(sessionActions.thunkSignup({ email, username, firstName, lastName, password }))
+                .then(async (response) => {
+                    console.log(response);
+
+                    if (response.statusCode === 403) {
+                        setErrors(response.errors);
+                        return;
+                    }
+                    if (response.statusCode === 400) {
+                        setErrors(response.errors);
+                        return;
+                    }
+                    
+                    closeModal()
+                    
+                    return;
                 });
+            return;
         }
-        return setErrors(['Confirm Password field must be the same as the Password field']);
+        
+        return alert('Password fields must match');
     };
 
     return (
@@ -57,7 +70,7 @@ function SignupFormModal() {
                     <p className="errors">{errors["lastName"]}</p>}
                 {errors["password"] &&
                     <p className="errors">{errors["password"]}</p>}
-                <div>
+
                     <input
                         type="text"
                         value={firstName}
@@ -65,8 +78,7 @@ function SignupFormModal() {
                         onChange={(e) => setFirstName(e.target.value)}
                         required
                     />
-                </div>
-                <div>
+
                     <input
                         type="text"
                         value={lastName}
@@ -74,8 +86,7 @@ function SignupFormModal() {
                         onChange={(e) => setLastName(e.target.value)}
                         required
                     />
-                </div>
-                <div>
+
                     <input
                         type="text"
                         value={email}
@@ -83,8 +94,7 @@ function SignupFormModal() {
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
-                </div>
-                <div>
+
                     <input
                         type="text"
                         value={username}
@@ -92,8 +102,7 @@ function SignupFormModal() {
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
-                </div>
-                <div>
+
                     <input
                         type="password"
                         value={password}
@@ -101,8 +110,7 @@ function SignupFormModal() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                </div>
-                <div>
+
                     <input
                         type="password"
                         value={confirmPassword}
@@ -110,11 +118,10 @@ function SignupFormModal() {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                     />
-                </div>
 
                 <button type="submit"
-                        disabled={Object.keys(dynamicErrors).length}
-                        className={Object.keys(dynamicErrors).length ? "disabled" : "enabled"}
+                        disabled={Object.keys(errors).length}
+                        className={Object.keys(errors).length ? "disabled-sign-up" : "enabled-sign-up"}
 
                 >Sign Up
                 </button>

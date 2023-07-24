@@ -1,8 +1,8 @@
 import React from "react";
-import * as rvwActions from "../../store/review";
+import * as rvwActions from '../../../../store/review';
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useModal } from '../../context/Modal';
+import { useModal } from "../../../../context/Modal";
 import { useDispatch } from "react-redux";
 import "./Reviews.css";
 
@@ -22,6 +22,8 @@ function PostReviewModal ({id}) {
 
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
+    console.log("ACTIVE STARS", activeStars);
+    console.log("STARS", stars);
 
     const onChange = (number) => {
         setStars(parseInt(number));
@@ -76,11 +78,13 @@ function PostReviewModal ({id}) {
         return closeModal();
 
 
-    }
+    };
+
     return (
-        <div className="post-review-parent">
-            <form className="review-form" onSubmit={handleSubmit}>
-                <h2>How was your stay?</h2>
+        <div className="post-review-wrapper">
+
+            <form className="post-review-form" onSubmit={handleSubmit}>
+                <div id="post-review-head">How was your stay?</div>
                 {hasSubmitted && Object.keys(rvwErrors).length && 
                     <div className="review-errors">
                         <p className="errors">{rvwErrors.review}</p>
@@ -91,7 +95,7 @@ function PostReviewModal ({id}) {
                 <div className="review-input">
                     <textarea
                         className="review-text-area"
-                        placeholder="Leave your review here..."
+                        placeholder="Write a review..."
                         value={review}
                         onChange={(e) => setReview(e.target.value)}
                     >
@@ -104,7 +108,6 @@ function PostReviewModal ({id}) {
                 
                 <div className="stars-input">
                     {[1, 2, 3, 4, 5].map(number => starsIcon(number))}
-                    <label>Stars</label>
                 </div>
                 
                 {hasSubmitted && dynamicRvwErrors.stars &&
@@ -112,10 +115,11 @@ function PostReviewModal ({id}) {
                 }
                 <button type="submit"
                         disabled={Object.keys(dynamicRvwErrors).length}
-                        className={Object.keys(dynamicRvwErrors).length ? "disabled" : "enabled"}
+                        id={Object.keys(dynamicRvwErrors).length ? "post-review-btn-disabled" : "post-review-btn-enabled"}
                 >
-                    Submit Your Review
+                    Review
                 </button>
+
             </form>
 
         </div>

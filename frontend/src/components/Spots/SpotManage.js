@@ -17,6 +17,18 @@ function SpotManage({user}) {
 
     }, [dispatch])
 
+
+
+    const editSpotHandler = (e, spotId) => {
+        e.preventDefault();
+        return history.push(`/spots/${spotId}/edit`);
+    }
+
+    const clickSpotHandler = (e, spotId) => {
+        e.preventDefault();
+        return history.push(`/spots/${spotId}`);
+    }
+
     const allSpotsArr = Object.values(allSpotsObj);
 
     if (!user) {
@@ -26,20 +38,22 @@ function SpotManage({user}) {
     if (allSpotsObj.undefined) {
         return (
             <div className="spots-content">
-                <div className="spots-page-header">
-                    <h2>Manage Your Spots</h2>
-                    {allSpotsObj.undefined ?
-                    <div className="spot-util-button">
-                            <button  >
-                                <NavLink className="button-link" to="/spots/new">Create a New Spot</NavLink>
-                            </button>
-                    </div>
-                        
-                        :
-                        <></>
-                    }
+                <h2 id="spots-content-header">
+                    Manage Your Listings
+                </h2>
+                    
 
-                </div>
+
+                {allSpotsObj.undefined ?
+                    <div className="spot-util-button">
+                        <button  >
+                            <NavLink className="button-link" to="/spots/new">Create a New Listing</NavLink>
+                        </button>
+                    </div>
+
+                    :
+                    <></>
+                }
             </div>
         )
     }
@@ -48,56 +62,72 @@ function SpotManage({user}) {
     
     return (
         <div className="spots-content">
-            <div className="spots-page-header">
-                <h2>Manage Your Spots</h2>
-            </div>
+            
+            <h2 id="spots-content-header">
+                Manage Your Listings
+            </h2>
 
             <div className="spots-grid">
                 {allSpotsArr.map((spot) => (
-                    <div key={spot.id} className="spot-container" title={`${spot.city}, ${spot.state}`}>
-                        <NavLink exact to={`/spots/${spot.id}`} className="spot-link">
-                            <img className="spot-image" src={`${spot.previewImage}`} alt={`Preview of ${spot.address}`}></img>
-                            <div className="spot-description">
-                                <div className="spot-title">{`${spot.city}, ${spot.state}`}</div>
-                                <div className="spot-price">{`$${spot.price} night`}</div>
-                                <span className="avg-rating-container">
-                                    <span className="avg-rating-star">
-                                        <i className="fa-solid fa-star"></i>
-                                    </span>
-                                    <span className="avg-rating-rating">
-                                        {spot.avgRating === "No Reviews exist for this spot" ? `New` : `${spot.avgRating}`}
-                                    </span>
-
-                                </span>
-                            </div>
-                        </NavLink>
-
-
-                            <span className="spot-util-button">
-                                <button >
-                                    <NavLink className="button-link" to={`${spot.id}/edit`}>Update</NavLink>
-                                </button>
-                            </span>
+                    
+                    <div key={spot.id} 
+                         className="spot-container" 
+                         title={`${spot.city}, ${spot.state}`}
+                    >
                             
-                        
-                            <span className="spot-util-button">
+                            <img className="spot-image" 
+                                src={`${spot.previewImage}`} 
+                                alt={`Preview of ${spot.address}`}
+                                onClick={(e) => clickSpotHandler(e, spot.id)}
+                            >
+
+                            </img>
+
+                            <div className="spot-description">
+
+                                <div className="spot-description-stats">
+                                    <div className="spot-description-title">{`${spot.city}, ${spot.state}`}</div>
+
+                                    <span className="avg-rating-container">
+                                        <span>
+                                            <i className="fa-solid fa-star"></i>
+                                        </span>
+                                        <span className="avg-rating-rating">
+                                            {spot.avgRating === "No Reviews exist for this spot" ? `New` : `${spot.avgRating}`}
+                                        </span>
+
+                                    </span>
+                                </div>
+
+                                <div className="spot-description-price">
+                                    <span>{`$${spot.price} `}</span>
+                                    <span>night</span>
+                                </div>
+
+                                
+                            </div>
+
+                            <div className="spot-btns">
+                                <button id="spot-edit-btn"
+                                        onClick={(e) => editSpotHandler(e, spot.id)}
+                                >
+                                    Edit
+                                </button>
+
                                 <OpenModalButton
-                                    buttonText="Delete"
-                                    modalComponent={<DeleteModal id={spot.id} />}
+                                    id={"spot-delete-btn"}
+                                    buttonText={"Delete"}
+                                    modalComponent={<DeleteModal spotId={spot.id}/>}
                                 />
-                            </span>
-                        
+                            </div>
+                            
                     </div>
 
+
+                    
                 ))}
             </div>
         </div>
-        // {/* <button onClick={spotTest}>
-        //     Get Spots
-        // </button>
-        // <button onClick={userTest}>
-        //     Get Spots of Current User
-        // </button> */}
 
     )
 }

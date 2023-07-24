@@ -51,7 +51,7 @@ export const thunkSignup = (user) => async (dispatch) => {
     });
     const data = await response.json();
     dispatch(actionSetUser(data.user));
-    return response;
+    return data;
 };
 
 export const thunkLogout = () => async (dispatch) => {

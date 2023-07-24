@@ -5,11 +5,12 @@ import { Switch, Route, useParams } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Spots from "./components/Spots";
-import SpotShow from "./components/Spots/SpotShow";
+import SpotShow from "./components/Spots/SpotShow/SpotShow";
 import SpotForm from "./components/Spots/SpotForm";
 import SpotManage from "./components/Spots/SpotManage";
 import SpotEditForm from "./components/Spots/SpotEditForm";
 import Forbidden from "./components/Forbidden/Forbidden";
+import UserBookings from "./components/Bookings/UserBookings/UserBookings";
 
 import "./index.css";
 function App() {
@@ -34,6 +35,9 @@ function App() {
           </Route>
           <Route path="/spots/current">
             <SpotManage user={sessionUser}/>
+          </Route>
+          <Route path="/bookings/current">
+            <UserBookings user={sessionUser}/>
           </Route>
           <Route path="/spots/:spotId/edit">
             <SpotEditForm user={sessionUser}/>

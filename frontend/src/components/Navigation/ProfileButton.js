@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
-import OpenModalMenuItem from './OpenModalMenuItem';
+import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { NavLink, useHistory } from "react-router-dom";
@@ -43,8 +43,8 @@ function ProfileButton({ user }) {
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
     return (
-        <>
-            <button onClick={openMenu} className="button">
+        <div className="profile-button">
+            <button onClick={openMenu}>
                 <span className="button-icon">
                     <i className="fa-solid fa-bars"></i>
                 </span>
@@ -53,13 +53,20 @@ function ProfileButton({ user }) {
                 </span>
                 
             </button>
+
             <ul className={ulClassName} ref={ulRef}>
                 {user ? (
                     <>
-                        <li>Hello, {user.firstName}</li>
-                        <li className="dropdown-user-stats">{user.email}</li>
+                        <li className="dropdown-user-stats">
+                            <div>{user.firstName}</div>
+                            <div>{user.email}</div>
+                        </li>
+                        
                         <li>
-                            <NavLink className="manage-spots-link" to="/spots/current">Manage Spots</NavLink>
+                            <NavLink id="manage-spots-link" to="/spots/current">Manage Spots</NavLink>
+                        </li>
+                        <li>
+                            <NavLink id="manage-trips-link" to="/bookings/current">Manage Trips</NavLink>
                         </li>
                         <li>
                             <button onClick={logout}>Log Out</button>
@@ -67,20 +74,22 @@ function ProfileButton({ user }) {
                     </>
                 ) : (
                     <>
-                        <OpenModalMenuItem
-                            itemText="Log In"
+                        <OpenModalButton
+                            buttonText="Log In"
+                            id={"nav-log-in"}
                             onItemClick={closeMenu}
                             modalComponent={<LoginFormModal />}
                         />
-                        <OpenModalMenuItem
-                            itemText="Sign Up"
+                        <OpenModalButton
+                            buttonText="Sign Up"
+                            id={"nav-sign-up"}
                             onItemClick={closeMenu}
                             modalComponent={<SignupFormModal />}
                         />
                     </>
                 )}
             </ul>
-        </>
+        </div>
     );
 }
 

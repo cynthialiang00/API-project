@@ -6,19 +6,44 @@
     border: 1px solid grey;
 }
 
+.navigation-wrapper {
+    height: 80px;
+    width: 100%;
+    border-bottom: 1px solid #f6e8e0;
+}
 
-.navigation-parent {
-    position: absolute;
-    top: 0em;
-    width: 100vw;
-    background-color:#1e1c1c;
+.navigation-content {
     display: flex;
     justify-content: space-between;
-    font-size: 20px;
-    color: white;
+    align-items: center;
+    background-color: white;
+    width: 95%;
+    margin: 0 auto;
+    height: 100%;
 
 }
 
+.nav-create-spot {
+    margin-right: 80px;
+    background-color: none;
+
+}
+
+.nav-create-spot > i {
+    font-size: 22px;
+    color: rgba(113, 113, 113, 1);
+}
+
+.nav-create-spot:hover i {
+    color: #fa6e79;
+}
+
+
+.logo-image img {
+    width: 70%;
+    height: 78%;
+    object-fit: cover;
+}
 /* User profile bar */
 .user-utils {
     margin: 1.5%;
@@ -31,17 +56,17 @@
 
 .profile-button {
     display: inline-block;
+    margin-right: 20px;
 }
 
-.profile-button > .button {
+.profile-button > button {
     display: flex;
     border-radius: 30px;
-    border: 1px solid grey;
-    background-color: #1e1c1c;
+    background-color: #fa6e79;
     margin: 0 20%;
 }
 
-.profile-button>.button > .button-icon {
+.button-icon > i {
     font-size: 20px;
     color: white;
     padding: 5px;
@@ -49,30 +74,78 @@
 }
 
 /* Dropdown */
-
+.profile-dropdown {
+    background-color: white;
+    border: none;
+    box-shadow: 0 0 10px rgba(250, 110, 121, .3);
+    position: absolute;
+    right: 30px;
+    border-radius: 10px;
+    width: 200px;
+    z-index: 2;
+    
+}
 .profile-dropdown > li {
-    font-size: 80%;
-    padding-bottom: 3%;
+    font-size: 16px;
+    padding-top: 15px;
     list-style-type: none;
     text-align: center;
+    color: rgb(250, 110, 121);
     
 }
 
-.manage-spots-link {
-    color: white;
+.profile-dropdown>li:first-child {
+    cursor: auto;
+}
+
+.profile-dropdown> li > button {
+    font-size: 14px;
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: rgb(250, 110, 121);
+}
+
+.dropdown-user-stats div{
+    color: rgba(113, 113, 113, .8);
+    font-size: 14px;
+}
+
+#manage-spots-link {
+    color: rgb(250, 110, 121);
     text-decoration: none;
-    border-top: .05em solid white;
-    border-bottom: .05em solid white;
+    font-size: 14px;
 
 }
 
-.profile-dropdown > li > button {
-    background-color: white;
-    margin: 5% 0;
-    padding: 5%;
-    width: 5vw;
-    border-radius: 3em;
+#manage-trips-link {
+    color: rgb(250, 110, 121);
+    text-decoration: none;
+    font-size: 14px;
+
 }
+
+.profile-dropdown button {
+    font-size: 16px;
+    padding-top: 15px;
+    list-style-type: none;
+    text-align: center;
+    color: rgb(250, 110, 121);
+    z-index: 3;
+    background-color: transparent;
+    display: block;
+    margin: 0 auto;
+}
+
+#nav-log-in {
+    margin-top: 5px;
+}
+
+#nav-sign-up {
+    padding-bottom: 20px;
+}
+
 
 .profile-dropdown > ul > user-util-modals {
     cursor: pointer;
