@@ -98,6 +98,15 @@
     cursor: auto;
 }
 
+.profile-dropdown> li > button {
+    font-size: 14px;
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: rgb(250, 110, 121);
+}
+
 .dropdown-user-stats div{
     color: rgba(113, 113, 113, .8);
     font-size: 14px;

@@ -9,13 +9,12 @@ function UserBookings ({ user }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const userBookings = useSelector(state => state.bookings.user);
-
+    
     useEffect(() => {
         dispatch(thunkGetUserBookings());
     }, [dispatch]);
 
     const userBookingsArr = Object.values(userBookings);
-
     
     if (!user) {
         return history.push("/not-found");
@@ -24,12 +23,15 @@ function UserBookings ({ user }) {
 
     return (
         <div className="user-bookings-wrapper">
-            {userBookingsArr.length > 0 ?
+            {userBookings.undefined ?
+                <h2> No Bookings </h2>
+                :
+
                 userBookingsArr.map((booking) => (
                     <UserBookingCard key={booking.id} booking={booking} user={user}/>
                 ))
-                :
-                <h2> No Bookings. </h2>
+                
+                
             }
         </div>
 
