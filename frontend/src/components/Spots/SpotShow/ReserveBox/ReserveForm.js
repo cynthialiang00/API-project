@@ -58,7 +58,10 @@ function ReserveForm({ handleSetNumDays, numDays, user, spotId }) {
                                     if (res.statusCode === 400) {
                                         return alert(`${res.message}`)
                                     }
-                                    return;
+                                    
+                                    
+
+                                    return alert(`Listing uccessfully booked!`)
                                 })
 
     }

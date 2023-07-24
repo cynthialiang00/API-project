@@ -17,7 +17,7 @@ function DeleteBookingsModal({bookingId}) {
                     return alert(`${res.message}`)
                 }
 
-                if (!res.statusCode) {
+                if (res.statusCode === 200) {
                     alert(`Successfully deleted your booking!`)
                     return closeModal();
                 }
